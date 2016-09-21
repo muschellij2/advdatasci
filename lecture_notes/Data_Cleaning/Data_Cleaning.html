@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tidying data</title>
+  <title>Data Knick Knacks and Strings</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,7 +26,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Tidying data',
+                title: 'Data Knick Knacks and Strings',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -36,7 +36,7 @@
       // Author information
       presenters: [
             {
-        name:  'Slides Adapted from Jeff Leek' ,
+        name:  'John Muschelli' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -129,1588 +129,880 @@
 
 <p><a href='http://en.wikipedia.org/wiki/Computer_data_processing' title=''>http://en.wikipedia.org/wiki/Computer_data_processing</a></p></div></div>
 
+</article></slide><slide class=''><hgroup><h2>Tidy data</h2></hgroup><article  id="tidy-data">
+
+<ol>
+<li>Each variable you measure should be in one column</li>
+<li>Each different observation of that variable should be in a different row</li>
+<li>There should be one table for each &quot;kind&quot; of variable</li>
+<li>If you have multiple tables, they should include a column in the table that allows them to be linked</li>
+</ol>
+
+<p><em>Some other important tips</em></p>
+
+<ul>
+<li>Include a row at the top of each file with variable names.</li>
+<li>Make variable names human readable AgeAtDiagnosis instead of AgeDx</li>
+<li>In general data should be saved in one file per table.</li>
+</ul>
+
+<p><a href='https://github.com/jtleek/datasharing' title=''>https://github.com/jtleek/datasharing</a> <a href='http://www.jstatsoft.org/v59/i10/paper' title=''>Tidy data</a></p>
+
+</article></slide><slide class=''><hgroup><h2>The four things you should have</h2></hgroup><article  id="the-four-things-you-should-have">
+
+<ol>
+<li>The raw data.</li>
+<li>A tidy data set</li>
+<li>A code book describing each variable and its values in the tidy data set.</li>
+<li>An explicit and exact recipe you used to go from 1 -&gt; 2,3.</li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>Raw data</h2></hgroup><article  id="raw-data">
+
+<p><img class=center src=./dsp1.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>Tidy data</h2></hgroup><article  id="tidy-data-1">
+
+<p><img class=center src=./dsp2.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>Code book</h2></hgroup><article  id="code-book">
+
+<p><img class=center src=./dsp3.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>Recipe</h2></hgroup><article  id="recipe">
+
+<p><img class=center src=./dsp4.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>Recipe ok</h2></hgroup><article  id="recipe-ok">
+
+<p><img class=center src=./dsp5.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>Recipe baadddd</h2></hgroup><article  id="recipe-baadddd">
+
+<p><img class=center src=./dsp6.png height=450></p>
+
+</article></slide><slide class=''><hgroup><h2>This is hard</h2></hgroup><article  id="this-is-hard">
+
+<p><img class=center src=./broman-repro-hard.png height=450></p>
+
+<p><a href='https://kbroman.wordpress.com/2015/09/09/reproducibility-is-hard/' title=''>https://kbroman.wordpress.com/2015/09/09/reproducibility-is-hard/</a></p>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Project Structure</h2></hgroup><article  id="project-structure">
+
+<ul>
+<li>RStudio Projects</li>
+<li>Project template: <a href='http://projecttemplate.net/getting_started.html' title=''>http://projecttemplate.net/getting_started.html</a></li>
+<li>File structure:
+
+<ul>
+<li>raw_data</li>
+<li>processed_data</li>
+<li>figures</li>
+<li>programs</li>
+</ul></li>
+</ul>
+
+<p>Either way, it&#39;s good to have a good handle on how to deal with files and manipulate them.</p>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: File Manipulations</h2></hgroup><article  id="quick-aside-file-manipulations">
+
+<p>Let&#39;s also look at <code>?files</code> and <code>dir.exists</code></p>
+
+<pre class = 'prettyprint lang-r'>if (!dir.exists(&quot;data&quot;)) {
+  dir.create(&quot;data&quot;)
+}
+file.exists(&quot;data&quot;)</pre>
+
+<pre >[1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>dir.exists(&quot;data&quot;)</pre>
+
+<pre >[1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>file.exists(&quot;Data_Cleaning.Rmd&quot;)</pre>
+
+<pre >[1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>dir.exists(&quot;Data_Cleaning.Rmd&quot;)</pre>
+
+<pre >[1] FALSE</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: File Manipulations</h2></hgroup><article  id="quick-aside-file-manipulations-1">
+
+<pre class = 'prettyprint lang-r'>x = list.files(&quot;data&quot;)
+x</pre>
+
+<pre >character(0)</pre>
+
+<pre class = 'prettyprint lang-r'>x = list.files(pattern = &quot;[.][R|r]md&quot;)
+file.create(&quot;test.rmd&quot;)</pre>
+
+<pre >[1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>list.files(pattern = &quot;[.][R|r]md&quot;)</pre>
+
+<pre >[1] &quot;Data_Cleaning.Rmd&quot; &quot;test.rmd&quot;         </pre>
+
+<pre class = 'prettyprint lang-r'>file.remove(&quot;test.rmd&quot;)</pre>
+
+<pre >[1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>list.files(pattern = &quot;[.][R|r]md&quot;)</pre>
+
+<pre >[1] &quot;Data_Cleaning.Rmd&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>System Calls</h2></hgroup><article  id="system-calls">
+
+<p>Sometimes you just want to use the <code>mkdir</code> command or something in your shell:</p>
+
+<pre class = 'prettyprint lang-r'>system(&quot;COMMAND&quot;)</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Reading in Data</h2></hgroup><article  id="reading-in-data">
+
+</article></slide><slide class=''><hgroup><h2>Most common file format</h2></hgroup><article  id="most-common-file-format">
+
+<p><img class=center src=./excel.png height=450></p>
+
+<p><a href='http://office.microsoft.com/en-us/excel/' title=''>http://office.microsoft.com/en-us/excel/</a></p>
+
 </article></slide><slide class=''><hgroup><h2>1,000 genomes example</h2></hgroup><article  id="genomes-example">
+
+<p>We want to download a dataset, read it in, but not store it on my hard drive. We will use <code>tempfile</code> for that (see <code>tempdir()</code>)</p>
 
 <pre class = 'prettyprint lang-r'>fileUrl = paste0(&quot;ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp&quot;,
                  &quot;/technical/working/20130606_sample_info/20130606_sample_info.xlsx&quot;)
-library(downloader)
-library(readr)
-download(fileUrl, destfile = &quot;1000genomes.xlsx&quot;)
+destfile = tempfile(fileext = &quot;.xlsx&quot;)
+print(destfile)</pre>
 
-library(readxl)
+<pre >[1] &quot;/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpZDE9bB/file17d09653d611d.xlsx&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>file.exists(destfile)</pre>
+
+<pre >[1] FALSE</pre>
+
+</article></slide><slide class=''><hgroup><h2>Downloading data: downloader package</h2></hgroup><article  id="downloading-data-downloader-package">
+
+<p>Save <code>dateDownloaded</code> with the object you read <code>destfile</code> into:</p>
+
+<pre class = 'prettyprint lang-r'>library(downloader)
+download(fileUrl, destfile = destfile)
+dateDownloaded &lt;- date()
+dateDownloaded</pre>
+
+<pre >[1] &quot;Wed Sep 21 13:06:11 2016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>file.exists(destfile)</pre>
+
+<pre >[1] TRUE</pre>
+
+</article></slide><slide class=''><hgroup><h2>Reading in data with Excel, different sheets</h2></hgroup><article  id="reading-in-data-with-excel-different-sheets">
+
+<pre class = 'prettyprint lang-r'>library(readxl)
 # Have to skip one row because 
 # there is an extra header
-kg = read_excel(&quot;1000genomes.xlsx&quot;,
+kg = read_excel(destfile,
                 sheet = 4, 
                 skip = 1)
-kg2 = read_excel(&quot;1000genomes.xlsx&quot;,
+kg2 = read_excel(destfile,
                 sheet = 4, 
                 skip = 1)
 all.equal(as.data.frame(kg), as.data.frame(kg2))</pre>
 
-<pre >## [1] TRUE</pre>
+<pre >[1] TRUE</pre>
 
 <pre class = 'prettyprint lang-r'>all.equal(kg, kg2)</pre>
 
-<pre >## [1] &quot;Component \&quot;Center\&quot;: &#39;is.NA&#39; value mismatch: 813 in current 821 in target&quot;        
-## [2] &quot;Component \&quot;Platform\&quot;: &#39;is.NA&#39; value mismatch: 813 in current 821 in target&quot;      
-## [3] &quot;Component \&quot;Total Sequence\&quot;: &#39;is.NA&#39; value mismatch: 813 in current 821 in target&quot;
-## [4] &quot;Component \&quot;Passed QC\&quot;: &#39;is.NA&#39; value mismatch: 943 in current 950 in target&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Variable names</h2></hgroup><article  id="variable-names">
-
-<pre class = 'prettyprint lang-r'>head(kg,n=1)</pre>
-
-<pre >##    Sample Population Center Platform Total Sequence
-## 1 HG00096        GBR  WUGSC ILLUMINA    14714705600
-##   Aligned Non Duplicated Coverage Passed QC Center Platform Total Sequence
-## 1                            4.94         1  WUGSC ILLUMINA     9580861000
-##   % Targets Covered to 20x or greater Passed QC
-## 1                            0.851972         1
-##   In Final Phase Variant Calling         
-## 1                              1 NA NA NA</pre>
-
-<pre class = 'prettyprint lang-r'>head(kg$`Total Sequence`)</pre>
-
-<pre >## [1] 14714705600 30285067857 16332517200 25134554475 42906753668 22115533074</pre>
-
-</article></slide><slide class=''><hgroup><h2>strsplit</h2></hgroup><article  id="strsplit">
-
-<pre class = 'prettyprint lang-r'>strsplit(names(kg),&quot; &quot;)</pre>
-
-<pre >## [[1]]
-## [1] &quot;Sample&quot;
-## 
-## [[2]]
-## [1] &quot;Population&quot;
-## 
-## [[3]]
-## [1] &quot;Center&quot;
-## 
-## [[4]]
-## [1] &quot;Platform&quot;
-## 
-## [[5]]
-## [1] &quot;Total&quot;    &quot;Sequence&quot;
-## 
-## [[6]]
-## [1] &quot;Aligned&quot;    &quot;Non&quot;        &quot;Duplicated&quot; &quot;Coverage&quot;  
-## 
-## [[7]]
-## [1] &quot;Passed&quot; &quot;QC&quot;    
-## 
-## [[8]]
-## [1] &quot;Center&quot;
-## 
-## [[9]]
-## [1] &quot;Platform&quot;
-## 
-## [[10]]
-## [1] &quot;Total&quot;    &quot;Sequence&quot;
-## 
-## [[11]]
-## [1] &quot;%&quot;       &quot;Targets&quot; &quot;Covered&quot; &quot;to&quot;      &quot;20x&quot;     &quot;or&quot;      &quot;greater&quot;
-## 
-## [[12]]
-## [1] &quot;Passed&quot; &quot;QC&quot;    
-## 
-## [[13]]
-## [1] &quot;In&quot;      &quot;Final&quot;   &quot;Phase&quot;   &quot;Variant&quot; &quot;Calling&quot;
-## 
-## [[14]]
-## character(0)
-## 
-## [[15]]
-## character(0)
-## 
-## [[16]]
-## character(0)</pre>
-
-<pre class = 'prettyprint lang-r'>strsplit(names(kg)[6],&quot; &quot;)</pre>
-
-<pre >## [[1]]
-## [1] &quot;Aligned&quot;    &quot;Non&quot;        &quot;Duplicated&quot; &quot;Coverage&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>gsub</h2></hgroup><article  id="gsub">
-
-<pre class = 'prettyprint lang-r'>gsub(&quot; &quot;, &quot;&quot;, names(kg))</pre>
-
-<pre >##  [1] &quot;Sample&quot;                        &quot;Population&quot;                   
-##  [3] &quot;Center&quot;                        &quot;Platform&quot;                     
-##  [5] &quot;TotalSequence&quot;                 &quot;AlignedNonDuplicatedCoverage&quot; 
-##  [7] &quot;PassedQC&quot;                      &quot;Center&quot;                       
-##  [9] &quot;Platform&quot;                      &quot;TotalSequence&quot;                
-## [11] &quot;%TargetsCoveredto20xorgreater&quot; &quot;PassedQC&quot;                     
-## [13] &quot;InFinalPhaseVariantCalling&quot;    &quot;&quot;                             
-## [15] &quot;&quot;                              &quot;&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>substr</h2></hgroup><article  id="substr">
-
-<pre class = 'prettyprint lang-r'>x = gsub(&quot; &quot;, &quot;&quot;, names(kg))
-substr(x,1,10)</pre>
-
-<pre >##  [1] &quot;Sample&quot;     &quot;Population&quot; &quot;Center&quot;     &quot;Platform&quot;   &quot;TotalSeque&quot;
-##  [6] &quot;AlignedNon&quot; &quot;PassedQC&quot;   &quot;Center&quot;     &quot;Platform&quot;   &quot;TotalSeque&quot;
-## [11] &quot;%TargetsCo&quot; &quot;PassedQC&quot;   &quot;InFinalPha&quot; &quot;&quot;           &quot;&quot;          
-## [16] &quot;&quot;</pre>
+<pre >[1] TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>grep</h2></hgroup><article  id="grep">
+</article></slide><slide class=''><hgroup><h2>Reading data from text files</h2></hgroup><article  id="reading-data-from-text-files">
 
-<pre class = 'prettyprint lang-r'>grep(&quot;Center&quot;,names(kg))</pre>
+<div class="container">
+<div class="left-half">
+<p><strong><em>Normal Way</em></strong></p>
 
-<pre >## [1] 3 8</pre>
+<pre class = 'prettyprint lang-r'>read.table
+read.csv</pre></div>
 
-<pre class = 'prettyprint lang-r'>grepl(&quot;Center&quot;,names(kg))</pre>
+<div class="right-half">
+<p><strong><em>Newer Way (faster)</em></strong></p>
 
-<pre >##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE FALSE</pre>
+<pre class = 'prettyprint lang-r'>read_csv 
+fread</pre></div></div>
 
-</article></slide><slide class=''><hgroup><h2>tolower and toupper</h2></hgroup><article  id="tolower-and-toupper">
+</article></slide><slide class=''><hgroup><h2>Let&#39;s make a big(ish) file</h2></hgroup><article  id="lets-make-a-bigish-file">
 
-<pre class = 'prettyprint lang-r'>tolower(names(kg))[1:5]</pre>
+<pre class = 'prettyprint lang-r'>library(readr)
+dat = matrix(rnorm(1000*1000),
+             nrow = 1000)
+outfile = tempfile(fileext = &quot;.csv&quot;)
+write.csv(dat, file = outfile)
+file.exists(outfile)</pre>
 
-<pre >## [1] &quot;sample&quot;         &quot;population&quot;     &quot;center&quot;         &quot;platform&quot;      
-## [5] &quot;total sequence&quot;</pre>
+<pre >[1] TRUE</pre>
 
-<pre class = 'prettyprint lang-r'>toupper(names(kg))[1:5]</pre>
+</article></slide><slide class=''><hgroup><h2>Quick comparison: read_csv is faster</h2></hgroup><article  id="quick-comparison-read_csv-is-faster">
 
-<pre >## [1] &quot;SAMPLE&quot;         &quot;POPULATION&quot;     &quot;CENTER&quot;         &quot;PLATFORM&quot;      
-## [5] &quot;TOTAL SEQUENCE&quot;</pre>
+<div class="container">
+<div class="left-half">
+<pre class = 'prettyprint lang-r'>system.time({x = read.csv(outfile)})</pre>
 
-</article></slide><slide class=''><hgroup><h2>dplyr</h2></hgroup><article  id="dplyr">
+<pre >   user  system elapsed 
+  4.894   0.064   4.990 </pre>
 
-<p><img class=center src=./dplyr.png height=350></p>
+<pre class = 'prettyprint lang-r'>class(x)</pre>
 
-</article></slide><slide class=''><hgroup><h2>Basically this whole part of the lecture from</h2></hgroup><article  id="basically-this-whole-part-of-the-lecture-from">
+<pre >[1] &quot;data.frame&quot;</pre></div>
 
-<p><img class=center src=./stat545.png height=350></p>
+<div class="right-half">
+<pre class = 'prettyprint lang-r'>system.time({x = read_csv(outfile)})</pre>
 
-<p><a href='https://stat545-ubc.github.io/block009_dplyr-intro.html' title=''>https://stat545-ubc.github.io/block009_dplyr-intro.html</a></p>
+<pre >Warning: Missing column names filled in: &#39;X1&#39; [1]</pre>
 
-</article></slide><slide class=''><hgroup><h2>gapminder example</h2></hgroup><article  id="gapminder-example">
+<pre >Parsed with column specification:
+cols(
+  .default = col_double(),
+  X1 = col_integer()
+)</pre>
 
-<pre class = 'prettyprint lang-r'>suppressPackageStartupMessages({library(dplyr)})
-gd_url &lt;- &quot;http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt&quot;
-gdf &lt;- read.table(file = gd_url,sep=&quot;\t&quot;,header=T)
-head(gdf)</pre>
-
-<pre >##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
-## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
-## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
-## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134</pre>
-
-<pre class = 'prettyprint lang-r'>str(gdf)</pre>
-
-<pre >## &#39;data.frame&#39;:    1698 obs. of  6 variables:
-##  $ country  : Factor w/ 147 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...</pre>
-
-</article></slide><slide class=''><hgroup><h2>tbl_df</h2></hgroup><article  id="tbl_df">
-
-<pre class = 'prettyprint lang-r'>gtbl &lt;- tbl_df(gdf)
-gtbl</pre>
-
-<pre >## # A tibble: 1,698 x 6
-##        country  year      pop continent lifeExp gdpPercap
-##         &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453
-## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530
-## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007
-## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971
-## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811
-## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134
-## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114
-## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959
-## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414
-## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>glimpse</h2></hgroup><article  id="glimpse">
-
-<pre class = 'prettyprint lang-r'>glimpse(gtbl)</pre>
-
-<pre >## Observations: 1,698
-## Variables: 6
-## $ country   &lt;fctr&gt; Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
-## $ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
-## $ pop       &lt;dbl&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
-## $ continent &lt;fctr&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
-## $ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
-## $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...</pre>
-
-</article></slide><slide class=''><hgroup><h2>filter</h2></hgroup><article  id="filter">
-
-<pre class = 'prettyprint lang-r'>filter(gtbl, lifeExp &lt; 29)</pre>
-
-<pre >## # A tibble: 2 x 6
-##       country  year     pop continent lifeExp gdpPercap
-##        &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1 Afghanistan  1952 8425333      Asia  28.801  779.4453
-## 2      Rwanda  1992 7290203    Africa  23.599  737.0686</pre>
-
-<pre class = 'prettyprint lang-r'>filter(gtbl, country == &quot;Rwanda&quot;)</pre>
-
-<pre >## # A tibble: 12 x 6
-##    country  year     pop continent lifeExp gdpPercap
-##     &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1   Rwanda  1952 2534927    Africa  40.000  493.3239
-## 2   Rwanda  1957 2822082    Africa  41.500  540.2894
-## 3   Rwanda  1962 3051242    Africa  43.000  597.4731
-## 4   Rwanda  1967 3451079    Africa  44.100  510.9637
-## 5   Rwanda  1972 3992121    Africa  44.600  590.5807
-## 6   Rwanda  1977 4657072    Africa  45.000  670.0806
-## 7   Rwanda  1982 5507565    Africa  46.218  881.5706
-## 8   Rwanda  1987 6349365    Africa  44.020  847.9912
-## 9   Rwanda  1992 7290203    Africa  23.599  737.0686
-## 10  Rwanda  1997 7212583    Africa  36.087  589.9445
-## 11  Rwanda  2002 7852401    Africa  43.413  785.6538
-## 12  Rwanda  2007 8860588    Africa  46.242  863.0885</pre>
-
-</article></slide><slide class=''><hgroup><h2>select</h2></hgroup><article  id="select">
-
-<pre class = 'prettyprint lang-r'>select(gtbl,country,pop,continent)</pre>
-
-<pre >## # A tibble: 1,698 x 3
-##        country      pop continent
-##         &lt;fctr&gt;    &lt;dbl&gt;    &lt;fctr&gt;
-## 1  Afghanistan  8425333      Asia
-## 2  Afghanistan  9240934      Asia
-## 3  Afghanistan 10267083      Asia
-## 4  Afghanistan 11537966      Asia
-## 5  Afghanistan 13079460      Asia
-## 6  Afghanistan 14880372      Asia
-## 7  Afghanistan 12881816      Asia
-## 8  Afghanistan 13867957      Asia
-## 9  Afghanistan 16317921      Asia
-## 10 Afghanistan 22227415      Asia
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>arrange</h2></hgroup><article  id="arrange">
-
-<pre class = 'prettyprint lang-r'>arrange(gtbl,pop)</pre>
-
-<pre >## # A tibble: 1,698 x 6
-##                  country  year   pop continent lifeExp gdpPercap
-##                   &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1  Sao Tome and Principe  1952 60011    Africa  46.471  879.5836
-## 2  Sao Tome and Principe  1957 61325    Africa  48.945  860.7369
-## 3               Djibouti  1952 63149    Africa  34.812 2669.5295
-## 4  Sao Tome and Principe  1962 65345    Africa  51.893 1071.5511
-## 5  Sao Tome and Principe  1967 70787    Africa  54.425 1384.8406
-## 6               Djibouti  1957 71851    Africa  37.328 2864.9691
-## 7  Sao Tome and Principe  1972 76595    Africa  56.480 1532.9853
-## 8  Sao Tome and Principe  1977 86796    Africa  58.550 1737.5617
-## 9               Djibouti  1962 89898    Africa  39.693 3020.9893
-## 10 Sao Tome and Principe  1982 98593    Africa  60.351 1890.2181
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>desc</h2></hgroup><article  id="desc">
-
-<pre class = 'prettyprint lang-r'>arrange(gtbl,desc(pop))</pre>
-
-<pre >## # A tibble: 1,698 x 6
-##    country  year        pop continent  lifeExp gdpPercap
-##     &lt;fctr&gt; &lt;int&gt;      &lt;dbl&gt;    &lt;fctr&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-## 1    China  2007 1318683096      Asia 72.96100 4959.1149
-## 2    China  2002 1280400000      Asia 72.02800 3119.2809
-## 3    China  1997 1230075000      Asia 70.42600 2289.2341
-## 4    China  1992 1164970000      Asia 68.69000 1655.7842
-## 5    India  2007 1110396331      Asia 64.69800 2452.2104
-## 6    China  1987 1084035000      Asia 67.27400 1378.9040
-## 7    India  2002 1034172547      Asia 62.87900 1746.7695
-## 8    China  1982 1000281000      Asia 65.52500  962.4214
-## 9    India  1997  959000000      Asia 61.76500 1458.8174
-## 10   China  1977  943455000      Asia 63.96736  741.2375
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>mutate</h2></hgroup><article  id="mutate">
-
-<pre class = 'prettyprint lang-r'>gtbl = mutate(gtbl,newVar = (lifeExp / gdpPercap))
-select(gtbl,lifeExp,gdpPercap,newVar)</pre>
-
-<pre >## # A tibble: 1,698 x 3
-##    lifeExp gdpPercap     newVar
-##      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1   28.801  779.4453 0.03695064
-## 2   30.332  820.8530 0.03695180
-## 3   31.997  853.1007 0.03750671
-## 4   34.020  836.1971 0.04068419
-## 5   36.088  739.9811 0.04876881
-## 6   38.438  786.1134 0.04889626
-## 7   39.854  978.0114 0.04075003
-## 8   40.822  852.3959 0.04789089
-## 9   41.674  649.3414 0.06417887
-## 10  41.763  635.3414 0.06573317
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>distinct</h2></hgroup><article  id="distinct">
-
-<pre class = 'prettyprint lang-r'>distinct(gtbl)</pre>
-
-<pre >## # A tibble: 1,698 x 7
-##        country  year      pop continent lifeExp gdpPercap     newVar
-##         &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453 0.03695064
-## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530 0.03695180
-## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007 0.03750671
-## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971 0.04068419
-## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811 0.04876881
-## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134 0.04889626
-## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114 0.04075003
-## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959 0.04789089
-## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414 0.06417887
-## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414 0.06573317
-## # ... with 1,688 more rows</pre>
-
-</article></slide><slide class=''><hgroup><h2>Key principle</h2></hgroup><article  id="key-principle">
-
-<p><img class=center src=./bigsmall1.png height=350></p>
-
-<p><a href='https://twitter.com/elliemcdonagh/status/469184554549248000' title=''>https://twitter.com/elliemcdonagh/status/469184554549248000</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Key principle</h2></hgroup><article  id="key-principle-1">
-
-<p><img class=center src=./bigsmall2.png height=350></p>
-
-<p><a href='https://twitter.com/elliemcdonagh/status/469184554549248000' title=''>https://twitter.com/elliemcdonagh/status/469184554549248000</a></p>
-
-</article></slide><slide class=''><hgroup><h2>sample_n / sample_frac</h2></hgroup><article  id="sample_n-sample_frac">
-
-<pre class = 'prettyprint lang-r'>sample_n(gtbl,3)</pre>
-
-<pre >## # A tibble: 3 x 7
-##   country  year      pop continent lifeExp gdpPercap     newVar
-##    &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 Albania  1962  1728137    Europe   64.82 2312.8890 0.02802556
-## 2  Rwanda  1977  4657072    Africa   45.00  670.0806 0.06715610
-## 3   Spain  1957 29841614    Europe   66.66 4564.8024 0.01460304</pre>
-
-</article></slide><slide class=''><hgroup><h2>pipes</h2></hgroup><article  id="pipes">
-
-<p><img class=center src=./pipes.png height=350></p>
-
-<p><a href='http://cran.r-project.org/web/packages/magrittr/index.html' title=''>http://cran.r-project.org/web/packages/magrittr/index.html</a></p>
-
-</article></slide><slide class=''><hgroup><h2>What does pipe do?</h2></hgroup><article  id="what-does-pipe-do">
-
-<pre class = 'prettyprint lang-r'>gtbl %&gt;% head</pre>
-
-<pre >## # A tibble: 6 x 7
-##       country  year      pop continent lifeExp gdpPercap     newVar
-##        &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 Afghanistan  1952  8425333      Asia  28.801  779.4453 0.03695064
-## 2 Afghanistan  1957  9240934      Asia  30.332  820.8530 0.03695180
-## 3 Afghanistan  1962 10267083      Asia  31.997  853.1007 0.03750671
-## 4 Afghanistan  1967 11537966      Asia  34.020  836.1971 0.04068419
-## 5 Afghanistan  1972 13079460      Asia  36.088  739.9811 0.04876881
-## 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 0.04889626</pre>
-
-</article></slide><slide class=''><hgroup><h2>What does pipe do?</h2></hgroup><article  id="what-does-pipe-do-1">
-
-<pre class = 'prettyprint lang-r'>gtbl %&gt;% head(3)</pre>
-
-<pre >## # A tibble: 3 x 7
-##       country  year      pop continent lifeExp gdpPercap     newVar
-##        &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 Afghanistan  1952  8425333      Asia  28.801  779.4453 0.03695064
-## 2 Afghanistan  1957  9240934      Asia  30.332  820.8530 0.03695180
-## 3 Afghanistan  1962 10267083      Asia  31.997  853.1007 0.03750671</pre>
-
-</article></slide><slide class=''><hgroup><h2>Example</h2></hgroup><article  id="example">
-
-<p>Show me a random sample of the data for Asian countries with life expectancy &lt; 65.</p>
-
-<pre class = 'prettyprint lang-r'>gtbl1 = gtbl[gtbl$continent==&quot;Asia&quot;,]
-gtbl2 = gtbl1[gtbl1$lifeExp &lt; 65,]
-gtbl3 = gtbl2[sample(1:dim(gtbl2)[1],size=10),]
-gtbl3</pre>
-
-<pre >## # A tibble: 10 x 7
-##               country  year      pop continent lifeExp gdpPercap
-##                &lt;fctr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1             Myanmar  1952 20092996      Asia  36.319  331.0000
-## 2                Oman  1962   628164      Asia  43.165 2924.6381
-## 3             Myanmar  1967 25870271      Asia  49.379  349.0000
-## 4                Iran  1962 22874000      Asia  49.325 4187.3298
-## 5  West Bank and Gaza  1982  1425876      Asia  64.406 4336.0321
-## 6         Afghanistan  1967 11537966      Asia  34.020  836.1971
-## 7               Syria  1962  4834621      Asia  50.305 2193.0371
-## 8              Jordan  1977  1937652      Asia  61.134 2852.3516
-## 9            Pakistan  1967 60641899      Asia  49.800  942.4083
-## 10          Singapore  1957  1445929      Asia  63.179 2843.1044
-## # ... with 1 more variables: newVar &lt;dbl&gt;</pre>
-
-</article></slide><slide class=''><hgroup><h2>w/pipes</h2></hgroup><article  id="wpipes">
-
-<pre class = 'prettyprint lang-r'>gtbl %&gt;% filter(continent == &quot;Asia&quot;) %&gt;% 
-         filter(lifeExp &lt; 65) %&gt;%
-         sample_n(10)</pre>
-
-<pre >## # A tibble: 10 x 7
-##        country  year       pop continent lifeExp gdpPercap     newVar
-##         &lt;fctr&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;fctr&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1      Myanmar  2002  45598081      Asia  59.908  611.0000 0.09804910
-## 2  Yemen, Rep.  1962   6120081      Asia  35.180  825.6232 0.04261024
-## 3         Iraq  1992  17861905      Asia  59.461 3745.6407 0.01587472
-## 4        China  1952 556263528      Asia  44.000  400.4486 0.10987677
-## 5         Iran  1957  19792000      Asia  47.181 3290.2576 0.01433961
-## 6  Yemen, Rep.  1982   9657618      Asia  49.113 1977.5570 0.02483519
-## 7  Yemen, Rep.  1977   8403990      Asia  44.175 1829.7652 0.02414244
-## 8   Bangladesh  1987 103764241      Asia  52.819  751.9794 0.07023996
-## 9     Mongolia  1987   2015133      Asia  60.222 2338.0083 0.02575782
-## 10     Lebanon  1957   1647412      Asia  59.489 6089.7869 0.00976865</pre>
-
-</article></slide><slide class=''><hgroup><h2>Another example</h2></hgroup><article  id="another-example">
-
-<p>What is the average life expectancy by continent?</p>
-
-<pre class = 'prettyprint lang-r'>gtbl %&gt;% group_by(continent) %&gt;% 
-         summarize(aveLife = mean(lifeExp))</pre>
-
-<pre >## # A tibble: 5 x 2
-##   continent  aveLife
-##      &lt;fctr&gt;    &lt;dbl&gt;
-## 1    Africa 48.87362
-## 2  Americas 64.65874
-## 3      Asia 60.06490
-## 4    Europe 71.90369
-## 5   Oceania 74.32621</pre>
-
-</article></slide><slide class=''><hgroup><h2>The old-fashioned way</h2></hgroup><article  id="the-old-fashioned-way">
-
-<pre class = 'prettyprint lang-r'>tapply(gtbl$lifeExp,gtbl$continent,mean)</pre>
-
-<pre >##   Africa Americas     Asia   Europe  Oceania 
-## 48.87362 64.65874 60.06490 71.90369 74.32621</pre>
-
-<pre class = 'prettyprint lang-r'>sapply(gtbl$continent,function(x){substr(x,1,3)})[1:10]</pre>
-
-<pre >##  [1] &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot; &quot;Asi&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>splitlife= split(gtbl$lifeExp,gtbl$continent)  
-lapply(splitlife,mean)</pre>
-
-<pre >## $Africa
-## [1] 48.87362
-## 
-## $Americas
-## [1] 64.65874
-## 
-## $Asia
-## [1] 60.0649
-## 
-## $Europe
-## [1] 71.90369
-## 
-## $Oceania
-## [1] 74.32621</pre>
-
-</article></slide><slide class=''><hgroup><h2>Common summarize options</h2></hgroup><article  id="common-summarize-options">
-
-<p><img class=center src=./summarize.png height=350></p>
-
-</article></slide><slide class=''><hgroup><h2>Passing to another argument</h2></hgroup><article  id="passing-to-another-argument">
-
-<pre class = 'prettyprint lang-r'>x = rep(c(1,5),each=5)
-z = x %&gt;% rnorm(10,mean=.)
-plot(z,pch=19,col=&quot;dodgerblue&quot;)</pre>
-
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAANgCAYAAADamM9GAAAD8GlDQ1BJQ0MgUHJvZmlsZQAAOI2NVd1v21QUP4lvXKQWP6Cxjg4Vi69VU1u5GxqtxgZJk6XpQhq5zdgqpMl1bhpT1za2021Vn/YCbwz4A4CyBx6QeEIaDMT2su0BtElTQRXVJKQ9dNpAaJP2gqpwrq9Tu13GuJGvfznndz7v0TVAx1ea45hJGWDe8l01n5GPn5iWO1YhCc9BJ/RAp6Z7TrpcLgIuxoVH1sNfIcHeNwfa6/9zdVappwMknkJsVz19HvFpgJSpO64PIN5G+fAp30Hc8TziHS4miFhheJbjLMMzHB8POFPqKGKWi6TXtSriJcT9MzH5bAzzHIK1I08t6hq6zHpRdu2aYdJYuk9Q/881bzZa8Xrx6fLmJo/iu4/VXnfH1BB/rmu5ScQvI77m+BkmfxXxvcZcJY14L0DymZp7pML5yTcW61PvIN6JuGr4halQvmjNlCa4bXJ5zj6qhpxrujeKPYMXEd+q00KR5yNAlWZzrF+Ie+uNsdC/MO4tTOZafhbroyXuR3Df08bLiHsQf+ja6gTPWVimZl7l/oUrjl8OcxDWLbNU5D6JRL2gxkDu16fGuC054OMhclsyXTOOFEL+kmMGs4i5kfNuQ62EnBuam8tzP+Q+tSqhz9SuqpZlvR1EfBiOJTSgYMMM7jpYsAEyqJCHDL4dcFFTAwNMlFDUUpQYiadhDmXteeWAw3HEmA2s15k1RmnP4RHuhBybdBOF7MfnICmSQ2SYjIBM3iRvkcMki9IRcnDTthyLz2Ld2fTzPjTQK+Mdg8y5nkZfFO+se9LQr3/09xZr+5GcaSufeAfAww60mAPx+q8u/bAr8rFCLrx7s+vqEkw8qb+p26n11Aruq6m1iJH6PbWGv1VIY25mkNE8PkaQhxfLIF7DZXx80HD/A3l2jLclYs061xNpWCfoB6WHJTjbH0mV35Q/lRXlC+W8cndbl9t2SfhU+Fb4UfhO+F74GWThknBZ+Em4InwjXIyd1ePnY/Psg3pb1TJNu15TMKWMtFt6ScpKL0ivSMXIn9QtDUlj0h7U7N48t3i8eC0GnMC91dX2sTivgloDTgUVeEGHLTizbf5Da9JLhkhh29QOs1luMcScmBXTIIt7xRFxSBxnuJWfuAd1I7jntkyd/pgKaIwVr3MgmDo2q8x6IdB5QH162mcX7ajtnHGN2bov71OU1+U0fqqoXLD0wX5ZM005UHmySz3qLtDqILDvIL+iH6jB9y2x83ok898GOPQX3lk3Itl0A+BrD6D7tUjWh3fis58BXDigN9yF8M5PJH4B8Gr79/F/XRm8m241mw/wvur4BGDj42bzn+Vmc+NL9L8GcMn8F1kAcXgSteGGAABAAElEQVR4AezdCbxVZb038D9wQEYRFVAcMpxAA1RUNEPwZuWY0u06Jajd1Ku8lZnet8G62W20lAZS875aqZiFeSOnHAIjU0wFcgJNEZUUkEFRlJl3r00QRzicffY+6+y11/muz2fLPns9w//5PquP+WOdtdusLRzhIECAAAECBAgQIECAAAECBAgQIECAAAECzSzQtpnHMxwBAgQIECBAgAABAgQIECBAgAABAgQIECgKCKBdCAQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAgADaNUCAAAECBAgQIECAAAECBAgQIECAAAECqQgIoFNhNSgBAgQIECBAgAABAgQIECBAgAABAgQICKBdAwQIECBAgAABAgQIECBAgAABAgQIECCQioAAOhVWgxIgQIAAAQIECBAgQIAAAQIECBAgQICAANo1QIAAAQIECBAgQIAAAQIECBAgQIAAAQKpCAigU2E1KAECBAgQIECAAAECBAgQIECAAAECBAgIoF0DBAgQIECAAAECBAgQIECAAAECBAgQIJCKgAA6FVaDEiBAgAABAgQIECBAgAABAgQIECBAgIAA2jVAgAABAgQIECBAgAABAgQIECBAgAABAqkICKBTYTUoAQIECBAgQIAAAQIECBAgQIAAAQIECAigXQMECBAgQIAAAQIECBAgQIAAAQIECBAgkIqAADoVVoMSIECAAAECBAgQIECAAAECBAgQIECAQB0CAi0p8NJLL8XYsWNj5cqVLTmtuQgQIECAAAECBAgQIECAAAECBAg0WaB79+5x8cUXR5cuXZrcV4d1AgJoV0KLCiTh8/e+970WndNkBAgQIECAAAECBAgQIECAAAECBMoV6N+/f5x88snldm/1/QTQrf4SaFmA9Xc+n3jiiTFs2LCWndxsBAgQIECAAAECBAgQIECAAAECBEoUuPHGG+Oxxx7zm/wlejXUTADdkIzPUxVIwucLLrgg1TkMToAAAQIECBAgQIAAAQIECBAgQKBcgSR8Tl6OygR8CWFlfnoTIECAAAECBAgQIECAAAECBAgQIECAQAMCAugGYHxMgAABAgQIECBAgAABAgQIECBAgAABApUJCKAr89ObAAECBAgQIECAAAECBAgQIECAAAECBBoQEEA3AONjAgQIECBAgAABAgQIECBAgAABAgQIEKhMQABdmZ/eBAgQIECAAAECBAgQIECAAAECBAgQINCAgAC6ARgfEyBAgAABAgQIECBAgAABAgQIECBAgEBlAgLoyvz0JkCAAAECBAgQIECAAAECBAgQIECAAIEGBATQDcD4mAABAgQIECBAgAABAgQIECBAgAABAgQqE6irrLveBAgQIECAAAECBAgQIECAAAECBEoXeGdlxF1PRUx6JuLFRRHLVkXs0C3ioN0iPjow4j3blj6WlgQIZF9AAJ39PVIhAQIECBAgQIAAAQIECBAgQCAXArc9HnHpnRFzl9RfztOvRkx8NuL790acdnDEV4+O6NShfhs/ESBQmwIewVGb+6ZqAgQIECBAgAABAgQIECBAgEBNCVx+X8R5N28aPm+8iNVrI254OOLEn0YsfnvjM94TIFCrAgLoWt05dRMgQIAAAQIECBAgQIAAAQIEakTgV49FjJlYerFPFe6IPmdcxOo1pffRkgCBbAoIoLO5L6oiQIAAAQIECBAgQIAAAQIECORCILmT+dI7mr6Uh16IGD+16f30IEAgWwIC6Gzth2oIECBAgAABAgQIECBAgAABArkSuOmRiCXLylvSlZPL66cXAQLZERBAZ2cvVEKAAAECBAgQIECAAAECBAgQyJ3APTPKX9KsBRHJy0GAQO0KCKBrd+9UToAAAQIECBAgQIAAAQIECBDIvMDzr1VWYqX9K5tdbwIEKhUQQFcqqD8BAgQIECBAgAABAgQIECBAgECDAm8ub/BUSSfKfXxHSYNrRIBA6gIC6NSJTUCAAAECBAgQIECAAAECBAgQaL0C23epbO3bd62sv94ECFRXQABdXX+zEyBAgAABAgQIECBAgAABAgRyLTBo5/KX16bQ9X07lt9fTwIEqi8ggK7+HqiAAAECBAgQIECAAAECBAgQIJBbgeMGlL+09+8esZ07oMsH1JNABgQE0BnYBCUQIECAAAECBAgQIECAAAECBPIqcMLAiD17lbe6i48sr59eBAhkR0AAnZ29UAkBAgQIECBAgAABAgQIECBAIHcC7Qrp09iTIjq2b9rSRg+LOPA9TeujNQEC2RMQQGdvT1REgAABAgQIECBAgAABAgQIEMiVwL59In4xKqJ7p9KWdfZhEf/3Q6W11YoAgWwL1GW7PNURIECAAAECBAgQIECAAAECrUHg/mcj7nwq4ulXIxYtjejROWKv3hFH7xtx5N4Rbd1CV/OXwWGF5znf8+mI79wdMeHxiDVrN13SXoVHdXzpqMKe99v0nE8IEKhNAQF0be6bqgkQIECAAAECBAgQIECAQC4EnpkXcdFvIqbNqb+clxZH/PXvEeOnRvTfIeJ7H4vYb+f6bfxUewI7bRPx45MjLj0u4o9/i3hpUcSyVRG9u0UctFvEvjvW3ppUTIDAlgUE0Fv2cZYAAQIECBAgQIAAAQIECBBISeDPz0d88oaIpSu2PMGMuREf+2nE1adFfLj/lts6WxsC23aJGLFfbdSqSgIEKhPwCyyV+elNgAABAgQIECBAgAABAgQIlCHwYuHO17PHNR4+rx96xeqI829e94iO9Z/5kwABAgSyLyCAzv4eqZAAAQIECBAgQIAAAQIECORO4Ot3RixZ1rRlLVsZ8ZXbmtZHawIECBCoroAAurr+ZidAgAABAgQIECBAgAABAq1OYPbCiLufLm/ZD8+OmP6u50WXN5JeBAgQINASAgLollA2BwECBAgQIECAAAECBAgQILBB4L6ZG96W9ebeGWV104kAAQIEqiAggK4CuikJECBAgAABAgQIECBAgEBrFpi1oLLVv1C4g9pBgAABArUhIICujX1SJQECBAgQIECAAAECBAgQyI3A0uWVLaXS/pXNrjcBAgQINEVAAN0ULW0JECBAgAABAgQIECBAgACBigW271rZEJX2r2x2vQkQIECgKQIC6KZoaUuAAAECBAgQIECAAAECBAhULLD/LpUNUWn/ymbXmwABAgSaIiCAboqWtgQIECBAgAABAgQIECBAgEDFAkfsFdF1q/KGad8u4iP9y+urFwECBAi0vIAAuuXNzUiAAAECBAgQIECAAAECBFq1QJdC+Hz+4eURnHVoRM9u5fXViwABAgRaXkAA3fLmZiRAgAABAgQIECBAgAABAq1eIAmg39+3aQwD+kRc/KGm9dGaAAECBKorIICurr/ZCRAgQIAAAQIECBAgQIBAqxSoKzxK4/+dHnH4HqUtf/CuETecGdGpfWnttSJAgACBbAgIoLOxD6ogQIAAAQIECBAgQIAAAQKtTmDrjutC5W+fELHD1ptf/nZdIr56TMT4T0Vs33XzbXxKgAABAtkVqMtuaSojQIAAAQIECBAgQIAAAQIE8i7QrnBr3MghEZ84KGLanIinX41YtDSiR+eIvXpHHPSeiKSNgwABAgRqU0AAXZv7pmoCBAgQIECAAAECBAgQIJArgbaFkDl5zEbychAgQIBAfgT8HWJ+9tJKCBAgQIAAAQIECBAgQIAAAQIECBAgkCkBAXSmtkMxBAgQIECAAAECBAgQIECAAAECBAgQyI+AADo/e2klBAgQIECAAAECBAgQIECAAAECBAgQyJSAADpT26EYAgQIECBAgAABAgQIECBAgAABAgQI5EdAAJ2fvbQSAgQIECBAgAABAgQIECBAgAABAgQIZEpAAJ2p7VAMAQIECBAgQIAAAQIECBAgQIAAAQIE8iMggM7PXloJAQIECBAgQIAAAQIECBAgQIAAAQIEMiUggM7UdiiGAAECBAgQIECAAAECBAgQIECAAAEC+REQQOdnL62EAAECBAgQIECAAAECBAgQIECAAAECmRIQQGdqOxRDgAABAgQIECBAgAABAgQIECBAgACB/AgIoPOzl1ZCgAABAgQIECBAgAABAgQIECBAgACBTAkIoDO1HYohQIAAAQIECBAgQIAAAQIECBAgQIBAfgQE0PnZSyshQIAAAQIECBAgQIAAAQIECBAgQIBApgTqMlWNYmLp0qXx1FNPxRNPPBELFy6MPffcM/r16xd77bVXtGvXjhABAgQIECBAgAABAgQIECBAgAABAgRqRkAAnfJWTZw4MR5//PHiLOecc0507tx5szOuWLEivvWtbxVfK1eu3KTN3nvvHd/97nfjhBNO2OScDwgQIECAAAECBAgQIECAAAECBAgQIJBFAQF0yrsyfvz4uPrqq4uznHLKKZsNoF988cU47rjj4sknn2ywmmeeeSZOPPHEOOaYY2LChAlRV2frGsRyggABAgQIECBAgAABAgQIECBAgACBTAhIMau8DWvXro0zzzyzXvi8//77x6BBg2LXXXeNJJx++umn45FHHilWeuedd8aFF14YP/rRj6pcuekJECBAgAABAgQIECBAgAABAgQIECCwZQEB9JZ9Uj87duzYuP/++4vz7LDDDnHllVfGiBEjNpl30qRJMXr06JgxY0b8+Mc/jsGDB8cZZ5yxSTsfECBAgAABAgQIECBAgAABAgQIECBAICsCbbNSSGut44YbbiguvU2bNvHrX/96s+Fz0uCII44oBtVJSJ0cV1xxRfFP/yBAgAABAgQIECBAgAABAgQIECBAgEBWBdwBXcWdWb16dTzxxBPFCk466aQYOnToFqvp1atX/OAHP4jkWdLJYzneeeed6NSp0xb7NMfJ5EsRZ82aFWvWrKl4uIULF1Y8hgEIECBAgAABAgQIECBAgAABAgQIEKgNAQF0Ffdp9uzZsWzZsmIFBx98cEmVJHdCJ8eqVati+vTpceihh5bUr5JGn/rUp+L666+vZIhN+t5+++1xwQUXbPK5DwgQIECAAAECBAgQIECAAAECBAgQyI+AALqKe9m7d+9IHr2RfBFhcndzKUfPnj2jY8eOxeA6+YLClgigDznkkHj00UeLdZZS45baJHdSL1++vFnG2tI8zhEgQIAAAQIECBAgQIAAAQIECBAgUH0BAXQV96Br166x6667RhIkP/TQQ3H66ac3Ws3Gd03vvvvujbZvjgbnnXdeJK/mOA444ICYNm1abL311s0xnDEIECBAgAABAgQIECBAgAABAgQIEMiwgC8hbMHN+etf/7rhkRvrpz377LOLbydOnFjSXcGXX375+q6x9957b3jvDQECBAgQIECAAAECBAgQIECAAAECBLIm4A7oFtyRo446Kurq6mLfffeNwYMHx4EHHhjJ4y2Su4FnzpwZF110UWwcMG9cWvKYjjFjxsRVV11V/Dh5FrS7iDcW8p4AAQIECBAgQIAAAQIECBAgQIAAgawJCKBT3pHkGc8bH8mXByZ3Qiev6667buNTccUVV8SgQYNi1KhRGz5fuHBhjB07NiZMmFB8dEVyol27dvGDH/xgQxtvCBAgQIAAAQIECBAgQIAAAQIECBAgkEUBAXTKu5KEx5/5zGeK4fH06dNj/Wv+/PmbnXnlypX1Pp8zZ0587Wtf2/BZEmh/4xvfiIEDB274zBsCBAgQIECAAAECBAgQIECAAAECBAhkUUAAnfKutG3bNvr161d8nXrqqRtme+WVVzaE0UkonXwx3/PPPx/vfe97N7RJ3vTq1WvDz9ttt11cf/31ccwxx2z4zBsCBAgQIECAAAECBAgQIECAAAECBAhkVUAAXaWd6dOnTySvjcPkN998Mzp06FCvop49e8Z//ud/xoc+9KH4wAc+EB07dqx33g8ECBAgQIAAAQIECBAgQIAAAQIECBDIqoAAOkM7061bt02qSb608Lvf/e4mn/uAAAECBAgQIECAAAECBAgQIECAAAECWRdom/UC1UeAAAECBAgQIECAAAECBAgQIECAAAECtSkggK7NfVM1AQIECBAgQIAAAQIECBAgQIAAAQIEMi8ggM78FimQAAECBAgQIECAAAECBAgQIECAAAECtSkggK7NfVM1AQIECBAgQIAAAQIECBAgQIAAAQIEMi8ggM78FimQAAECBAgQIECAAAECBAgQIECAAAECtSkggK7NfVM1AQIECBAgQIAAAQIECBAgQIAAAQIEMi8ggM78FimQAAECBAgQIECAAAECBAgQIECAAAECtSkggK7NfVM1AQIECBAgQIAAAQIECBAgQIAAAQIEMi8ggM78FimQAAECBAgQIECAAAECBAgQIECAAAECtSlQV5tlq5oAAQIECBAgQIAAAQIECBAgQIAAgVoQWL4q4slXIuYuidiqkEbu0iNi7961ULkam0NAAN0cisYgQIAAAQIECBAgQIAAAQIECBAgQKCewJzFEZf/IeKOJyPeXlHvVOzYPeKMIRH/flhEp/b1z/kpXwIewZGv/bQaAgQIECBAgAABAgQIECBAgAABAlUX+N3jEcPGRIyfumn4nBT36hsR37kn4iM/jpi1oOrlKiBFAQF0iriGJkCAAAECBAgQIECAAAECBAgQINDaBJLw+fybI5JHbzR2JOHzx34a8crrjbV0vlYFBNC1unPqJkCAAAECBAgQIECAAAECBAgQIJAxgb8XguTP3dK0ohYsLQTWv2paH61rR0AAXTt7pVICBAgQIECAAAECBAgQIECAAAECmRa4/L7S7nx+9yIefTHinhnv/tTPeRAQQOdhF62BAAECBAgQIECAAAECBAgQIECAQJUFkkdu3F74wsFyj1unldtTvywLCKCzvDtqI0CAAAECBAgQIECAAAECBAgQIFAjAk+9uvkvHCy1/CmzS22pXS0JCKBrabfUSoAAAQIECBAgQIAAAQIECBAgQCCjAvOWVFbYwsKzoFetrmwMvbMnIIDO3p6oiAABAgQIECBAgAABAgQIECBAgEDNCWxVV1nJdYWksq5dZWPonT0BAXT29kRFBAgQIECAAAECBAgQIECAAAECBGpOYJcelZW88zaV9dc7mwIC6Gzui6oIECBAgAABAgQIECBAgAABAgQI1JTAnr0iKgmR/2XvmlquYksUEECXCKUZAQIECBAgQIAAAQIECBAgQIAAAQJbFjjz0C2fb+hs2zYRIw9u6KzPa1lAAF3Lu6d2AgQIECBAgAABAgQIECBAgAABAhkSOKsQQCd3Qjf1+Pf3R+xRRr+mzqN9ywsIoFve3IwECBAgQIAAAQIECBAgQIAAAQIEcimQfBHhz0ZG9Opa+vL+Za+ILx9Vensta0tAAF1b+6VaAgQIECBAgAABAgQIECBAgAABApkW2G27iDtGRwzZbctltis8duOcD0RcVwis69ptua2ztStQ+DsJBwECBAgQIECAAAECBAgQIECAAAECBJpPYMfuEb85J+K+mRG3To94+IWI196KaF8ImnfuEZHc9Xx64ZnPu/dsvjmNlE0BAXQ290VVBAgQIECAAAECBAgQIECAAAECBGpe4Mh+EckrOdasiWjreQzrMFrRP215K9psSyVAgAABAgQIECBAgAABAgQIECBQLQHhc7XkqzuvALq6/mYnQIAAAQIECBAgQIAAAQIECBAgQIBAbgUE0LndWgsjQIAAAQIECBAgQIAAAQIECBAgQIBAdQUE0NX1NzsBAgQIECBAgAABAgQIECBAgAABAgRyKyCAzu3WWhgBAgQIECBAgAABAgQIECBAgAABAgSqKyCArq6/2QkQIECAAAECBAgQIECAAAECBAgQIJBbAQF0brfWwggQIECAAAECBAgQIECAAAECBAgQIFBdAQF0df3NToAAAQIECBAgQIAAAQIECBAgQIAAgdwKCKBzu7UWRoAAAQIECBAgQIAAAQIECBAgQIAAgeoKCKCr6292AgQIECBAgAABAgQIECBAgAABAgQI5FZAAJ3brbUwAgQIECBAgAABAgQIECBAgAABAgQIVFdAAF1df7MTIECAAAECBAgQIECAAAECBAgQIEAgtwIC6NxurYURIECAAAECBAgQIECAAAECBAgQIECgugIC6Or6m50AAQIECBAgQIAAAQIECBAgQIAAAQK5FRBA53ZrLYwAAQIECBAgQIAAAQIECBAgQIAAAQLVFRBAV9ff7AQIECBAgAABAgQIECBAgAABAgQIEMitgAA6t1trYQQIECBAgAABAgQIECBAgAABAgQIEKiugAC6uv5mJ0CAAAECBAgQIECAAAECBAgQIECAQG4FBNC53VoLI0CAAAECBAgQIECAAAECBAgQIECAQHUF6qo7vdkJECBAgAABAgQIECBAgMCWBWYvjJi3JKKuXcQuPSJ6ddtye2cJECBAgACB7AgIoLOzFyohQIAAAQIECBAgQIAAgX8IvPFOxNV/irhlWsSrb9Rn2WeHiJFDIk49cF0oXf+snwgQIECAAIEsCQigs7QbaiFAgAABAgQIECBAgACBmPJCxDnjIha9vXmMp+dGfHFCxI1/ibhuZMRO22y+nU8JECBAgACB6gt4BnT190AFBAgQIECAAAECBAgQIPAPgQdnRZxybcPh88ZQT70accLV6x7PsfHn3hMgQIAAAQLZERBAZ2cvVEKAAAECBAgQIECAAIFWLbC4cMfzuTdFrFpTOsPcwrOhz7+59PZaEiBAgAABAi0rIIBuWe+SZ1u9enXcf//9xdcLLxR+/8xBgAABAgQIECBAgACBnAuMvT8iCaGbejw8O+KeGU3tpT0BAgQIECDQEgIC6JZQLmOOt956K4444oji69prC79/5iBAgAABAgQIECBAgECOBdaujfjN9PIXOH5q+X31JECAAAECBNITEECnZ2tkAgQIECBAgAABAgQIEChR4Nn5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IECAAIFKBDrUVdI7otL+lc2uNwECBAgQIECAgADaNUCAAAECBAgQIECAQGYFdtmmstJ26VFZf70JECBAgAABAgQqExBAV+anNwECBAgQIECAAAECKQoM36v8wbfuGLH/LuX315MAAQIECBAgQKByAQF05YZGIECAAAECBAgQIEAgJYFTDoxo3668wU87qPy+5c2oFwECBAgQIECAwLsFBNDvFvEzAQIECBAgQIAAAQKZEdip8AiO/zOs6eXssHWh3/Cm99ODAAECBAgQIECgeQUE0M3raTQCBAgQIECAAAECBJpZ4HP/EnHMvqUP2m2riJ+NjNimU+l9tCRAgAABAgQIEEhHQACdjqtRCRAgQIAAAQIECBBoJoG2hf9qufrUiNGFO6HbtdnyoP13iLjtvIgBO225nbMECBAgQIAAAQItI1DXMtOYhQABAgQIECBAgAABAuULJCH0Fz8ScfLgiF9MifjDzIiXX49YvSYi+bLBg94TceKgiBMGRiRtHQQIECBAgAABAtkQEEBnYx82qeLVV1+N5557LpYuXRr77bdf7LBD4VYOBwECBAgQIECAAIFWLtB3+4hLj1v3WlMIn1esjujYvpWjWD4BAgQIECBAIMMC7g1o4c1Zvnx5PPPMM7Fo0aLNzvzEE0/EcccdF3369InDDz88jj766Nhxxx1jp512iiuuuCLWrl272X4+JECAAAECBAgQINDaBJI7nYXPrW3XrZcAAQIECBCoNQEBdAvt2OLFi+Pcc8+NHj16RL9+/aJXr14xdOjQuOqqqzZUkITPSeh8xx13bPhs/ZtXXnklPv/5z8eHP/zhmDt37vqP/UmAAAECBAgQIECAAAECBAgQIECAAIHMCngERwtszTvvvBPHH398/PnPf94w2+rVq+OBBx4ovpIPzzvvvDjttNPi9dcLD7IrHJ07d44BAwZE796946mnnopZs2YV736+7777YuTIkXHvvfcW2/kHAQIECBAgQIAAAQIECBAgQIAAAQIEsirgDuiUdyYJmk8++eQN4fM222wTw4cPj8GDB0f79useVveZz3wmvvnNb8aTTz5ZrCYJol9++eWYMmVKTJgwofgs6Iceeqh453TSIAmhb7jhhpQrNzwBAgQIECBAgAABAgQIECBAgAABAgQqExBAV+bXaO+bbropbrvttmK7UaNGFYPlSZMmxaOPPlp8f8ABB8SqVavikksuKbY55phjYty4cbHtttvWG3vIkCHx4IMPFp8NnZz44he/WO+8HwgQIECAAAECBAgQIECAAAECBAgQIJA1AY/gSHlHkjA5OQYNGhTXXntt1NX9kzx5vMbvf//72G233eLtt98utrv88suLf27uH8nzo8eMGVO8o/rvf/97zJ8/v/gs6c21bc7P5s2bF5MnT26WL0BMnoWdHL5MsTl3yFgECBAgQIAAAQIECBAgQIAAAQIEsinwzzQ0m/XVfFXJ85uT49RTT60XPq9fWM+ePeP000+Pa665Jrp16xZ77733+lOb/fOII47Y8HkydvJlhmkf//Ef/xG//e1vm3Wa5BEjDgIECBAgQIAAAQIECBAgQIAAAQIE8i0ggE55fxcsWFCcYeedd25wpgMPPLAYQHfp0iXatGnTYLvkRBJYd+zYMZYtWxbJXdAtcZxzzjnFOdesWVPxdPfcc0/xixaTdTgIECBAgAABAgQIECBAgAABAgQIEMi3gAA65f1NHq8xc+bM4hcJNjRVctfzjjvuGHPnzo033ngjunfv3lDTeOmll4rhc9Jg9913b7Bdc544+uijI3k1x5E883ratGnRqVOn5hjOGAQIECBAgAABAgQIECBAgAABAgQIZFjAlxCmvDn9+vUrzpA8//mtt97a7GyHH354vPLKK8XnQHft2nWzbdZ/+KMf/Wj929hnn302vPeGAAECBAgQIECAAAECBAgQIECAAAECWRMQQKe8I2eccUZxhuSZxyeccMIWH5uRPFqjXbt2DVaUhM8//OEPi+ePPPLILd4p3eAgThAgQIAAAQIECBAgQIAAAQIECBAgQKCFBATQKUOfeOKJMXz48OIsEydOjL322iuOP/74eOyxx0qaed68eXH55ZfHwQcfHJ/97Gdj1apV0b59+9j4TuiSBtKIAAECBAgQIECAAAECBAgQIECAAAECLSwggG4B8JtvvjkOO+yw4kxvv/123H777bFo0aKSZp48eXJcdNFF8cgjjxTb19XVxZgxY6J///4l9deIAAECBAgQIECAAAECBAgQIECAAAEC1RIQQLeAfO/evWPSpElxySWXxC677FKcceDAgSXN3Ldv3w3tdtppp0juoh49evSGz7whQIAAAQIECBAgQIAAAQIECBAgQIBAVgUE0C20M8ljM/77v/87XnzxxZgyZUokoXQpxx577BFf/epX44EHHojZs2fH0KFDS+mmDQECBAgQIECAAAECBAgQIECAAAECBKouUFf1ClpZAW3atIkhQ4aUvOru3bvHpZdeWnJ7DQkQIECAAAECBAgQIECAAAECBAgQIJAVAXdAZ2Un1EGAAAECBAgQIECAAAECBAgQIECAAIGcCQigc7ahlkOAAAECBAgQIECAAAECBAgQIECAAIGsCAigs7IT6iBAgAABAgQIECBAgAABAgQIECBAgEDOBATQOdtQyyFAgAABAgQIECBAgAABAgQIECBAgEBWBATQWdkJdRAgQIAAAQIECBAgQIAAAQIECBAgQCBnAgLonG2o5RAgQIAAAQIECBAgQIAAAQIECBAgQCArAgLorOyEOggQIECAAAECBAgQIECAAAECBAgQIJAzAQF0zjbUcggQIECAAAECBAgQIECAAAECBAgQIJAVAQF0VnZCHQQIECBAgAABAgQIECBAgAABAgQIEMiZgAA6ZxtqOQQIECBAgAABAgQIECBAgAABAgQIEMiKgAA6KzuhDgIECBAgQIAAAQIECBAgQIAAAQIECORMQACdsw21HAIECBAgQIAAAQIECBAgQIAAAQIECGRFQACdlZ1QBwECBAgQIECAAAECBAgQIECAAAECBHImIIDO2YZaDgECBAgQIECAAAECBAgQIECAAAECBLIiIIDOyk6ogwABAgQIECBAgAABAgQIECBAgAABAjkTEEDnbEMthwABAgQIECBAgAABAgQIECBAgAABAlkREEBnZSfUQYAAAQIECBAgQIAAAQIECBAgQIAAgZwJCKBztqGWQ4AAAQIECBAgQIAAAQIECBAgQIAAgawICKCzshPqIECAAAECBAgQIECAAAECBAgQIECAQM4EBNA521DLIUCAAAECBAgQIECAAAECBAgQIECAQFYEBNBZ2Ql1ECBAgAABAgQIECBAgAABAgQIECBAIGcCAuicbajlECBAgAABAgQIECBAgAABAgQIECBAICsCAuis7IQ6CBAgQIAAAQIECBAgQIAAAQIECBAgkDMBAXTONtRyCBAgQIAAAQIECBAgQIAAAQIECBAgkBUBAXRWdkIdBAgQIECAAAECBAgQIECAAAECBAgQyJmAADpnG2o5BAgQIECAAAECBAgQIECAAAECBAgQyIqAADorO6EOAgQIECBAgAABAgQIECBAgAABAgQI5ExAAJ2zDbUcAgQIECBAgAABAgQIECBAgAABAgQIZEVAAJ2VnVAHAQIECBAgQIAAAQIECBAgQIAAAQIEciYggM7ZhloOAQIECBAgQIAAAQIECBAgQIAAAQIEsiIggM7KTqiDAAECBAgQIECAAAECBAgQIECAAAECORMQQOdsQy2HAAECBAgQIECAAAECBAgQIECAAAECWREQQGdlJ9RBgAABAgQIECBAgAABAgQIECBAgACBnAkIoHO2oZZDgAABAgQIECBAgAABAgQIECBAgACBrAgIoLOyE+ogQIAAAQIECBAgQIAAAQIECBAgQIBAzgTqcrYeyyHQbAJr10Y8My/i1SURbdtE7NQ9Yo9ezTa8gQgQIECAAAECBAgQIECAAAECBAjkXkAAnfsttsCmCrz+TsSVf4wYPzXitbfq9+5TCKFPOyjinA9EdO5Q/5yfisaYGAAAQABJREFUCBAgQIAAAQIECBAgQIAAAQIECBCoLyCAru/hp1Yu8JfZEWePi1i4dPMQr7wR8f37In75aMTPRkbss+Pm2/mUAAECBAgQIECAAAECBAgQIECAAIHCkwWqjXDXXXfFb3/725g5c2a1SzF/Kxd47KWIk69tOHzemOfvr0d87JqIv83f+FPvCRAgQIAAAQIECBAgQIAAAQIECBDYWKBZAuiFCxfGfvvtFwcffHBMmTJl4/EbfT9q1KgYMWJE/OpXv2q0rQYE0hJYurxw5/ONEStXlz7DW4U+nyrcLb2qCX1KH11LAgQIECBAgAABAgQIECBAgAABArUv0CwB9KpVq+Kvf/1rPPLII3HEEUfEr3/969qXsYJWJfA/f46Y/67nPZcC8PxrETc/VkpLbQgQIECAAAECBAgQIECAAAECBAi0PoFmCaA3Zlu2bFmccsop8a1vfWvjj70nkGmB30wrv7xbKuhb/qx6EiBAgAABAgQIECBAgAABAgQIEMi+QLMH0O3bt4+1a9fGl7/85TjrrLNixYoV2VdQYasWmLsk4oWF5RMkz45uyqM7yp9JTwIECBAgQIAAAQIECBAgQIAAAQK1JdDsAfTNN98cvXv3Lir8/Oc/j4985COxaNGi2lJRbasSmFcIoCs5Cn/fEq+9WckI+hIgQIAAAQIECBAgQIAAAQIECBDIp0CzB9ADBw4sfhFhv379imL3339/HHroofHcc8/lU9Cqal6gfbvKl9AcY1RehREIECBAgAABAgQIECBAgAABAgQIZEug2QPo5BnQu+22Wzz44IMxbNiw4mqfffbZOOSQQ+JPf/pTtlavGgIFgZ22iWhTgUTH9hHbdalgAF0JECBAgAABAgQIECBAgAABAgQI5FSg2QPoVatWFal69OgR99xzT5x22mnFnxcuXBhHHnlk3HDDDfUo27Zt9hLqje8HAo0JdO8Usf8ujbVq+PywPSNcxg37OEOAAAECBAgQIECAAAECBAgQINB6BVJNfzt06BA33nhjfOlLXyoKJ19IOGrUqPiv//qvDeKdOhXSv8KRfHGhg0C1BM44pPyZzxhSfl89CRAgQIAAAQIECBAgQIAAAQIECORZINUAOoFr06ZNfPOb34xrrrkm6urqipZf//rXY+TIkbFy5cro3Llznn2trUYEPrZfxOBdm17sh/tHHF64A9pBgAABAgQIECBAgAABAgQIECBAgMCmAqkH0OunPPvss+O2226Lbt26FT9K7ow+/vjj15/2J4GqChT+niT+5xMRu/YovYx9doj44b+V3l5LAgQIECBAgAABAgQIECBAgAABAq1NoMUC6AT2qKOOismTJ0efPn2KznfffXfMmDGjtZlbb0YFehX+buT28yOSZzo3dhw3IOLWcyO6dWyspfMECBAgQIAAAQIECBAgQIAAAQIEWq9AiwbQCfN+++0XDz/8cAwYUEjwWvGxfPnyslaffJnjnDlziq+yBtBpiwLbdokYd1bEjWdGfHRgRPLz+iMJqD++f8T/nhNx9akRXbdaf8afBAgQIECAAAECBAgQIECAAAECBAhsTmDdQ5k3d6YJnyVfNjh8+PBij65duzbac+edd44HHnggPv7xj8e9997baPu8NLjlllvi2muvjalTp8Zrr70We++9dxx00EFx7rnnxmGHHVbSMs8888y4/fbbi219cWNJZGU1Gr5XRPJKjuWrItoWHtHRvt26n/2TAAECBAgQIECAAAECBAgQIECAAIHSBJolgO7Ro0dMmjSptBn/0WrrrbeOO+64I8aPHx8rVqwo3hndpAFqqPHSpUvj/PPPj+uvv75e1TNnzozkNW7cuPjsZz9b/LLGTp061Wvjh+oLbNUs/yup/jpUQIAAAQIECBAgQIAAAQIECBAgQKClBaoarbVv3z5OO+20ll5zi8/3pS99qV743KVLl+jVq1fMnj07kruY16xZE2PGjCkG8r///e/jve99b4vXaEICBAgQIECAAAECBAgQIECAAAECBAg0t0CLPwO6uReQ9fGmT58eP/nJT4pl9u7dOyZMmBBLliyJWbNmxeLFi+Oyyy6L7t27F88/++yzxUeZvPDCC1lflvoIECBAgAABAgQIECBAgAABAgQIECDQqIAAulGiyhpcddVVsXr16qirq4u77747PvrRj0bbtuvYk+D54osvjhkzZsSgQYOKE7300kvxwQ9+MObNm1fZxHoTIECAAAECBAgQIECAAAECBAgQIECgygJVfQRHldfeItMn4XJyJI8aWR8yv3viHXfcMSZPnlwMp//4xz9Gcgf0scceG8n75HEd1T6ef/75SB4NkjwqpNIj+fLF5EhCeQcBAgQIECBAgAABAgQIECBAgAABAvkWEECnvL/PPPNMcYbBgwdvcabkSxnvuuuu4t3PDz30UDz22GNx0kknxe9+97to167dFvumffKCCy6I22+/vVmnmTNnTrOOZzACBAgQIECAAAECBAgQIECAAAECBLInIIBOeU9WrFhRnKFz586NztSpU6di4HzooYfGc889F3feeWd8+tOfjiuvvLLRvmk2SL5EsW/fvsUvTKx0nl/+8pexYMGCSO76dhAgQIAAAQIECBAgQIAAAQIECBAgkG8BAXTK+7vnnnvGI488Ek8//XRJM22//fbFx10kIXTyuIrkGdJ77LFHXHjhhSX1T6NRUkvyao7jgQceKAbQHTp0aI7hjEGAAAECBAgQIECAAAECBAgQIECAQIYFfAlhypuTBNDJMW7cuFi0aFFJs+2+++7FO6GTO6KT46KLLorrr7++pL4aESBAgAABAgQIECBAgAABAgQIECBAICsCAuiUdyL58sHkmD9/fvGLCOfNm1fSjIccckgxtG7btm3x0RdnnXVWXHrppc3yRYAlFaARAQIECBAgQIAAAQIECBAgQIAAAQIEKhQQQFcI2Fj3Y489No488shis7vvvjv69+8fSZg8duzYxrrGiBEjis9/btOmTTF4/trXvlZ8PEejHTUgQIAAAQIECBAgQIAAAQIECBAgQIBABgQE0C2wCT/96U9jwIABxZkWL14cP//5z+Pqq68uaeZzzz03rrvuuqirW/e47jVr1pTUTyMCBAgQIECAAAECBAgQIECAAAECBAhUW0AA3QI70Ldv3/jLX/4So0ePji5duhRn7NOnT8kzn3nmmTFt2rQYOnRoyX00JECAAAECBAgQIECAAAECBAgQIECAQLUFBNAttAMdO3YsPnbj9ddfj4ceeqj4xYJNmfp973tfTJ48OX7xi19E8nzorbfeuindtSVAgAABAgQIECBAgAABAgQIECBAgECLC6x7rkOLT9t6J0wepZEEyOUeo0aNiuTlIECAAAECBAgQIECAAAECBAgQIECAQNYF3AGd9R1SHwECBAgQIECAAAECBAgQIECAAAECBGpUQABdoxunbAIECBAgQIAAAQIECBAgQIAAAQIECGRdQACd9R1SHwECBAgQIECAAAECBAgQIECAAAECBGpUQABdoxunbAIECBAgQIAAAQIECBAgQIAAAQIECGRdQACd9R1SHwECBAgQIECAAAECBAgQIECAAAECBGpUQABdoxunbAIECBAgQIAAAQIECBAgQIAAAQIECGRdQACd9R1SHwECBAgQIECAAAECBAgQIECAAAECBGpUQABdoxunbAIECBAgQIAAAQIECBAgQIAAAQIECGRdQACd9R1SHwECBAgQIECAAAECBAgQIECAAAECBGpUQABdoxunbAIECBCoTGDt2ojlqyobQ28CBAgQIECAAAECBAgQIEBgywJ1Wz7tLAECBAgQyI/AS4sifj4l4g/PRLy4MGLVmoitO0YM3jXihEERIwqvdv5qNj8bbiUECBAgQIAAAQIECBAgUHUBAXTVt0ABBAgQIJC2QHK385iJET+eFLGyEDpvfCxZFjHp2XWvK/8YceUpEf122LiF9wQIECBAgAABAgQIECBAgEC5Au7zKldOPwIECBCoGYHPjo+44g+bhs/vXsCz8wt3Ql8d8dhL7z7jZwIECBAgQIAAAQIECBAgQKAcAQF0OWr6ECBAgEDNCCR3Nd86vfRyl66I+NSNEQvfKr2PlgQIECBAgAABAgQIECBAgMDmBQTQm3fxKQECBAjkQGD+m+sevdHUpbxWCJ+TR3Y4CBAgQIAAAQIECBAgQIAAgcoEBNCV+elNgAABAhkWuGVqxDsryyvwV49FLCuzb3kz6kWAAAECBAgQIECAAAECBPInIIDO355aEQECBAj8QyD5csFyjyS4fnh2ub31I0CAAAECBAgQIECAAAECBBIBAbTrgAABAgRyK/Dy4sqWVmn/ymbXmwABAgQIECBAgAABAgQI1L6AALr299AKCBAgQKABgZWrGzhR4seV9i9xGs0IECBAgAABAgQIECBAgEBuBQTQud1aCyNAgACB3ltXZtC7W2X99SZAgAABAgQIECBAgAABAq1dQADd2q8A6ydAgECOBQ55b/mLa1PoevBu5ffXkwABAgQIECBAgAABAgQIEPAMaNcAAQIECORY4GP7lb+4YXtGbN+1/P56EiBAgAABAgQIECBAgAABAgJo1wABAgQI5FjgfX0iThzU9AW2K9z+/IWPNL2fHgQIECBAgAABAgQIECBAgEB9AY/gqO/hJwIECBDImcC3T4jYo2fTFvW14yKS8NpBgAABAgQIECBAgAABAgQIVCYggK7MT28CBAgQyLhAt44Rt5wdceB7Gi+0rvBvxSSwPuvQxttqQYAAAQIECBAgQIAAAQIECDQuUNd4Ey0IECBAgEBtCyTPcv5NIYQePzXimgcinp1ffz0d20cctU/EhR+M6Lt9/XN+IkCAAAECBAgQIECAAAECBMoXEECXb6cnAQIECNSQQLvC3c2nHLjuNWdxxOyFEUtXRPTsFtF/h4hOhRDaQYAAAQIECBAgQIAAAQIECDSvgAC6eT2NRoAAAQI1ILBzj4jk5SBAgAABAgQIECBAgAABAgTSFfAM6HR9jU6AAAECBAgQIECAAAECBAgQIECAAIFWKyCAbrVbb+EECBAgQIAAAQIECBAgQIAAAQIECBBIV8AjONL1NToBAgQIECBQRYGZcyMenBXx6pKIusJfu++0TcSwPSN28QiWKu6KqQkQIECAAAECBAgQaE0CAujWtNvWSoAAAQIEWonAA89HfOOuiCdf2fyCkxD6kqPXfQHl5lv4lAABAgQIECBAgAABAgSaQ8AjOJpD0RgECBAgQIBAZgR+MDHilGsbDp+TQv/4t4hjfxLxv9MzU7ZCCBAgQIAAAQIECBAgkEsBAXQut9WiCBAgQIBA6xT4nz9HfP++0ta+YnXEZ34dMfGZ0tprRYAAAQIECBAgQIAAAQJNFxBAN91MDwIECBAgQCCDArMWFB67cWfTCltbaH7B+Ii3ljetn9YECBAgQIAAAQIECBAgUJqAALo0J60IECBAgACBjAskj95YnSTKTTwWvR3xs4ea2ElzAgQIECBAgAABAgQIEChJQABdEpNGBAgQIECAQJYFVqyKuGdG+RXe/kT5ffUkQIAAAQIECBAgQIAAgYYFBNAN2zhDgAABAgQI1IjACwsre4zG03MLd0+vqZHFKpMAAQIECBAgQIAAAQI1JCCArqHNUioBAgQIECCweYEFb23+81I/XVt4dMeipaW21o4AAQIECBAgQIAAAQIEShUQQJcqpR0BAgQIECCQWYHunSovrVvHyscwAgECBAgQIECAAAECBAjUFxBA1/fwEwECBAgQIFCDAu/ZNqKugv9Xs/M2ER3b1+DClUyAAAECBAgQIECAAIGMC1Twn2oZX5nyCBAgQIAAgVYjkNy9fGjf8pf74f7l99WTAAECBAgQIECAAAECBBoWEEA3bOMMAQIECBAgUEMCow8vr9j2hf83dPYHyuurFwECBAgQIECAAAECBAhsWUAAvWUfZwkQIECAAIEaEfjAHhEf37/pxV70oYhdejS9nx4ECBAgQIAAAQIECBAg0LiAALpxIy0IECBAgACBGhH47oiI4XuWXuwZh0SMHlZ6ey0JECBAgAABAgQIECBAoGkCAuimeWlNgAABAgQIZFhgq7qIX5wR8fkPRnTawpcKbtcl4vsfi/jmRzO8GKURIECAAAECBAgQIEAgBwKF/0xzECBAgAABAgTyI9Cu8NfrnysE0COHRNzxZMSDsyJefSMi+XznbSKG7RVx9D4RXbbKz5qthAABAgQIECBAgAABAlkVEEBndWfURYAAAQIECFQksH3XiOQRG8nLQYAAAQIECBAgQIAAAQLVEfAIjuq4m5UAAQIECBAgQIAAAQIECBAgQIAAAQK5FxBA536LLZAAAQIECBAgQIAAAQIECBAgQIAAAQLVERBAV8fdrAQIECBAgAABAgQIECBAgAABAgQIEMi9gAA691tsgQQIECBAgAABAgQIECBAgAABAgQIEKiOgAC6Ou5mJUCAAAECBAgQIECAAAECBAgQIECAQO4FBNC532ILJECAAAECBAgQIECAAAECBAgQIECAQHUEBNDVcTcrAQIECBAgQIAAAQIECBAgQIAAAQIEci8ggM79FlsgAQIECBAgQIAAAQIECBAgQIAAAQIEqiNQV51pW8+sPXv2jLVr16ay4AULFqQyrkEJECBAgAABAgQIECDw/9u7Ezitqvp/4F82BUEQFAUFQS01DHfFvVRUNJcKf+Uvtf8PtNxy10zNn2XhkuaSmlIpmrlkv/yZSGIu5ZIi5pa44EYo4gaoKIusf87t/zz/GeBhhnlm5tne5/Ua5z73nnvPOe/DODOfuc+5BAgQIECAAAECzSEggG4OxRVcY8aMGbFo0aIV1Cj/Q88++2zccccdzRKkT506NRvw/Pnzy3/gekiAAAECBAgQIECAAAECBAgQIECAQFECAuii+Bo++ZFHHolhw4bFK6+8kq/cq1evaNeuXf51uW/88Ic/jDFjxjRrN3NBdLNe1MUIECBAgAABAgQIECBAgAABAgQIECgrAQF0C0/HTjvtFOPGjYshQ4bE+PHjs9aGDx8eI0aMaOGWm+/yF110UaRxNMed3L/85S/jnXfeifXWW6/5OuhKBAgQIECAAAECBAgQIECAAAECBAiUpYAAuhWmpXv37nHffffFDjvsEC+99FJceOGFseeee8Yee+zRCq0X38Rmm20W6aM5SlrKIwXQ7dv7p9ccnq5BgAABAgQIECBAgAABAgQIECBAoJwF2pZz56qpb127do3rrrsu2rZtm91JfPjhh8fMmTOraYjGQoAAAQIECBAgQIAAAQIECBAgQIAAgXoCAuh6HC37Yscdd4zjjz8+ayStgXzVVVe1bIOuToAAAQIECBAgQIAAAQIECBAgQIAAgRIKCKBbGT+t/bzBBhtkrV566aXx6aeftnIPNEeAAAECBAgQIECAAAECBAgQIECAAIHWEbAQb+s451vp3Llz3HrrrTF69Ohs36RJk2LgwIH54zYIECBAgAABAgQIECBAgAABAgQIECBQLQIC6BLM5KBBgyJ9KAQIECBAgAABAgQIECBAgAABAgQIEKhmAUtwVPPsGhsBAgQIECBAgAABAgQIECBAgAABAgRKKCCALiG+pgkQIECAAAECBAgQIECAAAECBAgQIFDNAgLoap5dYyNAgAABAgQIECBAgAABAgQIECBAgEAJBQTQJcTXNAECBAgQIECAAAECBAgQIECAAAECBKpZQABdzbNrbAQIECBAgAABAgQIECBAgAABAgQIECihgAC6hPiaJkCAAAECBAgQIECAAAECBAgQIECAQDULCKCreXaNjQABAgQIECBAgAABAgQIECBAgAABAiUUEECXEF/TBAgQIECAAAECBAgQIECAAAECBAgQqGYBAXQ1z66xESBAgAABAgQIECBAgAABAgQIECBAoIQCAugS4muaAAECBAgQIECAAAECBAgQIECAAAEC1SwggK7m2TU2AgQIECBAgAABAgQIECBAgAABAgQIlFBAAF1CfE0TIECAAAECBAgQIECAAAECBAgQIECgmgUE0NU8u8ZGgAABAgQIECBAgAABAgQIECBAgACBEgoIoEuIr2kCBAgQIECAAAECBAgQIECAAAECBAhUs4AAuppn19gIECBAgAABAgQIECBAgAABAgQIECBQQgEBdAnxNU2AAAECBAgQIECAAAECBAgQIECAAIFqFhBAV/PsGhsBAgQIECBAgAABAgQIECBAgAABAgRKKCCALiG+pgkQIECAAAECBAgQIECAAAECBAgQIFDNAgLoap5dYyNAgAABAgQIECBAgAABAgQIECBAgEAJBQTQJcTXNAECBAgQIECAAAECBAgQIECAAAECBKpZQABdzbNrbAQIECBAgAABAgQIECBAgAABAgQIECihgAC6hPiaJkCAAAECBAgQIECAAAECBAgQIECAQDULCKCreXaNjQABAgQIECBAgAABAgQIECBAgAABAiUUEECXEF/TBAgQIECAAAECBAgQIECAAAECBAgQqGYBAXQ1z66xESBAgAABAgQIECBAgAABAgQIECBAoIQCAugS4muaAAECBAgQIECAAAECBAgQIECAAAEC1SwggK7m2TU2AgQIECBAgAABAgQIECBAgAABAgQIlFBAAF1CfE0TIECAAAECBAgQIECAAAECBAgQIECgmgUE0NU8u8ZGgAABAgQIECBAgAABAgQIECBAgACBEgoIoEuIr2kCBAgQIECAAAECBAgQIECAAAECBAhUs4AAuppn19gIECBAgAABAgQIECBAgAABAgQIECBQQgEBdAnxNU2AAAECBAgQIECAAAECBAgQIECAAIFqFhBAV/PsGhsBAgQIECBAgAABAgQIECBAgAABAgRKKCCALiG+pgkQIECAAAECBAgQIECAAAECBAgQIFDNAgLoap5dYyNAgAABAgQIECBAgAABAgQIECBAgEAJBQTQJcTXNAECBAgQIECAAAECBAgQIECAAAECBKpZQABdzbNrbAQIECBAgAABAgQIECBAgAABAgQIECihgAC6hPiaJkCAAAECBAgQIECAAAECBAgQIECAQDULCKCreXaNjQABAgQIECBAgAABAgQIECBAgAABAiUUEECXEF/TBAgQIECAAAECBAgQIECAAAECBAgQqGYBAXQ1z66xESBAgAABAgQIECBAgAABAgQIECBAoIQCAugS4muaAAECBAgQIECAAAECBAgQIECAAAEC1SwggK7m2TU2AgQIECBAgAABAgQIECBAgAABAgQIlFBAAF1CfE0TIECAAAECBAgQIECAAAECBAgQIECgmgUE0NU8u8ZGgAABAgQIECBAgAABAgQIECBAgACBEgoIoEuIr2kCBAgQIECAAAECBAgQIECAAAECBAhUs4AAuppn19gIECBAgAABAgQIECBAgAABAgQIECBQQgEBdAnxNU2AAAECBAgQIECAAAECBAgQIECAAIFqFhBAV/PsGhsBAgQIECBAgAABAgQIECBAgAABAgRKKCCALiG+pgkQIECAAAECBAgQIECAAAECBAgQIFDNAgLoap5dYyNAgAABAgQIECBAgAABAgQIECBAgEAJBQTQJcTXNAECBAgQIECAAAECBAgQIECAAAECBKpZQABdzbNrbAQIECBAgAABAgQIECBAgAABAgQIECihQPsStq3pJQJTp06NGTNmxOzZs7OPjh07Rrdu3aJr166x5pprRnqtECBAgAABAgQIECBAgAABAgQIECBAoBIFBNCtPGuffPJJ/Pa3v42bb745JkyYEOl1odK+ffsYOHBgDBo0KPbff//Yb7/9ok2bNoWq20+AAAECBAgQIECAAAECBAgQIECAAIGyErAERytNx3vvvRfHHXdcrLfeevG9730vHn/88RWGz6lbCxYsiGeeeSauvfbaLIDefPPNY8yYMa3UY80QIECAAAECBAgQIECAAAECBAgQIECgOAF3QBfn16izP/zww9hrr73i+eefz9dPdzL37t071l9//ejZs2d06tQpVl111Sx0njt3bsycOTPeeuutmDx5cnz22WfZeemO6QMPPDB+/vOfx0knnZS/lg0CBAgQIECAAAECBAgQIECAAAECBAiUo4AAuoVnZdasWfGVr3wlHz5vt912ccopp8See+6ZBc8NNT9//vwYP358tmzHqFGjIr0++eSTY+ONN86W5GjofMcJECBAgAABAgQIECBAgAABAgQIECBQKgFLcLSw/O23354tt5GaOeSQQ2LcuHHZ53TXc2NKhw4dYuedd46RI0fGnXfeGel1Kj/4wQ9i0aJFjbmEOgQIECBAgAABAgQIECBAgAABAgQIECiJgDugW5j9sccey1pI6zenhw+2bdv0zD89hPCSSy6JE088MbujetKkSbHRRhu18AgiHn744bjllluaJfB+8803s/7mlhVp8c5rgAABAgQIECBAgAABAgQIECBAgACBkgkIoFuY/u9//3vWwgEHHJC/e7mYJocOHZoF0Okar7zySqsE0Cn0Hj16dDHdXubcd999d5l9dhAgQIAAAQIECBAgQIAAAQIECBAgUF0CAugWns8pU6ZkLfTt27dZWlpzzTWzIDutBT1nzpxmuWZDF7nyyiuzhx8uXry4oaoNHv/JT36SPVyxT58+DdZVgQABAgQIECBAgAABAgQIECBAgACByhYQQLfw/KUlMp599tlsHeijjjqq6NbSkh4pfE5lq622Kvp6jblAv3794sgjj2xM1QbrXHPNNVkA3a5duwbrqkCAAAECBAgQIECAAAECBAgQIECAQGULNH1B4soed6v1fptttsna+v3vfx8PPfRQUe1+9NFHceqpp2bX6NGjR2ywwQZFXc/JBAgQIECAAAECBAgQIECAAAECBAgQaEkBAXRL6i659plnnpktmTF37tw46KCDYuTIkTFv3ryVbjXdRb333ntnd1Onk48++uiVvoYTCBAgQIAAAQIECBAgQIAAAQIECBAg0JoCluBoYe20BMf5558fp59+enz88cdZcJy2v/SlL8WWW26Z3cW8zjrrRKdOnaJjx46xYMGCSGH1zJkzs6UqXnvttXj44YdjwoQJ+Z6mIDqtpawQIECAAAECBAgQIECAAAECBAgQIECgnAUE0K0wO6eddlqkhwced9xx2YMDP/nkk7j77ruzj5VtfsiQIXHzzTdH27ZuXl9ZO/UJECBAgAABAgQIECBAgAABAgQIEGhdASlmK3kPGzYsJk+eHGeddVb06tVrpVpdddVVs+U7Ro8eHffcc0+k9Z8VAgQIECBAgAABAgQIECBAgAABAgQIlLuAO6BbcYZ69uwZI0aMyD7+9a9/xbhx4+LVV1/NlttIy3OkO6M7dOgQXbp0ia5du0ZavmPAgAGxxRZbZPtasauaIkCAAAECBAgQIECAAAECBAgQIECAQNECAuiiCZt2gf79+0f6UAgQIECAAAECBAgQIECAAAECBAgQIFCtApbgqNaZNS4CBAgQIECAAAECBAgQIECAAAECBAiUWEAAXeIJ0DwBAgQIECBAgAABAgQIECBAgAABAgSqVUAAXa0za1wECBAgQIAAAQIECBAgQIAAAQIECBAosYAAusQToHkCBAgQIECAAAECBAgQIECAAAECBAhUq4AAulpn1rgIECBAgAABAgQIECBAgAABAgQIECBQYgEBdIknQPMECBAgQIAAAQIECBAgQIAAAQIECBCoVgEBdLXOrHERIECAAAECBAgQIECAAAECBAgQIECgxAIC6BJPgOYJECBAgAABAgQIECBAgAABAgQIECBQrQIC6GqdWeMiQIAAAQIECBAgQIAAAQIECBAgQIBAiQUE0CWeAM0TIECAAAECBAgQIECAAAECBAgQIECgWgUE0NU6s8ZFgAABAgQIECBAgAABAgQIECBAgACBEgsIoEs8AZonQIAAAQIECBAgQIAAAQIECBAgQIBAtQoIoKt1Zo2LAAECBAgQIECAAAECBAgQIECAAAECJRYQQJd4AjRPgAABAgQIECBAgAABAgQIECBAgACBahUQQFfrzBoXAQIECBAgQIAAAQIECBAgQIAAAQIESiwggC7xBGieAAECBAgQIECAAAECBAgQIECAAAEC1SoggK7WmTUuAgQIECBAgAABAgQIECBAgAABAgQIlFhAAF3iCdA8AQIECBAgQIAAAQIECBAgQIAAAQIEqlVAAF2tM2tcBAgQIECAAAECBAgQIECAAAECBAgQKLGAALrEE6B5AgQIECBAgAABAgQIECBAgAABAgQIVKuAALpaZ9a4CBAgQIAAAQIECBAgQIAAAQIECBAgUGIBAXSJJ0DzBAgQIECAAAECBAgQIECAAAECBAgQqFYBAXS1zqxxESBAgAABAgQIECBAgAABAgQIECBAoMQCAugST4DmCRAgQIAAAQIECBAgQIAAAQIECBAgUK0CAuhqnVnjIkCAAAECBAgQIECAAAECBAgQIECAQIkFBNAlngDNEyBAgAABAgQIECBAgAABAgQIECBAoFoFBNDVOrPGRYAAAQIECBAgQIAAAQIECBAgQIAAgRILCKBLPAGaJ0CAAAECBAgQIECAAAECBAgQIECAQLUKCKCrdWaNiwABAgQIECBAgAABAgQIECBAgAABAiUWEECXeAI0T4AAAQIECBAgQIAAAQIECBAgQIAAgWoVEEBX68waFwECBAgQIECAAAECBAgQIECAAAECBEosIIAu8QRongABAgQIECBAgAABAgQIECBAgAABAtUqIICu1pk1LgIECBAgQIAAAQIECBAgQIAAAQIECJRYQABd4gnQPAECBAgQIECAAAECBAgQIECAAAECBKpVQABdrTNrXAQIECBAgAABAgQIECBAgAABAgQIECixgAC6xBOgeQIECBAgQIAAAQIECBAgQIAAAQIECFSrgAC6WmfWuAgQIECAAAECBAgQIECAAAECBAgQIFBiAQF0iSdA8wQIECBAgAABAgQIECBAgAABAgQIEKhWAQF0tc6scREgQIAAAQIECBAgQIAAAQIECBAgQKDEAgLoEk+A5gkQIECAAAECBAgQIECAAAECBAgQIFCtAgLoap1Z4yJAgAABAgQIECBAgAABAgQIECBAgECJBQTQJZ4AzRMgQIAAAQIECBAgQIAAAQIECBAgQKBaBdpX68CMiwABAgQIECBAoHYEPvgk4i8vRUx4J2LGrIg1OkV8bu2Ifb4QsX6P2nEwUgIECBAgQIAAAQLlJiCALrcZ0R8CBAgQIECAAIFGC3wyN+Jn90Xc9ETEgkXLnvbjMREHbR7xw30jendb9rg9BAgQIECAAAECBAi0rIAlOFrW19UJECBAgAABAgRaSGDKhxEHXBMx6vHlh8+5Zv/0z4j9ro7459u5PT4TIECAAAECBAgQINBaAgLo1pLWDgECBAgQIECAQLMJfPpZxLdvjHjtg8Zd8oNPl9S/IWLqR42rrxYBAgQIECBAgAABAs0jIIBuHkdXIUCAAAECBAgQaEWByx+MeOX9lWtw2pK1oc+5e+XOUZsAAQIECBAgQIAAgeIEBNDF+TmbAAECBAgQIECglQVmLln3+foly240pdz7YsRL7zblTOcQIECAAAECBAgQINAUAQF0U9ScQ4AAAQIECBAgUDKBBydGzFvQ9ObHvtD0c51JgAABAgQIECBAgMDKCQigV85LbQIECBAgQIAAgRILvFzkHcwvv1fiAWieAAECBAgQIECAQA0JtK+hsZZkqD179ozFixe3SNvTpk1rkeu6KAECBAgQIECgnAVmzC6udzOWrAWtECBAgAABAgQIECDQOgIC6BZ2njFjRixatKiFW3F5AgQIECBAgEDtCPRYrbixdi/y/OJadzYBAgQIECBAgACB2hIQQLfwfD/yyCMxbNiweOWVV/It9erVK9q1a5d/bYMAAQIECBAgQKDxApus0/i6y6u5aa/l7bWPAAECBAgQIECAAIGWEBBAt4RqnWvutNNOMW7cuBgyZEiMHz8+OzJ8+PAYMWJEnVo2CRAgQIAAAQIEGiuwxyYRqyz5W/68hY09o369IQPqv/aKAAECBAgQIECAAIGWE/AQwpazzV+5e/fucd9998UXvvCFbN+FF14YDz74YP64DQIECBAgQIAAgcYLdOsU8V87Nr5+3Zp7bRoxoHfdPbYJECBAgAABAgQIEGhJAQF0S+rWuXbXrl3juuuui7Zt22ZrQh9++OExc+bMOjVsEiBAgAABAgQINFbglD0jPr92Y2v/u96anSN+euDKnaM2AQIECBAgQIAAAQLFCQigi/NbqbN33HHHOP7447Nzpk6dGlddddVKna8yAQIECBAgQIDAvwW6rBrx2/8TsVHPxomstSR8vnFJ/fXWaFx9tQgQIECAAAECBAgQaB4Ba0A3j2Ojr5LWfr7rrrti0qRJcemll8YJJ5wQXbp0afT5paiY+jtq1KhYvHhx0c2//vrr2TVmz55d9LVcgAABAgQIEKhtgb7dI0YfE3HhvRG3PBmxYNHyPfYfGPHf+0Ws2235x+0lQIAAAQIECBAgQKDlBATQLWe73Ct37tw5br311hg9enR2PAXRAwcu+a2ojMsNN9wQd955Z7P28JNPPmnW67kYAQIECBAgUJsCXTtGnH9QxIm7R/zlpYgX3omYPisirRO98ZIlOvZe8giO/mvWpo1REyBAgAABAgQIECgHAQF0CWZh0KBBkT4qpfz617+OYcOGZWtXF9vndK0xY8bE0KFDi72U8wkQIECAAAECeYF1ukYcXjk/XuX7bYMAAQIECBAgQIBAtQsIoKt9hpthfGuuuWYccMABzXCliL/97W/Zddq1a9cs13MRAgQIECBAgAABAgQIECBAgAABAgTKV8BDCMt3bvSMAAECBAgQIECAAAECBAgQIECAAAECFS0ggK7o6dN5AgQIECBAgAABAgQIECBAgAABAgQIlK+AJTjKcG5+9rOfxdNPP5317Morr4yePXuWYS91iQABAgQIECBAgAABAgQIECBAgAABAisWcAf0in1KcvSRRx6J3//+99nHrFlLHuOuECBAgAABAgQIECBAgAABAgQIECBAoAIFBNAVOGm6TIAAAQIECBAgQIAAAQIECBAgQIAAgUoQEEBXwizpIwEC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ECBAgAABAgQIECBAoDUFBNCtqa0tAgQIECBAgAABAgQIECBAgAABAgQI1JCAALqGJttQCRAgQIAAAQIECBAgQIAAAQIECBAg0JoCAujW1NYWAQIECBAgQIAAAQIECBAgQIAAAQIEakhAAF1Dk22oBAgQIECAAAECBAgQIECAAAECBAgQaE0BAXRramuLAAECBAgQIECAAAECBAgQIECAAAECNSQggK6hyTZUAgQIECBAgAABAgQIECBAgAABAgQItKaAALo1tbVFgAABAgQIECBAgAABAgQIECBAgACBGhIQQNfQZBsqAQIECBAgQIAAAQIECBAgQIAAAQIEWlNAAN2a2toiQIAAAQIECBAgQIAAAQIECBAgQIBADQkIoGtosg2VAAECBAgQIECAAAECBAgQIECAAAECrSkggG5NbW0RIECAAAECBAgQIECAAAECBAgQIECghgQE0DU02YZKgAABAgQIECBAgAABAgQIECBAgACB1hQQQLemtrYIECBAgAABAgQIECBAgAABAgQIECBQQwIC6BqabEMlQIAAAQIECBAgQIAAAQIECBAgQIBAawoIoFtTW1sECBAgQIAAAQIECBAgQIAAAQIECBCoIQEBdA1NtqESILBiga5du2YVunXrtuKKjhIgUFECnTp1ig4dOoSv7YqaNp0l0CgB37sbxaQSgYoT8LVdcVOmwwQaJdClS5do06aNn8sbpVVdldosXlKqa0hGQ4AAgaYJLFq0KO65557YddddI/dDb9Ou5CwCBMpN4Mknn8y+rjfZZJNy65r+ECBQhMDbb78dEydOjD322KOIqziVAIFyE5g/f36MHTs2Bg8eHOkPyQoBAtUj8Oijj0afPn2if//+1TMoI2lQQADdIJEKBAgQIECAAAECBAgQIECAAAECBAgQINAUAUtwNEXNOQQIECBAgAABAgQIECBAgAABAgQIECDQoIAAukEiFQgQIECAAAECBAgQIECAAAECBAgQIECgKQIC6KaoOYcAAQIECBAgQIAAAQIECBAgQIAAAQIEGhQQQDdIpAIBAgQIECBAgAABAgQIECBAgAABAgQINEVAAN0UNecQIECAAAECBAgQIECAAAECBAgQIECAQIMCAugGiVQgQIAAAQIECBAgQIAAAQIECBAgQIAAgaYICKCbouYcAgQIECBAgAABAgQIECBAgAABAgQIEGhQQADdIJEKBAgQIECAAAECBAgQIECAAAECBAgQINAUAQF0U9ScQ4AAAQIECBAgQIAAAQIECBAgQIAAAQINCgigGyRSgQABAgQIECBAgAABAgQIECBAgAABAgSaIiCAboqacwgQIECAAAECBAgQIECAAAECBAgQIECgQQEBdINEKhAgQIAAAQIECBAgQIAAAQIECBAgQIBAUwQE0E1Rcw4BAgQIECBAgAABAgQIECBAgAABAgQINCgggG6QSAUCBAgQIECAAAECBAgQIECAAAECBAgQaIqAALopas4hQIAAAQIECBAgQIAAAQIECBAgQIAAgQYFBNANEqlAgAABAgQIECBAgAABAgQIECBAgAABAk0REEA3Rc05BAgQIECAAAECBAgQIECAAAECBAgQINCggAC6QSIVCBAgQIAAAQIECBAgQIAAAQIECBAgQKApAgLopqg5hwABAgQIECBAgAABAgQIECBAgAABAgQaFBBAN0ikAgECBAgQIECAAAECBAgQIECAAAECBAg0RUAA3RQ15xAgQIAAAQIECBAgQIAAAQIECBAgQIBAgwIC6AaJVCBAgAABAgQIECBAgAABAgQIECBAgACBpggIoJui5hwCBAgQIECAAAECBAgQIECAAAECBAgQaFBAAN0gkQoECBAgQIAAAQIECBAgQIAAAQIECBAg0BQBAXRT1JxDgAABAgQIECBAgAABAgQIECBAgAABAg0KCKAbJFKBAIFqFpg+fXqcffbZMWTIkNhoo41itdVWi8022yy+/vWvx2WXXRbz5s2r5uEbG4GaE/jlL38ZvXr1yj5ee+21mhu/AROoBoHPPvssRo4cGUceeWRsueWW0aVLl+x799ChQ+OBBx6ohiEaA4GaFJg7d25ccMEFse+++8YGG2wQq6++emy99dZx6KGHxoMPPliTJgZNoBIFHnvssWjXrl2stdZaje7+woUL47rrrovBgwdHv379onv37rHPPvvEeeedF//4xz8afR0Vy1egzeIlpXy7p2cECBBoOYFf/OIXce6558ZHH31UsJFNNtkkrr322vjyl79csI4DBAhUhsCLL74Y22yzTaRfcFN56aWXYtNNN62MzuslAQKZwFtvvRUpaH7yyScLiqQ/It98883RsWPHgnUcIECgvAQeeuihGD58eLzxxhsFO5aC6Kuvvjq6detWsI4DBAiUVuDDDz+MHXbYIV555ZVYc801Y9q0aQ126O23385uCJswYcJy67Zv3z5GjRoVhx122HKP21kZAgLoypgnvSRAoJkF0i+mdb+BpTstdt1111h33XUj3RV5xx13RAqrUunUqVP2V9cBAwY0cy9cjgCB1hJI72YYNGhQPPvss/kmBdB5ChsEKkLgiSeeiP333z//y2y6Q/JrX/taDBw4MJ555pn4zW9+E7Nnz87G8p3vfCd+9atfVcS4dJJArQukPyxtvvnm+ZtCtttuu/iP//iP6N27d6RAKt0M8vHHH2dM3/jGN+L3v/99rZMZP4GyFJg5c2Z2B3Puj8SNCaDTOen38H/+85/ZmNI7mw444IBYb7314uGHH47//d//jTlz5kSbNm3iyiuvjOOOO64sx65TDQsIoBs2UoMAgSoTmDRpUmyxxRbxySefRIcOHeL222+Pr371q/VGOX/+/Dj11FOzb3LpQPpGOH78+Kx+vYpeECBQEQLf//734+KLL67XVwF0PQ4vCJS1QFp2IwXNr776atbPn/3sZ3H66afX6/PLL78ce+65Z0ydOjXbn5bj2GOPPerV8YIAgfITSDeCjB07NuvYscceG+ldiunt+7mSvqZ32WWXSD/Dp3LrrbfGIYcckjvsMwECZSDw+OOPxxFHHJG9wzDXncYE0Keddlr8/Oc/z05Jf2C66aabYpVVVsldIh599NHsj8/pj1DpTujJkydnN43lK9ioGAFrQFfMVOkoAQLNJXDbbbdl4XO6XvrldenwOe1PwXRaAzrdgZFKumvy6aefzrb9hwCByhL429/+lv/BNq0nqRAgUHkC6W33ufA53f20dPicRpSW1Lnooovyg7vzzjvz2zYIEChPgfTHpdza7X379s1+/q4bPqdep3copv8H5Iqv7ZyEzwRKLzBr1qw46aSTsj8SpZs7VqbMmDEje6ZDOmf99ddfJnxO+9Mfn373u9+lzViwYIF3N2USlfkfAXRlzpteEyBQhEBaYy5Xvvvd7+Y2l/mcfvhN60zmigA6J+EzgcoRSGu8f/vb345FixZlDzLZb7/98p1Pb+VTCBCoDIEbb7wx62ha+/XHP/5xwU6nJTnS0hzpnU655TgKVnaAAIGSC6QlNtI7D1PZcccd6935WLdz6XksuWD6qaeeqnvINgECJRJIS2OldyddccUV2c/abdu2jbPOOit72HdjuvSHP/whPv3006zq0UcfXfDrPy2/lZ7NlEpaXiv3/4xsh/9UjIAAumKmSkcJEGgugV69emUPRkjfxNJfWldU0tpzuTJlypTcps8ECFSIwDHHHBNpbckePXrE9ddfn60fVyFd100CBP6fQHqQUW5tyLQuZHpLb6HSuXPn7CFm6Z1LaU1ohQCByhFIa8EWKukPyYsXL84Op+c6KAQIlF7g7rvvzi+Nk96pcP/998eIESOypTJS7xq62SMt25Ere++9d25zuZ8HDx6c7X/nnXfir3/963Lr2FneAgLo8p4fvSNAoAUEbrjhhkjf7NJakQ19U3zuuefyPUgPR1EIEKgcgfSw0bTkTirXXHON9eIqZ+r0lEA9gbp3O1rTuR6NFwQqXiDdELLaaqtl4xg3blz+IaNLD2zMmDHZHZZpf3o2i0KAQHkIpD8Kp9A5Lb+x++67r1Sn0td8KunO6YZ+107vbMqV9M4JpfIEBNCVN2d6TIBAKwmkhxSmACtXtt9++9ymzwQIlLlAekBJ7inZhx56aKSHmigECFSmwPPPP5/veC54evfdd7Pv0UcddVRss802cfDBB8cFF1wQr732Wr6uDQIEyl+gS5cu+e/Xadmsww8/PD788MN6HU9/hDr++OOzfSmoWt4a8PVO8IIAgVYRSD9f/+tf/8qW3ejatetKt5n7nr3eeutlz2Ba0QXqvnM53UimVJ5A+8rrsk6ATecAACC8SURBVB4TIECgdQR+8pOfxHvvvZc1ts8++2RrSrZOy1ohQKAYgfQ23bTuc3padnqg0VVXXVXM5ZxLgECJBd544418D9KdVo8++mik9SDT13iupOc0/PGPf8zuwrr88svjyCOPzB3ymQCBMhc4//zzI72tPj1obOzYsdlar3vttVf2zqV0V2Xat3Dhwmx92JEjR2YPJSvzIekegZoQSOs/N7Wkhxemr+tU1llnnQYv07Nnz3yd9PBCpfIEBNCVN2d6TIBAKwikZTouvvjirKX019xf//rXrdCqJggQaA6B9LX78MMPZ0vspK/lNdZYozku6xoECJRIIL0jKVfSElrDhg2LOXPmRPpldOutt84OpTskp02bFukX2u985zuR3gWR/pCsECBQ/gLt27ePm266Kb70pS9FelfDBx98ELfccku9jq+99trxwAMPxBe/+MV6+70gQKAyBer+EblTp04NDqJuHQ8ZbpCrLCtYgqMsp0WnCBAopcDo0aOzX15zfbjsssuyuyhzr30mQKB8BdJdkOecc07WwRNPPDGsF1u+c6VnBBorUDeAPuyww2LBggXx05/+NLtjMt0ZmT7Skhw/+tGPol27dtllL7zwwqi7dEdj21KPAIHWF0hLbhx44IHx3e9+N7/Oc/rj8cYbb5z/mn7//fezgPqXv/xl63dQiwQINLtA3e/tHTt2bPD6q666ar6OADpPUVEbAuiKmi6dJUCgpQXS3ZJDhw7NfrlNbaUga/jw4S3drOsTINAMAumOyLTe8/z582PAgAHZerDNcFmXIECgxALz5s3L9yCFzylcPvvss/PBVDqYgudzzz03zjzzzKxuqnfSSSflz7NBgEB5CqS7IHfbbbdIN4AsXrw4W14j/fEohdITJ07M3tVw4403Ro8ePSK97T493yGt964QIFDZAh06dMgPIH3PbqjUrdOYwLqh6zne+gIC6NY31yIBAmUq8OMf/zh7W28Kr1JJv8ied955Zdpb3SJAYGmB9FCi9FCS9ANtWkfSD6dLC3lNoDIF0kPKcmWTTTaJ9O6GQiUF0GuttVZ2+O9//3t+fclC9e0nQKC0ApdeemlMmDAh60Ra9/mhhx6qt8xGuusxPddh/Pjxkft/QbpB5NVXXy1tx7VOgEBRArmv53SRuXPnNnitunW6devWYH0Vyk9AAF1+c6JHBAi0skD6a2q6yzm9dTeVdBfVtddem3+d7fQfAgTKWuCee+6Jq6++Ouvjqaeemj009KOPPoqlP+reSTlz5sz88bp3VZT1QHWOQA0KrL766vlR77zzzvXufM4f+H8bq622Wmy55ZbZq88++yxef/31pat4TYBAGQnkvne3bds2e+ZK+ry8stFGG+VvDEkPLrviiiuWV80+AgQqRKDu9/b0M3lDpW6d9IwmpfIElv9/98obhx4TIECgSQLpG9l+++0Xo0aNys7v3Llz3HnnndkDUJp0QScRIFASgbvuuivfbnp7fvfu3Zf7cccdd+Trbb/99vk66U5JhQCB8hTo06dPvmMbbLBBfrvQxuc+97n8oddeey2/bYMAgfISSA8bnD59etap9HXbr1+/FXZwyJAh+ePWeM9T2CBQkQLpoYLrrrtu1ve33nqrwTHUrdOrV68G66tQfgIC6PKbEz0iQKCVBKZNm5atOXffffdlLfbu3Tt729/+++/fSj3QDAECBAgQINCQwMCBA/NV0jI7DZW0dmyupD9GKQQIlKdALnxOvcsFUSvq6YYbbpg//N577+W3bRAgUJkC6ZktqaSbwtIfpFZU6i67s912262oqmNlKtC+TPulWwQIEGhRgfS2/L333juee+65rJ0vfvGL8ec//zn69u3bou26OAECLSOw77775td9XVEL6Q7oF198Maty9NFH589p6K6rFV3TMQIEWlZg0KBB+QYef/zx/Hahjbq/pDbmjulC17GfAIGWFUh3Pac1ntNyOU899VS2ZntaCq9Qqbukzqabblqomv0ECFSIQPr+fv/992e9ffjhh2Po0KEFe/7II4/kj9X9uSC/00bZCwigy36KdJAAgZYQOOaYY+KZZ57JLp3+gjp27Njs6dot0ZZrEiDQ8gIHHnhgpI+GSno7fi6APumkkyI90EwhQKC8BbbYYov4whe+EC+99FK88cYb8cQTT0ShXz6fffbZSB+ppGV2vE23vOdW72pboH379rHZZpvF008/HZ988kmMGzcu0jrvhcrdd9+dP7TVVlvlt20QIFCZAgcffHCMGDEi6/xNN91UMIB+8803s3cqp4rbbrttrLPOOpU54BrvtSU4avwfgOETqEWBBx54IG677bZs6GnZjbR2bI8ePWqRwpgJECBAgEBFCJxwwgn5fh500EExefLk/Ovcxty5c+P444+PRYsWZbuOPPLI3CGfCRAoU4H0IPBcOeSQQ2LSpEm5l/U+pz8e5x4Y3rFjx/jmN79Z77gXBAhUnkB6aPA222yTdTz9Tv673/1umUHMmTMn0vfz+fPnZ8fOOOOMZerYURkCbRYvKZXRVb0kQIBA8QLz5s2LzTffPCZOnJhdbOONN47Pf/7zjbrwPvvsk/1i26jKKhEgUJYC//mf/5n/A1RaS9Yd0GU5TTpFYBmB9CvLl7/85Uhv0U0lfe2efPLJkZ7bsNZaa8X48eMjhdS5u5932WWX7G6ptm3db7MMph0EykggfW2nZfFyb8Pv379/nHnmmbH77rtnP6OnOx//+Mc/xjnnnBOzZs3Ken755ZfHiSeeWEaj0BUCBOoKpGUtp0yZkn1/bmht5/TOh5122inS/wvS9+zzzjsvvvWtb0V6AHF6x9PZZ5+d/96/ww47RHpwuO/tdbUrZ1sAXTlzpacECDSDwL333ht1n6C9Mpc84ogj4je/+c3KnKIuAQJlJiCALrMJ0R0CKyEwe/bsOPbYY+PGG2+sd1aHDh3yd0alA+kPzWPGjMl+ea1X0QsCBMpSYOrUqfGNb3wjC5bqdjC3PnRuXwqdjjvuuLjiiiuiTZs2ud0+EyBQZgIrE0Cnrt9+++2R3g2R+yNT2rf09/a0Znx6DkT6o7NSmQJuCajMedNrAgSaKPDCCy808UynESBAgAABAqUUWG211eKGG27I/hic3r2UC6Byb8tdY4014tRTT43HHntM+FzKidI2gZUUWHfddSM9YGzkyJH11m1PDydMJX2tp3Vf09f2L37xi/zX/ko2ozoBAmUqkP4Ale6ETl/nuQeR5r63r7LKKpGe25KOC5/LdAIb2S13QDcSSjUCBAgQIECAAAECBMpH4OOPP84eXvb+++9Hv379sjufU0itECBQ2QLpazqt+fzuu+9my3Bsuumm0blz58oelN4TINAogfRup7ScVlp+Z8MNN8yW3OrWrVujzlWpvAUE0OU9P3pHgAABAgQIECBAgAABAgQIECBAgACBihWwBEfFTp2OEyBAgAABAgQIECBAgAABAgQIECBAoLwFBNDlPT96R4AAAQIECBAgQIAAAQIECBAgQIAAgYoVEEBX7NTpOAECBAgQIECAAAECBAgQIECAAAECBMpbQABd3vOjdwQIECBAgAABAgQIECBAgAABAgQIEKhYAQF0xU6djhMgQIAAAQIECBAgQIAAAQIECBAgQKC8BQTQ5T0/ekeAAAECBAgQIECAAAECBAgQIECAAIGKFRBAV+zU6TgBAgQIECBAgAABAgQIECBAgAABAgTKW0AAXd7zo3cECBAgQIAAAQIECBAgQIAAAQIECBCoWAEBdMVOnY4TIECAAAECBAgQIECAAAECBAgQIECgvAUE0OU9P3pHgAABAgQIECBAgAABAgQIECBAgACBihUQQFfs1Ok4AQIECBAgQIAAAQIECBAgQIAAAQIEyltAAF3e86N3BAgQIECAAAECBAgQIECAAAECBAgQqFgBAXTFTp2OEyBAgAABAgQIECBAgAABAgQIECBAoLwFBNDlPT96R4AAAQIECBAgQIAAAQIECBAgQIAAgYoVEEBX7NTpOAECBAgQIECAAAECBAgQIECAAAECBMpbQABd3vOjdwQIECBAgAABAgQIECBAgAABAgQIEKhYAQF0xU6djhMgQIAAAQIECBAgQIAAAQIECBAgQKC8BQTQ5T0/ekeAAAECBAgQIECAAAECBAgQIECAAIGKFRBAV+zU6TgBAgQIECBAgAABAgQIECBAgAABAgTKW0AAXd7zo3cECBAgQIAAAQIECBAgQIAAAQIECBCoWAEBdMVOnY4TIECAAAECBAgQIECAAAECBAgQIECgvAUE0OU9P3pHgAABAgQIECBAgAABAgQIECBAgACBihUQQFfs1Ok4AQIECBAgQIAAAQIECBAgQIAAAQIEyltAAF3e86N3BAgQIECAAAECBAgQIECAAAECBAgQqFgBAXTFTp2OEyBAgAABAgQIECBAgAABAgQIECBAoLwFBNDlPT96R4AAAQIECBAgQIAAAQIECBAgQIAAgYoVEEBX7NTpOAECBAgQIECAAAECBAgQIECAAAECBMpbQABd3vOjdwQIECBAgAABAgQIECBAgAABAgQIEKhYAQF0xU6djhMgQIAAAQIECBAgQIAAAQIECBAgQKC8BQTQ5T0/ekeAAAECBAgQIECAAAECBAgQIECAAIGKFRBAV+zU6TgBAgQIECBAgAABAgQIECBAgAABAgTKW0AAXd7zo3cECBAgQIAAAQIECBAgQIAAAQIECBCoWAEBdMVOnY4TIECAAAECBAgQIECAAAECBAgQIECgvAUE0OU9P3pHgAABAgQIECBAgAABAgQIECBAgACBihUQQFfs1Ok4AQIECBAgQIAAAQIECBAgQIAAAQIEyltAAF3e86N3BAgQIECAAAECBAgQIECAAAECBAgQqFgBAXTFTp2OEyBAgAABAgQIECBAgAABAgQIECBAoLwFBNDlPT96R4AAAQIECBAgQIAAAQIECBAgQIAAgYoVEEBX7NTpOAECBAgQIECAAAECBAgQIECAAAECBMpbQABd3vOjdwQIECBAgAABAgQIECBAgAABAgQIEKhYAQF0xU6djhMgQIAAAQIECBAgQIAAAQIECBAgQKC8BQTQ5T0/ekeAAAECBAgQIECAAAECBAgQIECAAIGKFRBAV+zU6TgBAgQIECBAgAABAgQIECBAgAABAgTKW0AAXd7zo3cECBAgQIAAAQIECBAgQIAAAQIECBCoWAEBdMVOnY4TIECAAAECBAgQIECAAAECBAgQIECgvAUE0OU9P3pHgAABAgQIECBAgAABAgQIECBAgACBihUQQFfs1Ok4AQIECBAgQIAAAQIECBAgQIAAAQIEyltAAF3e86N3BAgQIECAAAECBAgQIECAAAECBAgQqFgBAXTFTp2OEyBAgAABAgQIECBAgAABAgQIECBAoLwFBNDlPT96R4AAAQIECBAgQIAAAQIECBAgQIAAgYoVEEBX7NTpOAECBAgQIECAAAECBAgQIECAAAECBMpbQABd3vOjdwQIECBAgAABAgQIECBAgAABAgQIEKhYAQF0xU6djhMgQIAAAQIECJRKYOHChdGrV6/8R3pd6jJ48OCsP3369Cl1V7RPgAABAgQIECBAIC/QPr9lgwABAgQIECBAgACBRgu89957ja7bGhWnT58eqU/t2/sRvzW8tUGAAAECBAgQINA4AXdAN85JLQIECBAgQIAAAQIECBAgQIAAAQIECBBYSQEB9EqCqU6AAAECBAgQIECAAAECBAgQIECAAAECjRMQQDfOSS0CBAgQIECAAAECBAgQIECAAAECBAgQWEkBAfRKgqlOgAABAgQIECBAgAABAgQIECBAgAABAo0T8ISSxjmpRYAAAQIECBAgQGClBM4888z48MMPY9CgQTFs2LCYNm1a3HbbbfHYY4/F448/nj0scOutt46ddtopjjnmmFhllVVWeP0XXnghLr/88njyySdjypQpMWDAgNh1113jW9/6Vmy22WYrPLfuwfnz58f111+fXefZZ5+NyZMnxyabbBJbbrllDB48OL761a/WrZ7fvvnmm+ORRx7JXvfo0SNGjBgRbdq0yR+vu5H6+fLLL2e7dtlllzjssMPqHrZNgAABAgQIECBQQwJtFi8pNTReQyVAgAABAgQIECBQtMDChQuzADl3oQULFkS7du1yL7PPffv2zYLiFL7+5Cc/ib333jteffXVenVyL7bbbru4/fbbo3///rld9T6fffbZccEFF8TyfnTv0qVLFmz/8Ic/jBQot2/fPlLIvLzy0ksvxaGHHhrPPPPM8g5n+775zW/GNddcE927d69XJ4Xem2++eRaqpwNXXXVVHHfccfXqpBd33nlnfO1rX8v2r7XWWvHcc8/Fuuuuu0w9OwgQIECAAAECBGpDQABdG/NslAQIECBAgAABAs0osDIBdLoD+q233oqpU6fG5z//+dhtt91izTXXjEcffTTGjx8fKbxOZYcddsjujF66m9///vfj4osvzna3bds2C3fTXdMzZ86MBx98MLsrOYXfHTt2jFmzZhUMoB966KHYd999Y86cOdm1tt1229hnn32y0HvChAkxduzYmDhxYnasX79+WXDcrVu3et1JIXkKqFNJwXc6L9XNlTTGFFJPnz49uzt69OjR8ZWvfCV32GcCBAgQIECAAIEaFBBA1+CkGzIBAgQIECBAgEBxAisTQOdaOv/88+P000+vd+f0vffeG/vvv38+hP7HP/4R22yzTe6UeP7552OrrbaK1F7Xrl2zO51TiFy3XHLJJXHGGWfEokWLst0pjM6F2rl66XVaYiMt45FKCrRPOeWUSIF2rsydOzdbCuSGG27Idp188slx6aWX5g7nP3/729+Om266KXud7upOY0gl3Z2dXt9///3Z60LnZwf9hwABAgQIECBAoGYE/v9PnDUzZAMlQIAAAQIECBAg0LoCBxxwQKQ1odPyGHVLugP5pJNOyu9KdyHXLSm0TuFzKv/93/+d3cFc93jaPu200+Lwww9fene919dee20+fB4+fHh2Tt3wOVVOd1CPGjUqdtxxx+zctMRGbh3nuhdL+3NLhfzlL3+JG2+8MTt82WWX5cPnFKJfeOGFdU+zTYAAAQIECBAgUKMCAuganXjDJkCAAAECBAgQaD2BtIxGoZIe0pcr6UGFuZLuWs4F0umhf0cddVTu0DKfU7i9dKBct9LVV1+df/nTn/40v728jXRndCppHelbbrllmSrpTuzf/va3+fZSAJ6W9zjrrLOyuquvvnp2p3ZDD1Vc5sJ2ECBAgAABAgQIVKWAALoqp9WgCBAgQIAAAQIEykngc5/7XMHupHA5V+bNm5fbzNZg/uijj7LX6Y7itOZyobLJJptEoTbSHdRvvPFGduoGG2wQvXv3LnSZbP/222+fP17ooYm77rpr/OAHP8jqpdB88ODB8dlnn2Wv0wMMC/Ulf2EbBAgQIECAAAECNSNQ/z2ANTNsAyVAgAABAgQIECDQOgKrrrpqrLPOOgUbq3uncG4d51T5nXfeyZ/Tp0+f/HahjVTnlVdeWebw5MmTIxdsp4cENuZauYsUCqDT8R/96EfZ+s9PPfVUfs3p//qv/4pDDz00d7rPBAgQIECAAAECBEIA7R8BAQIECBAgQIAAgRYUSEtStGnTZqVb+OCDD/LnrLvuuvntQht9+/Zd7qHXXnstvz/dpfz222/nXze08frrrxes0qFDh+yhhUceeWS+TnqgokKAAAECBAgQIECgroAAuq6GbQIECBAgQIAAAQJlIpCC61zJLcWRe728z2nN6OWVzp0753en5TUaemBhvvKSjRQyFyopID/77LPrHT7uuONit912i549e9bb7wUBAgQIECBAgEDtCgiga3fujZwAAQIECBAgQKCMBXr16pXv3ZtvvpnfLrSRltpYXtl4443r7f7e975X73VTXxxxxBHx3nvvZadvvfXW8fTTT2ev0x3Rf/rTn5p6WecRIECAAAECBAhUmYCHEFbZhBoOAQIECBAgQIBAdQhsttlm0b79v+8XefHFF2Px4sUFB5aOFVouI92NvMYaa2TnPv/88zF//vyC10kHZs+ena3tPHHixJgzZ85y6/7qV7+K0aNHZ8fSXdWPPfZYpBA6lbvuuivScYUAAQIECBAgQIBAEhBA+3dAgAABAgQIECBAoAwFunfvHrvvvnvWsxQu33HHHQV7+cc//rHeQwuXrrjDDjtku1KgfOWVVy59uN7rkSNHxpAhQ2LTTTeN9FDBpUt6MOEpp5yS7U4PWBw1alTkPueW7EjHV/QAw6Wv6TUBAgQIECBAgED1Cgigq3dujYwAAQIECBAgQKDCBdKayrmS1lt+//33cy/zn2fMmBHnnHNO/vXyNi666KJo165ddujcc8+NF154YXnVIt31PGLEiPyxE044Ib+dNtI604cddljMmjUr2/+jH/0oBgwYkG1vvvnm+TWh0/FUr9C61NkJ/kOAAAECBAgQIFATAgLomphmgyRAgAABAgQIEKhEgYMOOijSRyopHN52222z9ZU//vjjmDlzZowZMya22WabePnll6NNmzYFh5jC4WOPPTY7/umnn2bXueSSS7K7lNPyHekhh+lO5nTH9fTp07N6Bx98cOy88871rnneeefF+PHjs33bbbddnH766fWOn3XWWZHaSiXVS/UVAgQIECBAgACB2hZos+QHzsKLydW2jdETIECAAAECBAgQWK7AwoUL8+szpwrpTt/cHca5E/r27RtTpkyJtdZaKz744IPc7mU+P/HEE5FbIuPoo4+Oa665pl6dFDR//etfjwceeCC/v23bf99HsmjRomzfvvvuG6uvvnrcfvvtWb+Wt85zuis5LY2x9PrMq6yySsybNy9/7bQxePDguPvuu7OlNXIHHn/88dh1110jjT0tuZEeOpi7+zlXJ31O+wcNGpQ3eeSRR2LHHXesW8U2AQIECBAgQIBADQm4A7qGJttQCRAgQIAAAQIEKk+ga9eu8ec//znOP//8WHvttbMBpOA5fXTu3Dlbp/nOO++M1VZbbYWDS3XT+s5/+ctfYuDAgfnAvG74vNFGG8X1118f99xzT73wOd01nZbUSOFzKmkZj+WFz+lYehjhGWeckTaz+ocffnik8xUCBAgQIECAAIHaFHAHdG3Ou1ETIECAAAECBAhUoMBnn32Wrd88adKk6N+/f2yxxRb17sRemSHNnTs3W7ojPSywZ8+eseGGG0afPn0id3f1ylxLXQIECBAgQIAAAQKFBATQhWTsJ0CAAAECBAgQIECAAAECBAgQIECAAIGiBCzBURSfkwkQIECAAAECBAgQIECAAAECBAgQIECgkIAAupCM/QQIECBAgAABAgQIECBAgAABAgQIECBQlIAAuig+JxMgQIAAAQIECBAgQIAAAQIECBAgQIBAIQEBdCEZ+wkQIECAAAECBAgQIECAAAECBAgQIECgKAEBdFF8TiZAgAABAgQIECBAgAABAgQIECBAgACBQgIC6EIy9hMgQIAAAQIECBAgQIAAAQIECBAgQIBAUQIC6KL4nEyAAAECBAgQIECAAAECBAgQIECAAAEChQQE0IVk7CdAgAABAgQIECBAgAABAgQIECBAgACBogQE0EXxOZkAAQIECBAgQIAAAQIECBAgQIAAAQIECgkIoAvJ2E+AAAECBAgQIECAAAECBAgQIECAAAECRQkIoIviczIBAgQIECBAgAABAgQIECBAgAABAgQIFBIQQBeSsZ8AAQIECBAgQIAAAQIECBAgQIAAAQIEihIQQBfF52QCBAgQIECAAAECBAgQIECAAAECBAgQKCQggC4kYz8BAgQIECBAgAABAgQIECBAgAABAgQIFCUggC6Kz8kECBAgQIAAAQIECBAgQIAAAQIECBAgUEhAAF1Ixn4CBAgQIECAAAECBAgQIECAAAECBAgQKEpAAF0Un5MJECBAgAABAgQIECBAgAABAgQIECBAoJCAALqQjP0ECBAgQIAAAQIECBAgQIAAAQIECBAgUJSAALooPicTIECAAAECBAgQIECAAAECBAgQIECAQCEBAXQhGfsJECBAgAABAgQIECBAgAABAgQIECBAoCgBAXRRfE4mQIAAAQIECBAgQIAAAQIECBAgQIAAgUICAuhCMvYTIECAAAECBAgQIECAAAECBAgQIECAQFECAuii+JxMgAABAgQIECBAgAABAgQIECBAgAABAoUEBNCFZOwnQIAAAQIECBAgQIAAAQIECBAgQIAAgaIEBNBF8TmZAAECBAgQIECAAAECBAgQIECAAAECBAoJCKALydhPgAABAgQIECBAgAABAgQIECBAgAABAkUJCKCL4nMyAQIECBAgQIAAAQIECBAgQIAAAQIECBQSEEAXkrGfAAECBAgQIECAAAECBAgQIECAAAECBIoSEEAXxedkAgQIECBAgAABAgQIECBAgAABAgQIECgkIIAuJGM/AQIECBAgQIAAAQIECBAgQIAAAQIECBQlIIAuis/JBAgQIECAAAECBAgQIECAAAECBAgQIFBIQABdSMZ+AgQIECBAgAABAgQIECBAgAABAgQIEChKQABdFJ+TCRAgQIAAAQIECBAgQIAAAQIECBAgQKCQgAC6kIz9BAgQIECAAAECBAgQIECAAAECBAgQIFCUgAC6KD4nEyBAgAABAgQIECBAgAABAgQIECBAgEAhAQF0IRn7CRAgQIAAAQIECBAgQIAAAQIECBAgQKAoAQF0UXxOJkCAAAECBAgQIECAAAECBAgQIECAAIFCAgLoQjL2EyBAgAABAgQIECBAgAABAgQIECBAgEBRAgLoovicTIAAAQIECBAgQIAAAQIECBAgQIAAAQKFBATQhWTsJ0CAAAECBAgQIECAAAECBAgQIECAAIGiBATQRfE5mQABAgQIECBAgAABAgQIECBAgAABAgQKCQigC8nYT4AAAQIECBAgQIAAAQIECBAgQIAAAQJFCQigi+JzMgECBAgQIECAAAECBAgQIECAAAECBAgUEhBAF5KxnwABAgQIECBAgAABAgQIECBAgAABAgSKEhBAF8XnZAIECBAgQIAAAQIECBAgQIAAAQIECBAoJCCALiRjPwECBAgQIECAAAECBAgQIECAAAECBAgUJSCALorPyQQIECBAgAABAgQIECBAgAABAgQIECBQSOD/AiHnKPWyVY1yAAAAAElFTkSuQmCC" width="720" /></p>
-
-</article></slide><slide class=''><hgroup><h2>Gotta be in the &quot;Hadley mindset&quot;</h2></hgroup><article  id="gotta-be-in-the-hadley-mindset">
-
-<pre class = 'prettyprint lang-r'>sesmat = dst %&gt;% group_by(coursera_user_id) %&gt;% arrange(coursera_user_id,session_date) %&gt;% 
-  summarize(first_session = min(session_num),
-            ses1 = c(1) %in% (session_num - first_session + 1),
-            ses2 = c(2) %in% (session_num - first_session + 1),
-            ses3 = c(3) %in% (session_num - first_session + 1),
-            ses4 = c(4) %in% (session_num - first_session + 1),
-            ses5 = c(5) %in% (session_num - first_session + 1),
-            ses6 = c(6) %in% (session_num - first_session + 1),
-            ses7 = c(7) %in% (session_num - first_session + 1),
-            ses8 = c(8) %in% (session_num - first_session + 1),
-            ses9 = c(9) %in% (session_num - first_session + 1),
-            ses10 = c(10) %in% (session_num - first_session + 1),
-            ses11 = c(11) %in% (session_num - first_session + 1),
-            ses12 = c(12) %in% (session_num - first_session + 1))</pre>
+<pre >See spec(...) for full column specifications.</pre>
 
-</article></slide><slide class=''><hgroup><h2>Merging data sets</h2></hgroup><article  id="merging-data-sets">
+<pre >   user  system elapsed 
+  0.836   0.019   0.858 </pre>
 
-<p>The worst and most common task.</p>
+<pre class = 'prettyprint lang-r'>class(x)</pre>
 
-<pre class = 'prettyprint lang-r'>library(readxl)
-kg_s4 = read_excel(&quot;1000genomes.xlsx&quot;,
-                    sheet=4,skip=1)
+<pre >[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</pre></div></div>
 
-kg_s1 = read_excel(&quot;1000genomes.xlsx&quot;,
-                    sheet=1)</pre>
+</article></slide><slide class=''><hgroup><h2>Quick comparison: fread is faster</h2></hgroup><article  id="quick-comparison-fread-is-faster">
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [351, 11]: expecting numeric: got &#39;HG00703 (niece/nephew)&#39;</pre>
+<pre class = 'prettyprint lang-r'>library(data.table)</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [375, 10]: expecting numeric: got &#39;HG00656, HG00657&#39;</pre>
+<pre >-------------------------------------------------------------------------</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [375, 11]: expecting numeric: got &#39;HG00658 (aunt/uncle)&#39;</pre>
+<pre >data.table + dplyr code now lives in dtplyr.
+Please library(dtplyr)!</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [643, 11]: expecting numeric: got &#39;HG01442(niece/nephew)&#39;</pre>
+<pre >-------------------------------------------------------------------------</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [645, 11]: expecting numeric: got &#39;HG01440 (aunt/uncle)&#39;</pre>
+<pre >
+Attaching package: &#39;data.table&#39;</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1378, 14]: expecting numeric: got &#39;HG02624&#39;</pre>
+<pre >The following objects are masked from &#39;package:dplyr&#39;:
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1387, 14]: expecting numeric: got &#39;HG02624, HG02610, HG02666
-## &#39;</pre>
+    between, last</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1417, 14]: expecting numeric: got &#39;HG02666, HG02624&#39;</pre>
+</article></slide><slide class=''><hgroup><h2>Quick comparison: fread is faster</h2></hgroup><article  id="quick-comparison-fread-is-faster-1">
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1426, 14]: expecting numeric: got &#39;HG02682&#39;</pre>
+<pre class = 'prettyprint lang-r'>system.time({x = fread(outfile)})</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1427, 14]: expecting numeric: got &#39;HG02681&#39;</pre>
+<pre >   user  system elapsed 
+  0.203   0.016   0.222 </pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1432, 14]: expecting numeric: got &#39;HG03705&#39;</pre>
+<pre class = 'prettyprint lang-r'>class(x)</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1442, 14]: expecting numeric: got &#39;HG02700&#39;</pre>
+<pre >[1] &quot;data.table&quot; &quot;data.frame&quot;</pre>
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1443, 14]: expecting numeric: got &#39;HG02699&#39;</pre>
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>A little data cleaning</h2></hgroup><article  id="a-little-data-cleaning">
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1642, 14]: expecting numeric: got &#39;HG03097&#39;</pre>
+</article></slide><slide class=''><hgroup><h2>Finding Missing data</h2></hgroup><article  id="finding-missing-data">
 
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1658, 14]: expecting numeric: got &#39;HG03073&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1734, 14]: expecting numeric: got &#39;HG03229&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1735, 14]: expecting numeric: got &#39;HG03228&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1758, 14]: expecting numeric: got &#39;HG03271&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1761, 14]: expecting numeric: got &#39;HG03268&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1774, 14]: expecting numeric: got &#39;HG03372&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1791, 14]: expecting numeric: got &#39;HG03352&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1795, 14]: expecting numeric: got &#39;HG03366, HG03343&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1801, 14]: expecting numeric: got &#39;HG03352&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1807, 14]: expecting numeric: got &#39;HG03301&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1812, 14]: expecting numeric: got &#39;HG03383&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1815, 14]: expecting numeric: got &#39;HG03383&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1832, 14]: expecting numeric: got &#39;HG03457&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1838, 12]: expecting numeric: got &#39;HG03471&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1848, 14]: expecting numeric: got &#39;HG03457&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1849, 14]: expecting numeric: got &#39;HG03457&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1853, 14]: expecting numeric: got &#39;HG03457&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1857, 14]: expecting numeric: got &#39;HG03484&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1862, 14]: expecting numeric: got &#39;HG03480, HG03484&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1863, 12]: expecting numeric: got &#39;HG03438&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1871, 14]: expecting numeric: got &#39;HG03469, HG03484&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1872, 14]: expecting numeric: got &#39;HG03478, HG03469, HG03480&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1899, 14]: expecting numeric: got &#39;HG03566&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1902, 14]: expecting numeric: got &#39;HG03574&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1909, 14]: expecting numeric: got &#39;HG03547&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [1914, 14]: expecting numeric: got &#39;HG03556&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2007, 14]: expecting numeric: got &#39;HG02687&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2365, 14]: expecting numeric: got &#39;NA07022, NA07056, first
-## cous once removed&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2368, 11]: expecting numeric: got &#39;NA12813(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2372, 14]: expecting numeric: got &#39;NA06993 (1st cous once
-## removed)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2377, 11]: expecting numeric: got &#39;NA12801 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2381, 14]: expecting numeric: got &#39;NA06993 (1st cous once
-## removed)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2457, 14]: expecting numeric: got &#39;NA12264 (1st cous once
-## removed)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2463, 14]: expecting numeric: got &#39;NA12155 (1st cous once
-## removed)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2516, 11]: expecting numeric: got &#39;NA07045(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2519, 11]: expecting numeric: got &#39;NA06997 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2561, 8]: expecting numeric: got &#39;NA18510&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2562, 8]: expecting numeric: got &#39;NA18509&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2692, 10]: expecting numeric: got &#39;NA19105&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2711, 8]: expecting numeric: got &#39;NA19252&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2716, 12]: expecting numeric: got &#39;NA19240&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2717, 10]: expecting numeric: got &#39;NA19238&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2818, 14]: expecting numeric: got &#39;NA19022, NA19045&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2865, 11]: expecting numeric: got &#39;NA19154 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2866, 10]: expecting numeric: got &#39; NA18863&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2884, 11]: expecting numeric: got &#39;NA19192 (nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2904, 11]: expecting numeric: got &#39;NA19104 (aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2908, 11]: expecting numeric: got &#39;NA19186 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2918, 11]: expecting numeric: got &#39;NA19166 (aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2927, 14]: expecting numeric: got &#39;NA19178 (1st cous once
-## removed)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2930, 11]: expecting numeric: got &#39;NA19186 (newphew/niece)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2941, 11]: expecting numeric: got &#39;NA19254 (aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2957, 8]: expecting numeric: got &#39;NA18908&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2958, 11]: expecting numeric: got &#39;NA19215 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2981, 14]: expecting numeric: got &#39;NA19334&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [2983, 14]: expecting numeric: got &#39;NA19331&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3002, 12]: expecting numeric: got &#39;NA19382&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3004, 12]: expecting numeric: got &#39;NA19380&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3006, 14]: expecting numeric: got &#39;NA19025&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3022, 14]: expecting numeric: got &#39;NA19037, NA19039&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3032, 11]: expecting numeric: got &#39;NA19469 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3051, 11]: expecting numeric: got &#39;NA19443 (aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3071, 10]: expecting numeric: got &#39;NA19686&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3071, 11]: expecting numeric: got &#39;NA19664 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3072, 10]: expecting numeric: got &#39;NA19686&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3073, 11]: expecting numeric: got &#39;NA19686(niece/nephew),
-## NA19672 (aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3075, 11]: expecting numeric: got &#39;NA19672, NA19660(aunt/
-## uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3080, 11]: expecting numeric: got &#39;NA19685, NA19662, NA19664
-## (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3084, 10]: expecting numeric: got &#39;NA19679, NA19678&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3084, 11]: expecting numeric: got &#39;NA19680(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3085, 10]: expecting numeric: got &#39;NA19677&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3086, 10]: expecting numeric: got &#39;NA19677&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3087, 11]: expecting numeric: got &#39;NA19677 (niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3092, 11]: expecting numeric: got &#39;NA19672(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3093, 10]: expecting numeric: got &#39;NA19660, NA19661&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3093, 11]: expecting numeric: got &#39;NA19662(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3104, 11]: expecting numeric: got &#39;NA19714(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3105, 11]: expecting numeric: got &#39;NA19713(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3204, 11]: expecting numeric: got &#39;NA19985(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3205, 8]: expecting numeric: got &#39;NA19714&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3206, 11]: expecting numeric: got &#39;NA19983(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3215, 12]: expecting numeric: got &#39;NA20284,NA20285&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3216, 8]: expecting numeric: got &#39;NA20284&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3218, 8]: expecting numeric: got &#39;NA20281&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3218, 12]: expecting numeric: got &#39;NA20279&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3219, 12]: expecting numeric: got &#39;NA20279&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3223, 11]: expecting numeric: got &#39;NA20341(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3230, 8]: expecting numeric: got &#39;NA20300&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3233, 11]: expecting numeric: got &#39;NA20284, NA20279(niece/
-## nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3234, 11]: expecting numeric: got &#39;NA20282(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3247, 11]: expecting numeric: got &#39;NA20337(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3248, 11]: expecting numeric: got &#39;NA20336(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3249, 11]: expecting numeric: got &#39;NA20335(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3250, 11]: expecting numeric: got &#39;NA20334(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3253, 11]: expecting numeric: got &#39;NA20290(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3256, 11]: expecting numeric: got &#39;NA20350(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3257, 11]: expecting numeric: got &#39;NA20349(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3259, 12]: expecting numeric: got &#39;NA20363&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3261, 11]: expecting numeric: got &#39;NA20345(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3262, 11]: expecting numeric: got &#39;NA20344(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3268, 11]: expecting numeric: got &#39;NA20363(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3272, 11]: expecting numeric: got &#39;NA20359(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3272, 12]: expecting numeric: got &#39;NA20347&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3429, 11]: expecting numeric: got &#39;NA20907(niece/nephew)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3445, 11]: expecting numeric: got &#39;NA20891(aunt/uncle)&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3477, 14]: expecting numeric: got &#39;NA21134&#39;</pre>
-
-<pre >## Warning in read_xlsx_(path, sheet, col_names = col_names, col_types =
-## col_types, : [3495, 14]: expecting numeric: got &#39;NA21114&#39;</pre>
-
-<pre class = 'prettyprint lang-r'>head(kg_s4,n=1)</pre>
-
-<pre >## # A tibble: 1 x 16
-##    Sample Population Center Platform Total Sequence
-##     &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 HG00096        GBR  WUGSC ILLUMINA    14714705600
-## # ... with 11 more variables: Aligned Non Duplicated Coverage &lt;dbl&gt;,
-## #   Passed QC &lt;dbl&gt;, Center &lt;chr&gt;, Platform &lt;chr&gt;, Total Sequence &lt;dbl&gt;, %
-## #   Targets Covered to 20x or greater &lt;dbl&gt;, Passed QC &lt;dbl&gt;, In Final
-## #   Phase Variant Calling &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;</pre>
-
-<pre class = 'prettyprint lang-r'>head(kg_s1,n=1)</pre>
-
-<pre >## # A tibble: 1 x 15
-##    Sample Family ID Population          Population Description Gender
-##     &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;                           &lt;chr&gt;  &lt;chr&gt;
-## 1 HG00096   HG00096        GBR British in England and Scotland   male
-## # ... with 10 more variables: Relationship &lt;chr&gt;, Unexpected Parent/Child
-## #    &lt;chr&gt;, Non Paternity &lt;dbl&gt;, Siblings &lt;chr&gt;, Grandparents &lt;dbl&gt;,
-## #   Avuncular &lt;dbl&gt;, Half Siblings &lt;dbl&gt;, Unknown Second Order &lt;chr&gt;,
-## #   Third Order &lt;dbl&gt;, Other Comments &lt;dbl&gt;</pre>
-
-</article></slide><slide class=''><hgroup><h2>names</h2></hgroup><article  id="names">
-
-<pre class = 'prettyprint lang-r'>names(kg_s1)</pre>
-
-<pre >##  [1] &quot;Sample&quot;                   &quot;Family ID&quot;               
-##  [3] &quot;Population&quot;               &quot;Population Description&quot;  
-##  [5] &quot;Gender&quot;                   &quot;Relationship&quot;            
-##  [7] &quot;Unexpected Parent/Child &quot; &quot;Non Paternity&quot;           
-##  [9] &quot;Siblings&quot;                 &quot;Grandparents&quot;            
-## [11] &quot;Avuncular&quot;                &quot;Half Siblings&quot;           
-## [13] &quot;Unknown Second Order&quot;     &quot;Third Order&quot;             
-## [15] &quot;Other Comments&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>names(kg_s4)</pre>
-
-<pre >##  [1] &quot;Sample&quot;                             
-##  [2] &quot;Population&quot;                         
-##  [3] &quot;Center&quot;                             
-##  [4] &quot;Platform&quot;                           
-##  [5] &quot;Total Sequence&quot;                     
-##  [6] &quot;Aligned Non Duplicated Coverage&quot;    
-##  [7] &quot;Passed QC&quot;                          
-##  [8] &quot;Center&quot;                             
-##  [9] &quot;Platform&quot;                           
-## [10] &quot;Total Sequence&quot;                     
-## [11] &quot;% Targets Covered to 20x or greater&quot;
-## [12] &quot;Passed QC&quot;                          
-## [13] &quot;In Final Phase Variant Calling&quot;     
-## [14] &quot;&quot;                                   
-## [15] &quot;&quot;                                   
-## [16] &quot;&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>merge</h2></hgroup><article  id="merge">
-
-<pre class = 'prettyprint lang-r'>kg_new = merge(kg_s4,kg_s1)</pre>
-
-<pre >## Warning in merge.data.frame(kg_s4, kg_s1): column names &#39;Center&#39;,
-## &#39;Platform&#39;, &#39;Total Sequence&#39;, &#39;Passed QC&#39;, &#39;&#39;, &#39;&#39; are duplicated in the
-## result</pre>
-
-<pre class = 'prettyprint lang-r'>dim(kg_new)</pre>
-
-<pre >## [1] 3500   29</pre>
-
-<pre class = 'prettyprint lang-r'>names(kg_new)</pre>
-
-<pre >##  [1] &quot;Sample&quot;                             
-##  [2] &quot;Population&quot;                         
-##  [3] &quot;Center&quot;                             
-##  [4] &quot;Platform&quot;                           
-##  [5] &quot;Total Sequence&quot;                     
-##  [6] &quot;Aligned Non Duplicated Coverage&quot;    
-##  [7] &quot;Passed QC&quot;                          
-##  [8] &quot;Center&quot;                             
-##  [9] &quot;Platform&quot;                           
-## [10] &quot;Total Sequence&quot;                     
-## [11] &quot;% Targets Covered to 20x or greater&quot;
-## [12] &quot;Passed QC&quot;                          
-## [13] &quot;In Final Phase Variant Calling&quot;     
-## [14] &quot;Var.14&quot;                             
-## [15] &quot;Var.15&quot;                             
-## [16] &quot;Var.16&quot;                             
-## [17] &quot;Family ID&quot;                          
-## [18] &quot;Population Description&quot;             
-## [19] &quot;Gender&quot;                             
-## [20] &quot;Relationship&quot;                       
-## [21] &quot;Unexpected Parent/Child &quot;           
-## [22] &quot;Non Paternity&quot;                      
-## [23] &quot;Siblings&quot;                           
-## [24] &quot;Grandparents&quot;                       
-## [25] &quot;Avuncular&quot;                          
-## [26] &quot;Half Siblings&quot;                      
-## [27] &quot;Unknown Second Order&quot;               
-## [28] &quot;Third Order&quot;                        
-## [29] &quot;Other Comments&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>More on types of joins</h2></hgroup><article  id="more-on-types-of-joins">
-
-<p><img class=center src=./sql-joins.jpg height=400></p>
-
-<p><a href='https://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html' title=''>https://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Superhero example</h2></hgroup><article  id="superhero-example">
-
-<pre class = 'prettyprint lang-r'>superheroes &lt;-
-  c(&quot;    name, alignment, gender,         publisher&quot;,
-    &quot; Magneto,       bad,   male,            Marvel&quot;,
-    &quot;   Storm,      good, female,            Marvel&quot;,
-    &quot;Mystique,       bad, female,            Marvel&quot;,
-    &quot;  Batman,      good,   male,                DC&quot;,
-    &quot;   Joker,       bad,   male,                DC&quot;,
-    &quot;Catwoman,       bad, female,                DC&quot;,
-    &quot; Hellboy,      good,   male, Dark Horse Comics&quot;)
-
-superheroes &lt;- read.csv(text = superheroes, strip.white = TRUE)</pre>
-
-<p><a href='https://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html' title=''>https://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Superheroes example</h2></hgroup><article  id="superheroes-example">
-
-<pre class = 'prettyprint lang-r'>publishers &lt;- 
-  c(&quot;publisher, yr_founded&quot;,
-    &quot;       DC,       1934&quot;,
-    &quot;   Marvel,       1939&quot;,
-    &quot;    Image,       1992&quot;)
-publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</pre>
-
-</article></slide><slide class=''><hgroup><h2>Inner join</h2></hgroup><article  id="inner-join">
-
-<pre class = 'prettyprint lang-r'>ijsp = inner_join(superheroes, publishers)</pre>
-
-<pre >## Joining, by = &quot;publisher&quot;</pre>
-
-<pre >## Warning in inner_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
-
-<pre class = 'prettyprint lang-r'>ijsp</pre>
-
-<pre >##       name alignment gender publisher yr_founded
-## 1  Magneto       bad   male    Marvel       1939
-## 2    Storm      good female    Marvel       1939
-## 3 Mystique       bad female    Marvel       1939
-## 4   Batman      good   male        DC       1934
-## 5    Joker       bad   male        DC       1934
-## 6 Catwoman       bad female        DC       1934</pre>
-
-</article></slide><slide class=''><hgroup><h2>Comparison</h2></hgroup><article  id="comparison">
-
-<p><img class=center src=./innerjoin.png height=200></p>
-
-</article></slide><slide class=''><hgroup><h2>Left join</h2></hgroup><article  id="left-join">
-
-<pre class = 'prettyprint lang-r'>ljsp = left_join(superheroes, publishers)</pre>
-
-<pre >## Joining, by = &quot;publisher&quot;</pre>
-
-<pre >## Warning in left_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
-
-<pre class = 'prettyprint lang-r'>ljsp</pre>
-
-<pre >##       name alignment gender         publisher yr_founded
-## 1  Magneto       bad   male            Marvel       1939
-## 2    Storm      good female            Marvel       1939
-## 3 Mystique       bad female            Marvel       1939
-## 4   Batman      good   male                DC       1934
-## 5    Joker       bad   male                DC       1934
-## 6 Catwoman       bad female                DC       1934
-## 7  Hellboy      good   male Dark Horse Comics         NA</pre>
-
-</article></slide><slide class=''><hgroup><h2>Comparison</h2></hgroup><article  id="comparison-1">
-
-<p><img class=center src=./leftjoin.png height=200></p>
-
-</article></slide><slide class=''><hgroup><h2>Outer join (using merge)</h2></hgroup><article  id="outer-join-using-merge">
-
-<pre class = 'prettyprint lang-r'>ojsp = merge(superheroes, publishers, all = TRUE)
-ojsp</pre>
-
-<pre >##           publisher     name alignment gender yr_founded
-## 1 Dark Horse Comics  Hellboy      good   male         NA
-## 2                DC   Batman      good   male       1934
-## 3                DC    Joker       bad   male       1934
-## 4                DC Catwoman       bad female       1934
-## 5            Marvel  Magneto       bad   male       1939
-## 6            Marvel    Storm      good female       1939
-## 7            Marvel Mystique       bad female       1939
-## 8             Image     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;       1992</pre>
-
-</article></slide><slide class=''><hgroup><h2>Merging different names</h2></hgroup><article  id="merging-different-names">
-
-<pre class = 'prettyprint lang-r'>superheroes = mutate(superheroes,
-                jefflikes = (publisher==&quot;Marvel&quot;))
-publishers = mutate(publishers,
-                    jeff = (publisher == &quot;Marvel&quot;))
-ij2 = inner_join(superheroes,publishers)</pre>
-
-<pre >## Joining, by = &quot;publisher&quot;</pre>
-
-<pre >## Warning in inner_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
-
-<pre class = 'prettyprint lang-r'>ij2</pre>
-
-<pre >##       name alignment gender publisher jefflikes yr_founded  jeff
-## 1  Magneto       bad   male    Marvel      TRUE       1939  TRUE
-## 2    Storm      good female    Marvel      TRUE       1939  TRUE
-## 3 Mystique       bad female    Marvel      TRUE       1939  TRUE
-## 4   Batman      good   male        DC     FALSE       1934 FALSE
-## 5    Joker       bad   male        DC     FALSE       1934 FALSE
-## 6 Catwoman       bad female        DC     FALSE       1934 FALSE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Merging different names</h2></hgroup><article  id="merging-different-names-1">
-
-<pre class = 'prettyprint lang-r'>ij2 = inner_join(superheroes,publishers,
-                    by=c(&quot;publisher&quot;=&quot;publisher&quot;,
-                            &quot;jefflikes&quot;=&quot;jeff&quot;))</pre>
-
-<pre >## Warning in inner_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
-
-<pre class = 'prettyprint lang-r'>ij2</pre>
-
-<pre >##       name alignment gender publisher jefflikes yr_founded
-## 1  Magneto       bad   male    Marvel      TRUE       1939
-## 2    Storm      good female    Marvel      TRUE       1939
-## 3 Mystique       bad female    Marvel      TRUE       1939
-## 4   Batman      good   male        DC     FALSE       1934
-## 5    Joker       bad   male        DC     FALSE       1934
-## 6 Catwoman       bad female        DC     FALSE       1934</pre>
-
-</article></slide><slide class=''><hgroup><h2>Matching variables</h2></hgroup><article  id="matching-variables">
-
-<pre class = 'prettyprint lang-r'>match(superheroes$publisher,publishers$publisher)</pre>
-
-<pre >## [1]  2  2  2  1  1  1 NA</pre>
-
-<pre class = 'prettyprint lang-r'>match(publishers$publisher,superheroes$publisher)</pre>
-
-<pre >## [1]  4  1 NA</pre>
-
-<pre class = 'prettyprint lang-r'>matchIndex = match(superheroes$publisher,publishers$publisher)
-publishers[matchIndex,]</pre>
-
-<pre >##     publisher yr_founded  jeff
-## 2      Marvel       1939  TRUE
-## 2.1    Marvel       1939  TRUE
-## 2.2    Marvel       1939  TRUE
-## 1          DC       1934 FALSE
-## 1.1        DC       1934 FALSE
-## 1.2        DC       1934 FALSE
-## NA       &lt;NA&gt;         NA    NA</pre>
-
-</article></slide><slide class=''><hgroup><h2>Regular expressions</h2></hgroup><article  id="regular-expressions">
+<p>Each missing data type has a function that returns <code>TRUE</code> if the data is missing:</p>
 
 <ul>
-<li>Regular expressions can be thought of as a combination of literals and <em>metacharacters</em></li>
-<li>To draw an analogy with natural language, think of literal text forming the words of this language, and the metacharacters defining its grammar</li>
-<li>Regular expressions have a rich set of metacharacters</li>
+<li><code>NA</code> - <code>is.na</code></li>
+<li><code>NaN</code> - <code>is.nan</code></li>
+<li><code>Inf</code> and <code>-Inf</code> - <code>is.infinite</code></li>
+<li><code>is.finite</code> returns <code>FALSE</code> for all missing data and <code>TRUE</code> for non-missing</li>
+<li><code>complete.cases</code> on a <code>data.frame</code>/<code>matrix</code> returns <code>TRUE</code> if all values in that row of the object are not missing.</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Regular expressions</h2></hgroup><article  id="regular-expressions-1">
+</article></slide><slide class=''><hgroup><h2>Missing Data with Logicals</h2></hgroup><article  id="missing-data-with-logicals">
 
-<p>Find all &quot;BGI&quot;</p>
+<p>One important aspect (esp with subsetting) is that logical operations return <code>NA</code> for <code>NA</code> values. Think about it, the data could be <code>&gt; 2</code> or not we don&#39;t know, so <code>R</code> says there is no <code>TRUE</code> or <code>FALSE</code>, so that is missing:</p>
 
-<pre class = 'prettyprint lang-r'>library(readxl)
-kg = read_excel(&quot;1000genomes.xlsx&quot;,sheet=4,skip=1)
-table(kg$Center)</pre>
+<pre class = 'prettyprint lang-r'>x = c(0, NA, 2, 3, 4)
+x &gt; 2</pre>
 
-<pre >## 
-##            BCM        BCM,BGI         BCM,BI         BCM,SC      BCM,WUGSC 
-##            159              1              8              6              3 
-##            BGI             BI       BI,MPIMG       Illumina       ILLUMINA 
-##            626            578              1              1            104 
-## ILLUMINA,WUGSC          MPIMG             SC          WUGSC 
-##              2             95            739            365</pre>
+<pre >[1] FALSE    NA FALSE  TRUE  TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>grep</h2></hgroup><article  id="grep-1">
+<pre class = 'prettyprint lang-r'>x[x &gt; 2]</pre>
 
-<pre class = 'prettyprint lang-r'>grep(&quot;BCM&quot;,kg$Center)[1:10]</pre>
+<pre >[1] NA  3  4</pre>
 
-<pre >##  [1]   2   4   9  33  34  35  86  87 174 175</pre>
+</article></slide><slide class=''><hgroup><h2>Missing Data with Logicals</h2></hgroup><article  id="missing-data-with-logicals-1">
 
-<pre class = 'prettyprint lang-r'>grepl(&quot;BCM&quot;,kg$Center)[1:10]</pre>
+<p>What about seeing if a value is equal to multiple values? You can do <code>(x == 1 | x == 2) &amp; !is.na(x)</code>, but that is not efficient. Use <code>%in%</code></p>
 
-<pre >##  [1] FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE</pre>
+<pre class = 'prettyprint lang-r'>(x == 0 | x == 2) # has NA</pre>
 
-</article></slide><slide class=''><hgroup><h2>stringr</h2></hgroup><article  id="stringr">
+<pre >[1]  TRUE    NA  TRUE FALSE FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>(x == 0 | x == 2) &amp; !is.na(x) # No NA</pre>
+
+<pre >[1]  TRUE FALSE  TRUE FALSE FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>x %in% c(0, 2) # NEVER has NA and returns logical</pre>
+
+<pre >[1]  TRUE FALSE  TRUE FALSE FALSE</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Tables and Tabulations</h2></hgroup><article  id="tables-and-tabulations">
+
+</article></slide><slide class=''><hgroup><h2>Creating One-way Tables</h2></hgroup><article  id="creating-one-way-tables">
+
+<p>Here we will use <code>table</code> to make tabulations of the data. Look at <code>?table</code> to see options for missing data:</p>
+
+<pre class = 'prettyprint lang-r'>table(x)</pre>
+
+<pre >x
+0 2 3 4 
+1 1 1 1 </pre>
+
+<p>From <code>table</code> source code (default for <code>useNA</code>?):</p>
+
+<pre class = 'prettyprint lang-r'>table %&gt;% head(22) %&gt;% tail(1)</pre>
+
+<pre >[1]     useNA &lt;- match.arg(useNA)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Creating One-way Tables</h2></hgroup><article  id="creating-one-way-tables-1">
+
+<p>You can set <code>useNA = &quot;always&quot;</code> to have it always have a column for <code>NA</code></p>
+
+<pre class = 'prettyprint lang-r'>table(x, useNA = &quot;ifany&quot;)</pre>
+
+<pre >x
+   0    2    3    4 &lt;NA&gt; 
+   1    1    1    1    1 </pre>
+
+<pre class = 'prettyprint lang-r'>table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+      useNA = &quot;always&quot;)</pre>
+
+<pre >
+   0    1    2    3 &lt;NA&gt; 
+   1    1    4    4    0 </pre>
+
+</article></slide><slide class=''><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables">
+
+<p>A two-way table. If you pass in 2 vectors, <code>table</code> creates a 2-dimensional table.</p>
+
+<pre class = 'prettyprint lang-r'>tab &lt;- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+             c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
+             useNA = &quot;always&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Finding Row or Column Totals</h2></hgroup><article  id="finding-row-or-column-totals">
+
+<p><code>margin.table</code> finds the marginal sums of the table. <code>margin</code> is 1 for rows, 2 for columns in general in <code>R</code>. Here is the column sums of the table:</p>
+
+<pre class = 'prettyprint lang-r'>margin.table(tab, 2)</pre>
+
+<pre >
+   0    1    2    3    4 &lt;NA&gt; 
+   1    1    2    4    2    0 </pre>
+
+</article></slide><slide class=''><hgroup><h2>Proportion Tables</h2></hgroup><article  id="proportion-tables">
+
+<p><code>prop.table</code> finds the marginal proportions of the table. Think of it dividing the table by it&#39;s respective marginal totals. If <code>margin</code> not set, divides by overall total.</p>
+
+<pre class = 'prettyprint lang-r'>prop.table(tab)</pre>
+
+<pre >      
+         0   1   2   3   4 &lt;NA&gt;
+  0    0.1 0.0 0.0 0.0 0.0  0.0
+  1    0.0 0.1 0.0 0.0 0.0  0.0
+  2    0.0 0.0 0.2 0.0 0.2  0.0
+  3    0.0 0.0 0.0 0.4 0.0  0.0
+  &lt;NA&gt; 0.0 0.0 0.0 0.0 0.0  0.0</pre>
+
+<pre class = 'prettyprint lang-r'>prop.table(tab,1)</pre>
+
+<pre >      
+         0   1   2   3   4 &lt;NA&gt;
+  0    1.0 0.0 0.0 0.0 0.0  0.0
+  1    0.0 1.0 0.0 0.0 0.0  0.0
+  2    0.0 0.0 0.5 0.0 0.5  0.0
+  3    0.0 0.0 0.0 1.0 0.0  0.0
+  &lt;NA&gt;                         </pre>
+
+</article></slide><slide class=''><hgroup><h2>Proportion Tables</h2></hgroup><article  id="proportion-tables-1">
+
+<p><code>margin = 1</code> means row percentages</p>
+
+<pre class = 'prettyprint lang-r'>prop.table(tab,1)</pre>
+
+<pre >      
+         0   1   2   3   4 &lt;NA&gt;
+  0    1.0 0.0 0.0 0.0 0.0  0.0
+  1    0.0 1.0 0.0 0.0 0.0  0.0
+  2    0.0 0.0 0.5 0.0 0.5  0.0
+  3    0.0 0.0 0.0 1.0 0.0  0.0
+  &lt;NA&gt;                         </pre>
+
+</article></slide><slide class=''><hgroup><h2>Download Salary FY2014 Data</h2></hgroup><article  id="download-salary-fy2014-data">
+
+<p>From <a href='https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2014/2j28-xzd7' title=''>https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2014/2j28-xzd7</a> <a href='http://www.aejaffe.com/winterR_2016/data/Baltimore_City_Employee_Salaries_FY2014.csv' title=''>http://www.aejaffe.com/winterR_2016/data/Baltimore_City_Employee_Salaries_FY2014.csv</a></p>
+
+<p>Read the CSV into R <code>Sal</code>:</p>
+
+<pre class = 'prettyprint lang-r'>Sal = read.csv(
+  paste0(&quot;http://www.aejaffe.com/winterR_2016/data&quot;,
+         &quot;/Baltimore_City_Employee_Salaries_FY2014.csv&quot;),
+  as.is = TRUE)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Checking for logical conditions</h2></hgroup><article  id="checking-for-logical-conditions">
+
+<ul>
+<li><code>any()</code> - checks if there are any <code>TRUE</code>s</li>
+<li><code>all()</code> - checks if ALL are true</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>head(Sal,2)</pre>
+
+<pre >              Name                      JobTitle AgencyID
+1  Aaron,Keontae E                AIDE BLUE CHIP   W02200
+2 Aaron,Patricia G Facilities/Office Services II   A03031
+               Agency   HireDate AnnualSalary  GrossPay
+1      Youth Summer   06/10/2013    $11310.00   $873.63
+2 OED-Employment Dev  10/24/1979    $53428.00 $52868.38</pre>
+
+<pre class = 'prettyprint lang-r'>any(is.na(Sal$Name)) # are there any NAs?</pre>
+
+<pre >[1] FALSE</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Recoding Variables</h2></hgroup><article  id="recoding-variables">
+
+</article></slide><slide class=''><hgroup><h2>Example of Recoding: base R</h2></hgroup><article  id="example-of-recoding-base-r">
+
+<p>For example, let&#39;s say gender was coded as Male, M, m, Female, F, f. Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements.</p>
+
+<p>In R, you can simply do something like:</p>
+
+<pre class = 'prettyprint lang-r'>data$gender[data$gender %in% 
+              c(&quot;Male&quot;, &quot;M&quot;, &quot;m&quot;)] &lt;- &quot;Male&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Example of Recoding with <code>recode</code>: <code>car</code> package</h2></hgroup><article  id="example-of-recoding-with-recode-car-package">
+
+<p>You can also <code>recode</code> a vector:</p>
+
+<pre class = 'prettyprint lang-r'>library(car, quietly = TRUE)</pre>
+
+<pre >
+Attaching package: &#39;car&#39;</pre>
+
+<pre >The following object is masked from &#39;package:dplyr&#39;:
+
+    recode</pre>
+
+<pre class = 'prettyprint lang-r'>car::recode(x, &quot;c(&#39;m&#39;, &#39;M&#39;, &#39;male&#39;) = &#39;Male&#39;;
+            c(&#39;f&#39;, &#39;F&#39;, &#39;female&#39;) = &#39;Female&#39;;&quot;)</pre>
+
+<pre >[1]  0 NA  2  3  4</pre>
+
+</article></slide><slide class=''><hgroup><h2>Example of Recoding with <code>revalue</code>: <code>plyr</code></h2></hgroup><article  id="example-of-recoding-with-revalue-plyr">
+
+<p>You can <code>revalue</code> a vector with the <code>revalue</code> command</p>
+
+<pre class = 'prettyprint lang-r'>library(plyr)
+x = rep(c(&quot;Male&quot;, &quot;M&quot;, &quot;m&quot;, &quot;f&quot;, &quot;Female&quot;, &quot;female&quot; ), 
+        each = 3)
+plyr::revalue(x, c(&quot;M&quot; = &quot;Male&quot;, &quot;m&quot; = &quot;Male&quot;,
+                   &quot;f&quot; = &quot;Female&quot;, &quot;female&quot; = &quot;Female&quot;))</pre>
+
+<pre > [1] &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot;  
+ [8] &quot;Male&quot;   &quot;Male&quot;   &quot;Female&quot; &quot;Female&quot; &quot;Female&quot; &quot;Female&quot; &quot;Female&quot;
+[15] &quot;Female&quot; &quot;Female&quot; &quot;Female&quot; &quot;Female&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Example of Cleaning: more complicated</h2></hgroup><article  id="example-of-cleaning-more-complicated">
+
+<p>Sometimes though, it&#39;s not so simple. That&#39;s where functions that find patterns come in very useful.</p>
+
+<pre class = 'prettyprint lang-r'>set.seed(4) # random sample below - make sure same every time
+gender &lt;- sample(c(&quot;Male&quot;, &quot;mAle&quot;, &quot;MaLe&quot;, &quot;M&quot;, &quot;MALE&quot;, 
+                   &quot;Ma&quot;, &quot;FeMAle&quot;, &quot;F&quot;, &quot;Woman&quot;, &quot;Man&quot;, &quot;Fm&quot;, &quot;FEMALE&quot;), 
+                 1000, replace = TRUE)</pre>
+
+<pre class = 'prettyprint lang-r'>table(gender)</pre>
+
+<pre >gender
+     F FeMAle FEMALE     Fm      M     Ma   mAle   Male   MaLe   MALE 
+    75     82     74     89     89     79     87     89     88     95 
+   Man  Woman 
+    73     80 </pre>
+
+</article></slide><slide class=''><hgroup><h2>Example of Cleaning: use dput</h2></hgroup><article  id="example-of-cleaning-use-dput">
+
+<p><code>dput</code> &quot;Writes an ASCII text representation of an R object to a file or connection, or uses one to recreate the object.&quot;</p>
+
+<pre class = 'prettyprint lang-r'>dput(unique(gender))</pre>
+
+<pre >c(&quot;F&quot;, &quot;Male&quot;, &quot;M&quot;, &quot;Man&quot;, &quot;Woman&quot;, &quot;Fm&quot;, &quot;FEMALE&quot;, &quot;mAle&quot;, &quot;MALE&quot;, 
+&quot;Ma&quot;, &quot;FeMAle&quot;, &quot;MaLe&quot;)</pre>
+
+<pre class = 'prettyprint lang-r'># Copy this to your clipboard
+# stopifnot( all(gender %in% CLIPBOARD_PASTE))</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>String functions</h2></hgroup><article  id="string-functions">
+
+</article></slide><slide class=''><hgroup><h2>Pasting strings with <code>paste</code> and <code>paste0</code></h2></hgroup><article  id="pasting-strings-with-paste-and-paste0">
+
+<p>Paste can be very useful for joining vectors together:</p>
+
+<pre class = 'prettyprint lang-r'>paste(&quot;Visit&quot;, 1:5, sep = &quot;_&quot;)</pre>
+
+<pre >[1] &quot;Visit_1&quot; &quot;Visit_2&quot; &quot;Visit_3&quot; &quot;Visit_4&quot; &quot;Visit_5&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>paste(&quot;Visit&quot;, 1:5, sep = &quot;_&quot;, collapse = &quot; &quot;)</pre>
+
+<pre >[1] &quot;Visit_1 Visit_2 Visit_3 Visit_4 Visit_5&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>paste(&quot;To&quot;, &quot;is going be the &quot;, &quot;we go to the store!&quot;, sep = &quot;day &quot;)</pre>
+
+<pre >[1] &quot;Today is going be the day we go to the store!&quot;</pre>
+
+<pre class = 'prettyprint lang-r'># and paste0 can be even simpler see ?paste0 
+paste0(&quot;Visit&quot;,1:5)</pre>
+
+<pre >[1] &quot;Visit1&quot; &quot;Visit2&quot; &quot;Visit3&quot; &quot;Visit4&quot; &quot;Visit5&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Paste Depicting How Collapse Works</h2></hgroup><article  id="paste-depicting-how-collapse-works">
+
+<pre class = 'prettyprint lang-r'>paste(1:5)</pre>
+
+<pre >[1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>paste(1:5, collapse = &quot; &quot;)</pre>
+
+<pre >[1] &quot;1 2 3 4 5&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Useful String Functions</h2></hgroup><article  id="useful-string-functions">
+
+<p>Useful String functions</p>
+
+<ul>
+<li><code>toupper()</code>, <code>tolower()</code> - uppercase or lowercase your data:</li>
+<li><code>str_trim()</code> (in the <code>stringr</code> package) or <code>trimws</code> in base</li>
+<li>will trim whitespace</li>
+<li><code>nchar</code> - get the number of characters in a string</li>
+<li><code>paste()</code> - paste strings together with a space</li>
+<li><code>paste0</code> - paste strings together with no space as default</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>The <code>stringr</code> package</h2></hgroup><article  id="the-stringr-package">
+
+<p>Like <code>dplyr</code>, the <code>stringr</code> package:</p>
+
+<ul>
+<li>Makes some things more intuitive</li>
+<li>Is different than base R</li>
+<li>Is used on forums for answers</li>
+<li>Has a standard format for most functions</li>
+<li>the first argument is a string like first argument is a <code>data.frame</code> in <code>dplyr</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Splitting/Find/Replace and Regular Expressions</h2></hgroup><article  id="splittingfindreplace-and-regular-expressions">
+
+<ul>
+<li>R can do much more than find exact matches for a whole string</li>
+<li>Like Perl and other languages, it can use regular expressions.</li>
+<li>What are regular expressions?</li>
+<li>Ways to search for specific strings</li>
+<li>Can be very complicated or simple</li>
+<li>Highly Useful - think &quot;Find&quot; on steroids</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>A bit on Regular Expressions</h2></hgroup><article  id="a-bit-on-regular-expressions">
+
+<ul>
+<li><a href='http://www.regular-expressions.info/reference.html' title=''>http://www.regular-expressions.info/reference.html</a></li>
+<li>They can use to match a large number of strings in one statement</li>
+<li><code>.</code> matches any single character</li>
+<li><code>*</code> means repeat as many (even if 0) more times the last character</li>
+<li><code>?</code> makes the last thing optional</li>
+<li><code>^</code> matches start of vector <code>^a</code> - starts with &quot;a&quot;</li>
+<li><code>$</code> matches end of vector <code>b$</code> - ends with &quot;b&quot;</li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Splitting Strings</h2></hgroup><article  id="splitting-strings">
+
+</article></slide><slide class=''><hgroup><h2>Substringing</h2></hgroup><article  id="substringing">
+
+<p>Very similar:</p>
+
+<p>Base R</p>
+
+<ul>
+<li><code>substr(x, start, stop)</code> - substrings from position start to position stop</li>
+<li><code>strsplit(x, split)</code> - splits strings up - returns list!</li>
+</ul>
+
+<p><code>stringr</code></p>
+
+<ul>
+<li><code>str_sub(x, start, end)</code> - substrings from position start to position end</li>
+<li><code>str_split(string, pattern)</code> - splits strings up - returns list!</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Splitting String: base R</h2></hgroup><article  id="splitting-string-base-r">
+
+<p>In base R, <code>strsplit</code> splits a vector on a string into a list</p>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;I really&quot;, &quot;like writing&quot;, &quot;R code programs&quot;)
+y &lt;- strsplit(x, split = &quot; &quot;) # returns a list
+y</pre>
+
+<pre >[[1]]
+[1] &quot;I&quot;      &quot;really&quot;
+
+[[2]]
+[1] &quot;like&quot;    &quot;writing&quot;
+
+[[3]]
+[1] &quot;R&quot;        &quot;code&quot;     &quot;programs&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Splitting String: <code>stringr</code></h2></hgroup><article  id="splitting-string-stringr">
+
+<p><code>stringr::str_split</code> do the same thing:</p>
 
 <pre class = 'prettyprint lang-r'>library(stringr)
-str_detect(kg$Center,&quot;BCM&quot;)[1:40]</pre>
+y2 &lt;- str_split(x, &quot; &quot;) # returns a list
+y2</pre>
 
-<pre >##  [1] FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
-## [34]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >[[1]]
+[1] &quot;I&quot;      &quot;really&quot;
 
-<pre class = 'prettyprint lang-r'>str_subset(kg$Center,&quot;BCM&quot;)[64:73]</pre>
+[[2]]
+[1] &quot;like&quot;    &quot;writing&quot;
 
-<pre >##  [1] &quot;BCM&quot;       &quot;BCM&quot;       &quot;BCM,BGI&quot;   &quot;BCM,SC&quot;    &quot;BCM&quot;      
-##  [6] &quot;BCM,BI&quot;    &quot;BCM,BI&quot;    &quot;BCM,WUGSC&quot; &quot;BCM,BI&quot;    &quot;BCM,SC&quot;</pre>
+[[3]]
+[1] &quot;R&quot;        &quot;code&quot;     &quot;programs&quot;</pre>
 
-<p><a href='https://github.com/hadley/stringr/blob/master/vignettes/stringr.Rmd' title=''>https://github.com/hadley/stringr/blob/master/vignettes/stringr.Rmd</a> <a href='https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html' title=''>https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html</a></p>
+</article></slide><slide class=''><hgroup><h2>Using a fixed expression</h2></hgroup><article  id="using-a-fixed-expression">
 
-</article></slide><slide class=''><hgroup><h2>A few string operations I use a lot</h2></hgroup><article  id="a-few-string-operations-i-use-a-lot">
+<p>One example case is when you want to split on a period &quot;<code>.</code>&quot;. In regular expressions <code>.</code> means <strong>ANY</strong> character, so</p>
 
-<pre class = 'prettyprint lang-r'>str_trim(&quot;Jeff      &quot;)</pre>
+<pre class = 'prettyprint lang-r'>str_split(&quot;I.like.strings&quot;, &quot;.&quot;)</pre>
 
-<pre >## [1] &quot;Jeff&quot;</pre>
+<pre >[[1]]
+ [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>paste0(&quot;Jeffrey&quot;,&quot;Leek&quot;)</pre>
+<pre class = 'prettyprint lang-r'>str_split(&quot;I.like.strings&quot;, fixed(&quot;.&quot;))</pre>
 
-<pre >## [1] &quot;JeffreyLeek&quot;</pre>
+<pre >[[1]]
+[1] &quot;I&quot;       &quot;like&quot;    &quot;strings&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>nchar(&quot;Jeffrey Leek&quot;)</pre>
+</article></slide><slide class=''><hgroup><h2>Let&#39;s extract from <code>y</code></h2></hgroup><article  id="lets-extract-from-y">
 
-<pre >## [1] 12</pre>
+<pre class = 'prettyprint lang-r'>suppressPackageStartupMessages(library(dplyr)) # must be loaded AFTER plyr
+y[[2]]</pre>
 
-</article></slide><slide class=''><hgroup><h2>Literals: nuclear</h2></hgroup><article  id="literals-nuclear">
+<pre >[1] &quot;like&quot;    &quot;writing&quot;</pre>
 
-<p><img class=center src=./nuclear.png height=400></p>
+<pre class = 'prettyprint lang-r'>sapply(y, dplyr::first) # on the fly</pre>
 
-</article></slide><slide class=''><hgroup><h2>Literals: Obama</h2></hgroup><article  id="literals-obama">
+<pre >[1] &quot;I&quot;    &quot;like&quot; &quot;R&quot;   </pre>
 
-<p><img class=center src=./obama.png height=400></p>
+<pre class = 'prettyprint lang-r'>sapply(y, nth, 2) # on the fly</pre>
 
-</article></slide><slide class=''><hgroup><h2>But text is more complicated</h2></hgroup><article  id="but-text-is-more-complicated">
+<pre >[1] &quot;really&quot;  &quot;writing&quot; &quot;code&quot;   </pre>
 
-<p>We need a way to express - whitespace word boundaries - sets of literals - the beginning and end of a line - alternatives (“war” or “peace”)</p>
+<pre class = 'prettyprint lang-r'>sapply(y, last) # on the fly</pre>
 
-</article></slide><slide class=''><hgroup><h2>Beginning of line with ^</h2></hgroup><article  id="beginning-of-line-with">
+<pre >[1] &quot;really&quot;   &quot;writing&quot;  &quot;programs&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>x = c(&quot;i think we all rule for participating&quot;,
-&quot;i think i have been outed&quot;,
-&quot;i think this will be quite fun actually&quot;,
-&quot;it will be fun, i think&quot;)
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: base R</h2></hgroup><article  id="find-functions-base-r">
 
-str_detect(x, &quot;^i think&quot;)</pre>
+<p><code>grep</code>: <code>grep</code>, <code>grepl</code>, <code>regexpr</code> and <code>gregexpr</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
 
-<pre >## [1]  TRUE  TRUE  TRUE FALSE</pre>
-
-</article></slide><slide class=''><hgroup><h2>End of line with $</h2></hgroup><article  id="end-of-line-with">
-
-<pre class = 'prettyprint lang-r'>x = c(&quot;well they had something this morning&quot;,
-&quot;then had to catch a tram home in the morning&quot;,
-&quot;dog obedience school in the morning&quot;,
-&quot;this morning I&#39;ll go for a run&quot;)
-
-str_detect(x, &quot;morning$&quot;)</pre>
-
-<pre >## [1]  TRUE  TRUE  TRUE FALSE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Character lists with []</h2></hgroup><article  id="character-lists-with">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;Name the worst thing about Bush!&#39;,
-&#39;I saw a green bush&#39;,
-&#39;BBQ and bushwalking at Molonglo Gorge&#39;,
-&#39;BUSH!!&#39;)
-
-str_detect(x,&quot;[Bb][Uu][Ss][Hh]&quot;)</pre>
-
-<pre >## [1] TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Sets of letters or numbers</h2></hgroup><article  id="sets-of-letters-or-numbers">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;7th inning stretch&#39;,
-&#39;2nd half soon to begin. OSU did just win.&#39;,
-&#39;3am - cant sleep - too hot still.. :(&#39;,
-&#39;5ft 7 sent from heaven&#39;)
-
-str_detect(x,&quot;^[0-9][a-zA-Z]&quot;)</pre>
-
-<pre >## [1] TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Negative classes</h2></hgroup><article  id="negative-classes">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;are you there?&#39;,
-&#39;2nd half soon to begin. OSU did just win.&#39;,
-&#39;6 and 9&#39;,
-&#39;dont worry... we all die anyway!&#39;)
-
-str_detect(x,&quot;[^?.]$&quot;)</pre>
-
-<pre >## [1] FALSE FALSE  TRUE  TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>. means anything</h2></hgroup><article  id="means-anything">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;its stupid the post 9-11 rules&#39;,
-&#39;NetBios: scanning ip 203.169.114.66&#39;,
-&#39;Front Door 9:11:46 AM&#39;,
-&#39;Sings: 0118999881999119725...3 !&#39;)
-
-str_detect(x,&quot;9.11&quot;)</pre>
-
-<pre >## [1] TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2></h2><h3> means or</h3></hgroup><article  id="means-or">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;Not a whole lot of hurricanes.&#39;,
-&#39;We do have floods nearly every day&#39;, 
-&#39;hurricanes swirl in the other direction&#39;,
-&#39;coldfire is STRAIGHT!&#39;)
-
-str_detect(x,&quot;flood|earthquake|hurricane|coldfire&quot;)</pre>
-
-<pre >## [1] TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>More Metacharacters: ( and )</h2></hgroup><article  id="more-metacharacters-and">
-
-<p>Subexpressions are often contained in parentheses to constrain the alternatives</p>
-
-<pre class = 'prettyprint lang-markdown'>^([Gg]ood|[Bb]ad)</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>bad habbit
-bad coordination today
-good, becuase there is nothing worse than a man in kinky underwear
-Badcop, its because people want to use drugs
-Good Monday Holiday
-Good riddance to Limey</pre>
-
-</article></slide><slide class=''><hgroup><h2>More Metacharacters: ?</h2></hgroup><article  id="more-metacharacters">
-
-<p>The question mark indicates that the indicated expression is optional</p>
-
-<pre class = 'prettyprint lang-markdown'>[Gg]eorge( [Ww]\.)? [Bb]ush</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>i bet i can spell better than you and george bush combined
-BBC reported that President George W. Bush claimed God told him to invade I
-a bird in the hand is worth two george bushes</pre>
-
-</article></slide><slide class=''><hgroup><h2>One thing to note&#8230;</h2></hgroup><article  id="one-thing-to-note...">
-
-<p>In the following</p>
-
-<pre class = 'prettyprint lang-markdown'>[Gg]eorge( [Ww]\.)? [Bb]ush</pre>
-
-<p>we wanted to match a “.” as a literal period; to do that, we had to “escape” the metacharacter, preceding it with a backslash In general, we have to do this for any metacharacter we want to include in our match</p>
-
-</article></slide><slide class=''><hgroup><h2>More metacharacters: * and +</h2></hgroup><article  id="more-metacharacters-and-1">
-
-<p>The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”</p>
-
-<pre class = 'prettyprint lang-markdown'>(.*)</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>anyone wanna chat? (24, m, germany)
-hello, 20.m here... ( east area + drives + webcam )
-(he means older men)
-()</pre>
-
-</article></slide><slide class=''><hgroup><h2>More metacharacters: * and +</h2></hgroup><article  id="more-metacharacters-and-2">
-
-<p>The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”</p>
-
-<pre class = 'prettyprint lang-markdown'>[0-9]+ (.*)[0-9]+</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>working as MP here 720 MP battallion, 42nd birgade
-so say 2 or 3 years at colleage and 4 at uni makes us 23 when and if we fin
-it went down on several occasions for like, 3 or 4 *days*
-Mmmm its time 4 me 2 go 2 bed</pre>
-
-</article></slide><slide class=''><hgroup><h2>More metacharacters: { and }</h2></hgroup><article  id="more-metacharacters-and-3">
-
-<p>{ and } are referred to as interval quantifiers; the let us specify the minimum and maximum number of matches of an expression</p>
-
-<pre class = 'prettyprint lang-markdown'>[Bb]ush( +[^ ]+ +){1,5} debate</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>Bush has historically won all major debates he’s done.
-in my view, Bush doesn’t need these debates..
-bush doesn’t need the debates? maybe you are right
-That’s what Bush supporters are doing about the debate.
-Felix, I don’t disagree that Bush was poorly prepared for the debate.
-indeed, but still, Bush should have taken the debate more seriously.
-Keep repeating that Bush smirked and scowled during the debate</pre>
-
-</article></slide><slide class=''><hgroup><h2>More metacharacters: and</h2></hgroup><article  id="more-metacharacters-and-4">
+<p><code>grep(pattern, x, fixed=FALSE)</code>, where:</p>
 
 <ul>
-<li>m,n means at least m but not more than n matches</li>
-<li>m means exactly m matches</li>
-<li>m, means at least m matches</li>
+<li><p>pattern = character string containing a regular expression to be matched in the given character vector.</p></li>
+<li><p>x = a character vector where matches are sought, or an object which can be coerced by as.character to a character vector.</p></li>
+<li><p>If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find)</p></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>More metacharacters: ( and ) revisited</h2></hgroup><article  id="more-metacharacters-and-revisited">
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: <code>stringr</code></h2></hgroup><article  id="find-functions-stringr">
+
+<p><code>str_detect</code>, <code>str_subset</code>, <code>str_replace</code>, and <code>str_replace_all</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
 
 <ul>
-<li>In most implementations of regular expressions, the parentheses not only limit the scope of alternatives divided by a “|”, but also can be used to “remember” text matched by the subexpression enclosed</li>
-<li>We refer to the matched text with , , etc.</li>
+<li><code>str_detect</code> - returns <code>TRUE</code> if <code>pattern</code> is found</li>
+<li><code>str_subset</code> - returns only the strings which pattern were detected</li>
+<li>convenient wrapper around <code>x[str_detect(x, pattern)]</code></li>
+<li><code>str_extract</code> - returns only strings which pattern were detected, but ONLY the pattern</li>
+<li><code>str_replace</code> - replaces <code>pattern</code> with <code>replacement</code> the first time</li>
+<li><code>str_replace_all</code> - replaces <code>pattern</code> with <code>replacement</code> as many times matched</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>More metacharacters: ( and ) revisited</h2></hgroup><article  id="more-metacharacters-and-revisited-1">
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: stringr compared to base R</h2></hgroup><article  id="find-functions-stringr-compared-to-base-r">
 
-<p>So the expression</p>
-
-<pre class = 'prettyprint lang-markdown'>+([a-zA-Z]+) +\1 +</pre>
-
-<p>will match the lines</p>
-
-<pre class = 'prettyprint lang-markdown'>time for bed, night night twitter!
-blah blah blah blah
-my tattoo is so so itchy today
-i was standing all all alone against the world outside...
-hi anybody anybody at home
-estudiando css css css css.... que desastritooooo</pre>
-
-</article></slide><slide class=''><hgroup><h2>detecting phone numbers</h2></hgroup><article  id="detecting-phone-numbers">
-
-<pre class = 'prettyprint lang-r'>x = c(&#39;206-555-1122&#39;,&#39;206-332&#39;,&#39;4545&#39;,&#39;test&#39;)
-
-phone = &quot;([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})&quot;
-
-str_detect(x,phone)</pre>
-
-<pre >## [1]  TRUE FALSE FALSE FALSE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Can this get ridiculous?</h2></hgroup><article  id="can-this-get-ridiculous">
-
-<p><em>You bet!</em></p>
-
-<p><img class=center src=./regexgolf.png height=350></p>
-
-<p><a href='https://regex.alf.nu/' title=''>https://regex.alf.nu/</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Like really ridiculous</h2></hgroup><article  id="like-really-ridiculous">
-
-<p><img class=center src=./regexgolf.png height=350></p>
-
-<p><a href='https://xkcd.com/1313/' title=''>https://xkcd.com/1313/</a></p>
-
-</article></slide><slide class=''><hgroup><h2>A nice tutorial</h2></hgroup><article  id="a-nice-tutorial">
-
-<p><img class=center src=./stat545-regex.png height=350></p>
-
-<p><a href='http://stat545-ubc.github.io/block022_regular-expression.html' title=''>http://stat545-ubc.github.io/block022_regular-expression.html</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Important points about text in data sets</h2></hgroup><article  id="important-points-about-text-in-data-sets">
+<p>Base R does not use these functions. Here is a &quot;translator&quot; of the <code>stringr</code> function to base R functions</p>
 
 <ul>
-<li>Names of variables should be</li>
-<li>All lower case when possible</li>
-<li>Descriptive (Diagnosis versus Dx)</li>
-<li>Not duplicated</li>
-<li>Not have underscores or dots or white spaces</li>
-<li>Variables with character values</li>
-<li>Should usually be made into factor variables (depends on application)</li>
-<li>Should be descriptive (use TRUE/FALSE instead of 0/1 and Male/Female versus 0/1 or M/F)</li>
+<li><code>str_detect</code> - similar to <code>grepl</code> (return logical)</li>
+<li><code>grep(value = FALSE)</code> is similar to <code>which(str_detect())</code></li>
+<li><code>str_subset</code> - similar to <code>grep(value = TRUE)</code> - return value of matched</li>
+<li><code>str_replace</code> - similar to <code>sub</code> - replace one time</li>
+<li><code>str_replace_all</code> - similar to <code>gsub</code> - replace many times</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Starting simple</h2></hgroup><article  id="starting-simple">
+</article></slide><slide class=''><hgroup><h2>Let&#39;s look at modifier for <code>stringr</code></h2></hgroup><article  id="lets-look-at-modifier-for-stringr">
 
-<pre class = 'prettyprint lang-r'>d1 = date()
-d1</pre>
-
-<pre >## [1] &quot;Wed Sep 21 10:31:59 2016&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>class(d1)</pre>
-
-<pre >## [1] &quot;character&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Date class</h2></hgroup><article  id="date-class">
-
-<pre class = 'prettyprint lang-r'>d2 = Sys.Date()
-d2</pre>
-
-<pre >## [1] &quot;2016-09-21&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>class(d2)</pre>
-
-<pre >## [1] &quot;Date&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Formatting dates</h2></hgroup><article  id="formatting-dates">
-
-<p><code>%d</code> = day as number (0-31), <code>%a</code> = abbreviated weekday,<code>%A</code> = unabbreviated weekday, <code>%m</code> = month (00-12), <code>%b</code> = abbreviated month, <code>%B</code> = unabbrevidated month, <code>%y</code> = 2 digit year, <code>%Y</code> = four digit year</p>
-
-<pre class = 'prettyprint lang-r'>format(d2,&quot;%a %b %d&quot;)</pre>
-
-<pre >## [1] &quot;Wed Sep 21&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Creating dates</h2></hgroup><article  id="creating-dates">
-
-<pre class = 'prettyprint lang-r'>x = c(&quot;1jan1960&quot;, &quot;2jan1960&quot;, &quot;31mar1960&quot;, &quot;30jul1960&quot;); z = as.Date(x, &quot;%d%b%Y&quot;)
-z</pre>
-
-<pre >## [1] &quot;1960-01-01&quot; &quot;1960-01-02&quot; &quot;1960-03-31&quot; &quot;1960-07-30&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>z[1] - z[2]</pre>
-
-<pre >## Time difference of -1 days</pre>
-
-<pre class = 'prettyprint lang-r'>as.numeric(z[1]-z[2])</pre>
-
-<pre >## [1] -1</pre>
-
-</article></slide><slide class=''><hgroup><h2>Converting to Julian</h2></hgroup><article  id="converting-to-julian">
-
-<pre class = 'prettyprint lang-r'>weekdays(d2)</pre>
-
-<pre >## [1] &quot;Wednesday&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>months(d2)</pre>
-
-<pre >## [1] &quot;September&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>julian(d2)</pre>
-
-<pre >## [1] 17065
-## attr(,&quot;origin&quot;)
-## [1] &quot;1970-01-01&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Lubridate</h2></hgroup><article  id="lubridate">
-
-<pre class = 'prettyprint lang-r'>library(lubridate); ymd(&quot;20140108&quot;)</pre>
-
-<pre >## 
-## Attaching package: &#39;lubridate&#39;</pre>
-
-<pre >## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</pre>
-
-<pre >## [1] &quot;2014-01-08&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>mdy(&quot;08/04/2013&quot;)</pre>
-
-<pre >## [1] &quot;2013-08-04&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>dmy(&quot;03-04-2013&quot;)</pre>
-
-<pre >## [1] &quot;2013-04-03&quot;</pre>
-
-<p><a href='http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/' title=''>http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Dealing with times</h2></hgroup><article  id="dealing-with-times">
-
-<pre class = 'prettyprint lang-r'>ymd_hms(&quot;2011-08-03 10:15:03&quot;)</pre>
-
-<pre >## [1] &quot;2011-08-03 10:15:03 UTC&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>ymd_hms(&quot;2011-08-03 10:15:03&quot;,tz=&quot;Pacific/Auckland&quot;)</pre>
-
-<pre >## [1] &quot;2011-08-03 10:15:03 NZST&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>?Sys.timezone</pre>
-
-<p><a href='http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/' title=''>http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Some functions have slightly different syntax</h2></hgroup><article  id="some-functions-have-slightly-different-syntax">
-
-<pre class = 'prettyprint lang-r'>x = dmy(c(&quot;1jan2013&quot;, &quot;2jan2013&quot;, &quot;31mar2013&quot;, &quot;30jul2013&quot;))
-wday(x[1])</pre>
-
-<pre >## [1] 3</pre>
-
-<pre class = 'prettyprint lang-r'>wday(x[1],label=TRUE)</pre>
-
-<pre >## [1] Tues
-## Levels: Sun &lt; Mon &lt; Tues &lt; Wed &lt; Thurs &lt; Fri &lt; Sat</pre>
-
-</article></slide><slide class=''><hgroup><h2>Notes and further resources</h2></hgroup><article  id="notes-and-further-resources">
+<p><code>?modifiers</code></p>
 
 <ul>
-<li>More information in this nice lubridate tutorial <a href='http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/' title=''>http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/</a></li>
-<li>The lubridate vignette is the same content <a href='http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html' title=''>http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html</a></li>
-<li>Ultimately you want your dates and times as class &quot;Date&quot; or the classes &quot;POSIXct&quot;, &quot;POSIXlt&quot;. For more information type <code>?POSIXlt</code></li>
+<li><code>fixed</code> - match everything exactly</li>
+<li><code>regexp</code> - default - uses <strong>reg</strong>ular <strong>exp</strong>ressions</li>
+<li><code>ignore_case</code> is an option to not have to use <code>tolower</code></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Lab time</h2></hgroup><article  id="lab-time">
+</article></slide><slide class=''><hgroup><h2>Important Comparisons</h2></hgroup><article  id="important-comparisons">
+
+<p>Base R:</p>
 
 <ul>
-<li><a href='https://github.com/SISBID/Module1/blob/gh-pages/labs/dplyr-lab.Rmd' title=''>dplyr</a></li>
-<li><a href='https://github.com/SISBID/Module1/blob/gh-pages/labs/regex-lab.Rmd' title=''>regex</a></li>
-<li><a href='https://github.com/SISBID/Module1/blob/gh-pages/labs/merging-lab.Rmd' title=''>merging</a></li>
-<li><a href='https://github.com/SISBID/Module1/blob/gh-pages/labs/final-lab.Rmd' title=''>final</a></li>
-</ul></article></slide>
+<li>Argument order is <code>(pattern, x)</code></li>
+<li>Uses option <code>(fixed = TRUE)</code></li>
+</ul>
+
+<p><code>stringr</code></p>
+
+<ul>
+<li>Argument order is <code>(string, pattern)</code> aka <code>(x, pattern)</code></li>
+<li>Uses function <code>fixed(pattern)</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: finding values, <code>stringr</code> and <code>dplyr</code></h2></hgroup><article  id="find-functions-finding-values-stringr-and-dplyr">
+
+<pre class = 'prettyprint lang-r'>str_subset(Sal$Name, &quot;Rawlings&quot;)</pre>
+
+<pre >[1] &quot;Rawlings,Kellye A&quot;          &quot;Rawlings,MarqWell D&quot;       
+[3] &quot;Rawlings,Paula M&quot;           &quot;Rawlings-Blake,Stephanie C&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
+
+<pre >                        Name             JobTitle AgencyID
+1          Rawlings,Kellye A EMERGENCY DISPATCHER   A40302
+2        Rawlings,MarqWell D       AIDE BLUE CHIP   W02384
+3           Rawlings,Paula M       COMMUNITY AIDE   A04015
+4 Rawlings-Blake,Stephanie C                MAYOR   A01001
+                Agency   HireDate AnnualSalary   GrossPay
+1 M-R Info Technology  01/06/2003    $47980.00  $68426.73
+2       Youth Summer   06/15/2012    $11310.00    $507.50
+3      R&amp;P-Recreation  12/10/2007    $19802.00   $8195.79
+4       Mayors Office  12/07/1995   $163365.00 $161219.24</pre>
+
+</article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code></h2></hgroup><article  id="showing-differnce-in-str_extract">
+
+<p><code>str_extract</code> extracts just the matched string</p>
+
+<pre class = 'prettyprint lang-r'>ss = str_extract(Sal$Name, &quot;Rawling&quot;)
+head(ss)</pre>
+
+<pre >[1] NA NA NA NA NA NA</pre>
+
+<pre class = 'prettyprint lang-r'>ss[ !is.na(ss)]</pre>
+
+<pre >[1] &quot;Rawling&quot; &quot;Rawling&quot; &quot;Rawling&quot; &quot;Rawling&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code> and <code>str_extract_all</code></h2></hgroup><article  id="showing-differnce-in-str_extract-and-str_extract_all">
+
+<p><code>str_extract_all</code> extracts all the matched strings (we&#39;re matching a digit)</p>
+
+<pre class = 'prettyprint lang-r'>head(str_extract(Sal$AgencyID, &quot;\\d&quot;))</pre>
+
+<pre >[1] &quot;0&quot; &quot;0&quot; &quot;2&quot; &quot;6&quot; &quot;9&quot; &quot;4&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>head(str_extract_all(Sal$AgencyID, &quot;\\d&quot;), 2)</pre>
+
+<pre >[[1]]
+[1] &quot;0&quot; &quot;2&quot; &quot;2&quot; &quot;0&quot; &quot;0&quot;
+
+[[2]]
+[1] &quot;0&quot; &quot;3&quot; &quot;0&quot; &quot;3&quot; &quot;1&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Using Regular Expressions: <code>stringr</code></h2></hgroup><article  id="using-regular-expressions-stringr">
+
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;^Payne.*&quot;), 3)</pre>
+
+<pre >[1] &quot;Payne El,Jackie&quot;         &quot;Payne Johnson,Nickole A&quot;
+[3] &quot;Payne,Chanel&quot;           </pre>
+
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Leonard.?S&quot;))</pre>
+
+<pre >[1] &quot;Payne,Leonard S&quot;      &quot;Szumlanski,Leonard S&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Spence.*C.*&quot;))</pre>
+
+<pre >[1] &quot;Greene,Spencer C&quot;    &quot;Spencer,Charles A&quot;   &quot;Spencer,Christian O&quot;
+[4] &quot;Spencer,Clarence W&quot;  &quot;Spencer,Michael C&quot;  </pre>
+
+</article></slide><slide class=''><hgroup><h2>Replace</h2></hgroup><article  id="replace">
+
+<p>Let&#39;s say we wanted to sort the data set by Annual Salary:</p>
+
+<pre class = 'prettyprint lang-r'>class(Sal$AnnualSalary)</pre>
+
+<pre >[1] &quot;character&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>sort(c(&quot;1&quot;, &quot;2&quot;, &quot;10&quot;)) #  not sort correctly (order simply ranks the data)</pre>
+
+<pre >[1] &quot;1&quot;  &quot;10&quot; &quot;2&quot; </pre>
+
+<pre class = 'prettyprint lang-r'>order(c(&quot;1&quot;, &quot;2&quot;, &quot;10&quot;))</pre>
+
+<pre >[1] 1 3 2</pre>
+
+</article></slide><slide class=''><hgroup><h2>Replace</h2></hgroup><article  id="replace-1">
+
+<p>So we must change the annual pay into a numeric:</p>
+
+<pre class = 'prettyprint lang-r'>head(Sal$AnnualSalary, 4)</pre>
+
+<pre >[1] &quot;$11310.00&quot; &quot;$53428.00&quot; &quot;$68300.00&quot; &quot;$62000.00&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>head(as.numeric(Sal$AnnualSalary), 4)</pre>
+
+<pre >Warning in head(as.numeric(Sal$AnnualSalary), 4): NAs introduced by
+coercion</pre>
+
+<pre >[1] NA NA NA NA</pre>
+
+<p>R didn&#39;t like the <code>$</code> so it thought turned them all to <code>NA</code>.</p>
+
+<p><code>sub()</code> and <code>gsub()</code> can do the replacing part in base R.</p>
+
+</article></slide><slide class=''><hgroup><h2>Replacing and subbing</h2></hgroup><article  id="replacing-and-subbing">
+
+<p>Now we can replace the <code>$</code> with nothing (used <code>fixed=TRUE</code> because <code>$</code> means ending):</p>
+
+<pre class = 'prettyprint lang-r'>Sal$AnnualSalary &lt;- as.numeric(gsub(pattern = &quot;$&quot;, replacement=&quot;&quot;, 
+                                    Sal$AnnualSalary, fixed=TRUE))
+Sal &lt;- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
+Sal[1:5, c(&quot;Name&quot;, &quot;AnnualSalary&quot;, &quot;JobTitle&quot;)]</pre>
+
+<pre >                   Name AnnualSalary              JobTitle
+1222  Bernstein,Gregg L       238772      STATE&#39;S ATTORNEY
+3175   Charles,Ronnie E       200000   EXECUTIVE LEVEL III
+985     Batts,Anthony W       193800   EXECUTIVE LEVEL III
+1343      Black,Harry E       190000   EXECUTIVE LEVEL III
+16352     Swift,Michael       187200 CONTRACT SERV SPEC II</pre>
+
+</article></slide><slide class=''><hgroup><h2>Replacing and subbing: <code>stringr</code></h2></hgroup><article  id="replacing-and-subbing-stringr">
+
+<p>We can do the same thing (with 2 piping operations!) in dplyr</p>
+
+<pre class = 'prettyprint lang-r'>dplyr_sal = Sal
+dplyr_sal = dplyr_sal %&gt;% mutate( 
+  AnnualSalary = AnnualSalary %&gt;%
+    str_replace(
+      fixed(&quot;$&quot;), 
+      &quot;&quot;) %&gt;%
+    as.numeric) %&gt;%
+  arrange(desc(AnnualSalary))
+check_Sal = Sal
+rownames(check_Sal) = NULL
+all.equal(check_Sal, dplyr_sal)</pre>
+
+<pre >[1] TRUE</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

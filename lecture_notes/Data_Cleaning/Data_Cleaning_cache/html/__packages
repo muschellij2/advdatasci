@@ -1,4 +1,6 @@
 base
+knitr
+plyr
+dplyr
 downloader
-readr
 readxl

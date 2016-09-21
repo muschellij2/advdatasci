@@ -1,8 +1,11 @@
 ---
 title: "Tidying data"
-author: "Jeff Leek"
-date: "September 9, 2015"
-output: ioslides_presentation
+author: "Slides Adapted from Jeff Leek"
+date: "September 21, 2016"
+output: 
+  ioslides_presentation:
+    widescreen: yes
+    css: muschelli.css
 ---
 
 ## A funny quote
@@ -13,36 +16,50 @@ http://adage.com/article/digitalnext/dear-madison-avenue-set-data-scientists-fre
 
 ## Raw versus processed data
 
+<div class="container">
+   <div class="left-half">
 __Raw data__
+
 * The original source of the data
 * Often hard to use for data analyses
 * Data analysis _includes_ processing
 * Raw data may only need to be processed once
 
 [http://en.wikipedia.org/wiki/Raw_data](http://en.wikipedia.org/wiki/Raw_data)
-
+</div>
+   <div class="right-half">
 __Processed data__
+
 * Data that is ready for analysis
 * Processing can include merging, subsetting, transforming, etc.
 * There may be standards for processing
 * All steps should be recorded 
 
 [http://en.wikipedia.org/wiki/Computer_data_processing](http://en.wikipedia.org/wiki/Computer_data_processing)
+</div>
+</div>
 
 
 ## 1,000 genomes example
 
 ```{r, cache=TRUE}
-fileUrl = "ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/20130606_sample_info.xlsx"
+fileUrl = paste0("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp",
+                 "/technical/working/20130606_sample_info/20130606_sample_info.xlsx")
 library(downloader)
 library(readr)
-download(fileUrl,destfile="1000genomes.xlsx")
+download(fileUrl, destfile = "1000genomes.xlsx")
 
 library(readxl)
 # Have to skip one row because 
 # there is an extra header
 kg = read_excel("1000genomes.xlsx",
-                    sheet=4,skip=1)
+                sheet = 4, 
+                skip = 1)
+kg2 = read_excel("1000genomes.xlsx",
+                sheet = 4, 
+                skip = 1)
+all.equal(as.data.frame(kg), as.data.frame(kg2))
+all.equal(kg, kg2)
 ```
 
 
