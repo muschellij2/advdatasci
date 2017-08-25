@@ -1,4 +1,4 @@
 output:
   html_document:
-    theme: flatly
+    theme: spacelab
 output_dir: '.'

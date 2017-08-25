@@ -1,4 +1,6 @@
-## Grading
+---
+title: Grading
+---
 
 I believe the purpose of graduate education is to train you to be able to think for yourself and initiate and complete your own projects. I am super excited to talk to you about ideas, work out solutions with you, and help you to figure out statistical methods and/or data analysis. I don’t think that graduate school grades are important for this purpose. This means that I don’t care very much about graduate student grades.
 
@@ -15,20 +17,69 @@ If you are getting a grade below a C it is because you basically aren't trying/w
 
 The percentages will be assigned in the following way: 
 
-* Pre-class swirl module - 5%
-* Completing swirl modules - 45% 
-* Preparedness/attendance at labs - 25%
-* Final project - 25% 
+* Datacamp modules - 40%
+* Preparedness/attendance at labs - 30%
+* Final project - 30% 
 
-You get the points for the swirl modules as long as you complete them before class starts (no exceptions without prior approval). You get 50% of the points for attendance at labs and 50% for having your current version of the code up-to-date. The data analysis assignment will be graded on a 1-5 scale for each category described below and the percentages assigned as described below. 
+You get the points for the Datacamp modules as long as you complete them before class starts (no exceptions without prior approval). You get 50% of the points for attendance at labs and 50% for having your current version of the code up-to-date. The data analysis assignment will be graded on a 1-5 scale for each category described below and the percentages assigned as described below. 
 
 
-### Adv Data Sci II
+# Assignments
 
-The percentages will be assigned in the following way: 
+### Data analysis assignment
 
-* Completing swirl modules - 20% 
-* Preparedness/attendance at labs - 50%
-* Final project - 50% 
+(For more on my project philosophy see: http://bit.ly/wQT5uI)
 
-You get the points for the swirl modules as long as you complete them before class starts (no exceptions without prior approval). You get 50% of the points for attendance at labs and 50% for having your current version of the code up-to-date. The data analysis project will be graded on a 1-5 scale as described below. 
+Each student will be required to perform a data analysis project during the course of the class. Students will have the entire term to perform the data analysis. The project assignments will consist of a scientific description of the problem. Students are responsible for all stages of each data analysis from obtaining the data to the final report. At the conclusion of each analysis each student must turn in:
+
+* A write-up of their data analysis in a synthesized format, with numbered figures and references. (You may also include supplementary material for detailed additional calculations/analyses)
+* A reproducible Rmd file that produces all of the numbers, figures and results in your write-up.
+
+All documents should be submitted electronically. The grades will be broken down according to the following characterization of your data analysis.
+
+1. Did you answer the scientific question? (30%)
+2. Did you use appropriate statistical methods? (40%)
+3. Was your write-up simple, clear, and precise? (20%)
+4. Was your code reproducible? (10%)
+
+Keep in mind that this is a data science class. In some cases standard methodology will be sufficient to answer the question of interest, in some cases you will need to go beyond the course, and in general the goal is to answer the question and provide an estimate of uncertainty. You may speak to your fellow students about specific statistical questions related to the projects, but the overall idea, analysis, and write-up should be your own individual work. You should cite any help you get from fellow students/TAs in your report in standard citation format.
+
+### Data analysis project options
+
+You are required to pick one of the data analysis options below and perform that analysis over the course of the class.
+
+
+
+#### Option ??
+
+You may petition to do your own analysis. You must submit your petition by the 3rd day of class (Wednesday, September 14). We will let you know before the 4th day of class whether you have approval. The minimum requirements for the project include:
+
+* You must be obtaining your own raw data
+* You must be doing your own data processing
+* The data must be available to be made public by end of class
+* You must specify your own question you are asking from the data
+* You need to provide reasonable justification you can answer that question with your data. 
+
+If you are looking for ideas consider these resources:
+
+* [Real scientists make their own data](http://seanjtaylor.com/post/41463778912/real-scientists-make-their-own-data)
+* [Data is plural](http://tinyletter.com/data-is-plural/archive)
+* [Reddit data sets](https://www.reddit.com/r/datasets/)
+* [100 interesting data sets](http://rs.io/100-interesting-data-sets-for-statistics/)
+* [data.gov](https://www.data.gov/)
+
+
+### Data analysis reviews
+
+To keep you on track, starting in the 2nd week you will bring your current writeup (in .Rmd format or later on in pdf format) to the course lab. The labs will be run by John and Stephen. You will take turns projecting your labs and getting detailed feedback from the instructors and the other students. You will receive credit for being prepared each week to present your data analysis even if you aren't selected on that day. 
+
+Lab attendance and participation are mandatory. This is where you will learn how to write up and perform a data analysis. It is also the best way to get "hands dirty" with the projects people are working on. 
+
+The times for the reviews each week will be: 
+
+* _Stephen_: Friday 10:30 - 11:30
+* _John_: Tuesdays 10-11
+
+
+### Datacamp modules
+

@@ -1,4 +1,4 @@
-title: "New Course"
+title: "Advanced Data Science"
 left:
   - text: "Home"
     href: index.html
@@ -15,15 +15,16 @@ left:
       - text: "Instructors"
       - text: "Jeff Leek"
         href: http://jtleek.com/
-      - text: "Sean Kross"
-        href: http://seankross.com/
+      - text: "John Muschelli"
+        href: http://johnmuschelli.com/
       - text: "Teaching Assistants"
-      - text: "Jack Fu"
-        href: https://jfubiostats.com/
+      - text: "Stephen Cristiano"
+        href: http://www.jhsph.edu/departments/biostatistics/directory/students/phd.html
   - text: "Discussion"
     href: https://github.com/
   - text: "Resources"
     href: resources.html
 right:
   - icon: fa-github fa-lg
-    href: https://github.com/jhudsl/new-course
+    href: https://github.com/jtleek/advdatasci
+    
