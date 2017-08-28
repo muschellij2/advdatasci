@@ -1,0 +1,349 @@
+---
+title: "Course Introduction"
+subtitle: "Advanced Data Science"
+author: "Jeff Leek"
+date: "2017-08-24"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+<!--
+Welcome to the first lecture of the Advanced Data Science course at the Johns
+Hopkins Bloomberg School of Public Health!
+-->
+
+<span style="font-size:52px">Preliminaries<span>
+
+
+<!--
+As doctor Brian Caffo once said: Pour some science on that data!
+-->
+---
+
+# Course Info
+
+.pull-left[
+
+- Course name
+- Instructors
+- TAs
+- Course website
+- Goals
+- Pre-reqs
+- Time/Location
+
+
+]
+
+.pull-right[
+
+- Advanced Data Science I/II
+- Jeff Leek and John Muschelli
+- Stephen Cristiano 
+- http://jtleek.com/advdatasci
+- Teach you how to analyze data
+- R programming/stats methods
+- M/W 1:30-3:30, W
+
+]
+
+<!--
+Baseball is a wonderful sport. We will study baseball data in depth in this
+course.
+-->
+
+---
+class: center, middle
+
+<span style="font-size:52px">About me<span>
+
+
+<!--
+As doctor Brian Caffo once said: Pour some science on that data!
+-->
+
+
+
+---
+class: center, middle
+
+<!--
+Here's a fullscreen image.
+-->
+
+![](../imgs/identity.png)
+
+
+
+---
+class: center, middle
+
+![](../imgs/identity.png)
+
+---
+class: center, middle
+
+![](../imgs/jtleek.png)
+
+---
+class: center, middle
+
+![](../imgs/simplystats.png)
+
+
+---
+class: center, middle
+
+![](../imgs/jhudsl.png)
+
+
+---
+class: center, middle
+
+<span style="font-size:52px">About you<span>
+
+
+---
+class: center, middle
+
+<span style="font-size:52px">https://goo.gl/6TyK45<span>
+
+
+
+---
+class: middle
+
+```{r, eval=FALSE}
+library(gplots)
+library(googlesheets)
+my_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT_ezPG2GgOg8xDwfK1Bcn6cJwanDJjWE6Vz0Gb-ffeJLj3yWKWoVZF7sRCiAsSX-m1-2ycsg-ZKl_6/pubhtml"
+my_gs = gs_url(my_url)
+dat = gs_read(my_gs)
+
+library(RSkittleBrewer)
+trop = RSkittleBrewer("tropical")
+colramp = colorRampPalette(c(trop[3],"white",trop[2]))(9)
+palette(trop)
+
+dat = as.matrix(dat)
+dat[is.na(dat)]= 0
+
+par(mar=c(5,5,5,5))
+heatmap.2(as.matrix(dat),col=colramp,Rowv=NA,Colv=NA,
+          dendrogram="none", scale="none",
+          trace="none",margins=c(10,2))
+```
+
+<!--
+Here's a plot.
+-->
+
+---
+
+# It is not the critic who counts
+
+
+.pull-left[
+
+"It is not the critic who counts: not the man who points out how the strong man stumbles or where the doer of deeds could have done better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood, who strives valiantly, who errs and comes up short again and again, because there is no effort without error or shortcoming, but who knows the great enthusiasms, the great devotions, who spends himself for a worthy cause; who, at the best, knows, in the end, the triumph of high achievement, and who, at the worst, if he fails, at least he fails while daring greatly, so that his place shall never be with those cold and timid souls who knew neither victory nor defeat."
+]
+
+.pull-right[
+
+![](../imgs/teddy.png)
+]
+
+
+---
+
+class: center, middle
+
+![](../imgs/parker1.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/parker2.png)
+
+---
+
+class: center, middle
+
+![](../imgs/katz1.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/katz2.png)
+
+
+
+---
+
+class: center, middle
+
+![](../imgs/robinson1.png)
+
+---
+
+class: center, middle
+
+![](../imgs/robinson2.png)
+
+---
+
+class: center, middle
+
+![](../imgs/frazee.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/rmarkdown.png)
+
+---
+
+class: center, middle
+
+![](../imgs/tidyverse.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/github.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/bioconductor.png)
+
+
+---
+
+class: center, middle
+
+![](../imgs/shiny.png)
+
+---
+
+class: center, middle
+
+![](../imgs/pwcquote.png)
+
+https://www.pwc.com/us/en/publications/data-science-and-analytics.html
+
+
+
+
+
+
+---
+class: center, middle
+
+<span style="font-size:52px">What is data science?<span>
+
+
+---
+
+
+# The key problem in data science
+
+
+.pull-left[
+
+"Ask yourselves, what problem have you solved, ever, that was worth solving, where you knew knew all of the given information in advance? Where you didn’t have a surplus of information and have to filter it out, or you didn’t have insufficient information and have to go find some?"
+
+
+
+]
+
+.pull-right[
+
+![](../imgs/meyer.png)
+]
+https://www.ted.com/talks/dan_meyer_math_curriculum_makeover
+
+---
+
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+data %>%
+  mutate(xgene = Sugar + Spice) %>%
+  filter(Attribute = "Everything-Nice") %>%
+  group_by(Location) %>%
+  summarise(Meanness = mean(Ness))
+```
+
+<!--
+Whoa is this great code or what? I'm an elite hacker.
+-->
+
+---
+
+.pull-left[
+
+## Lefties
+
+- Babe Ruth
+- Ty Cobb
+- Lou Gehrig
+- Ken Griffey, Jr.
+
+]
+
+.pull-right[
+
+## Right-Wing
+
+- Mitt Romney
+- Colin Powell
+- John McCain
+- Lindsey Graham
+
+]
+
+<!--
+Baseball is a wonderful sport. We will study baseball data in depth in this
+course.
+-->
+
+---
+
+## Witty Insight
+
+- Fact we all understand
+- Generalization that is probably true
+- Well-formed thought
+
+## Consequences
+
+1. Risky conjecture
+2. Big opportunity
+3. Synergies?
+
+<!--
+Here are a few ideas to ponder.
+-->
+

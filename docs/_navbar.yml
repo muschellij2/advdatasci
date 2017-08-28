@@ -4,10 +4,8 @@ left:
     href: index.html
   - text: "Curriculum"
     menu:
-      - text: "Lecture 1"
-        href: lecture1.html
-      - text: "Lecture 2"
-        href: lecture2.html
+      - text: "Introduction"
+        href: ./01-introduction.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
@@ -21,7 +19,7 @@ left:
       - text: "Stephen Cristiano"
         href: http://www.jhsph.edu/departments/biostatistics/directory/students/phd.html
   - text: "Discussion"
-    href: https://github.com/
+    href: discussion.html
   - text: "Resources"
     href: resources.html
 right:

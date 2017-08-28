@@ -2,6 +2,8 @@
 title: Grading
 ---
 
+## Philosophy 
+
 I believe the purpose of graduate education is to train you to be able to think for yourself and initiate and complete your own projects. I am super excited to talk to you about ideas, work out solutions with you, and help you to figure out statistical methods and/or data analysis. I don’t think that graduate school grades are important for this purpose. This means that I don’t care very much about graduate student grades.
 
 That being said, I have to give you a grade so they will be: 
@@ -13,7 +15,7 @@ That being said, I have to give you a grade so they will be:
 If you are getting a grade below a C it is because you basically aren't trying/working. I rarely give them out.
 
 
-### Adv Data Sci I
+## Relative weights
 
 The percentages will be assigned in the following way: 
 
@@ -24,7 +26,7 @@ The percentages will be assigned in the following way:
 You get the points for the Datacamp modules as long as you complete them before class starts (no exceptions without prior approval). You get 50% of the points for attendance at labs and 50% for having your current version of the code up-to-date. The data analysis assignment will be graded on a 1-5 scale for each category described below and the percentages assigned as described below. 
 
 
-# Assignments
+## Assignments
 
 ### Data analysis assignment
 
@@ -48,9 +50,27 @@ Keep in mind that this is a data science class. In some cases standard methodolo
 
 You are required to pick one of the data analysis options below and perform that analysis over the course of the class.
 
+#### Option 1
 
+A major disaster is currently underway with hurricane [Harvey](https://www.nytimes.com/2017/08/28/climate/how-hurricane-harvey-became-so-destructive.html?mcubz=0&_r=0). Use social media data (Twitter, Instagram, Reddit etc.) to identify times and areas that are hardest hit from the hurricane. 
 
-#### Option ??
+#### Option 2
+
+We teach thousands of students data analysis in online classes on the Coursera platform. Each of these classes includes a final project. Collect the write-ups people use for the [Getting and Cleaning Data project](https://github.com/search?utf8=%E2%9C%93&q=getting+and+cleaning+data&type=) and summarize the main sources of variation in how people complete the project. 
+
+#### Option 3
+
+Perform an analysis of "data scientist" jobs listed on job boards and on the employment pages of major companies. What are the most common skills that employers look for? What are the most unique skills that employers look for? Where are the types of companies that employ the most data scientists? 
+
+#### Option 4
+
+Perform an analysis of the statistical analyses in all published [PLoS](https://www.plos.org/) papers. What are the most common techniques? How do they vary by field? Are there any trends over the last 10-15 years? 
+
+### Option 5
+
+Compete for the Zillow prize and write up your results: https://www.zillow.com/promo/Zillow-prize/
+
+#### Option 6
 
 You may petition to do your own analysis. You must submit your petition by the 3rd day of class (Wednesday, September 14). We will let you know before the 4th day of class whether you have approval. The minimum requirements for the project include:
 
@@ -77,9 +97,11 @@ Lab attendance and participation are mandatory. This is where you will learn how
 
 The times for the reviews each week will be: 
 
-* _Stephen_: Friday 10:30 - 11:30
-* _John_: Tuesdays 10-11
+* _Stephen_: TBD
+* _John_: TBD
 
 
 ### Datacamp modules
+
+Please see individual lectures for assigned DataCamp modules and due dates. You must sign up with John to get on the Datacamp module list. 
 
