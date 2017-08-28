@@ -103,5 +103,7 @@ The times for the reviews each week will be:
 
 ### Datacamp modules
 
+John's email is: [muschellij2@gmail.com](mailto:muschellij2@gmail.com).
+
 Please see individual lectures for assigned DataCamp modules and due dates. You must sign up with John to get on the Datacamp module list.  Please visit the [Advanced Data Science](https://www.datacamp.com/groups/advanced-data-science) link for the assignments
 
