@@ -65,6 +65,56 @@ course.
 ---
 class: center, middle
 
+# Website
+
+http://jtleek.com/advdatasci/
+
+![](../imgs/website.png)
+
+
+
+
+---
+class: center, middle
+
+# Communication
+
+https://jhu-advdatasci.slack.com/
+
+![](../imgs/slack.png)
+
+
+
+
+
+---
+class: center, middle
+
+# Datacamp
+
+https://datacamp.com/
+
+![](../imgs/datacamp.png)
+
+
+
+---
+class: center, middle
+
+# Github
+
+https://datacamp.com/
+
+![](../imgs/github.png)
+
+
+
+
+
+
+---
+class: center, middle
+
 <span style="font-size:52px">About me<span>
 
 
@@ -116,7 +166,7 @@ class: center, middle
 ---
 class: center, middle
 
-<span style="font-size:52px">https://goo.gl/6TyK45<span>
+<span style="font-size:52px">https://goo.gl/x8Ekx1<span>
 
 
 
@@ -283,67 +333,303 @@ class: center, middle
 ]
 https://www.ted.com/talks/dan_meyer_math_curriculum_makeover
 
+
+
 ---
 
 
-```{r, eval=FALSE}
-library(tidyverse)
+# Defining data science
 
-data %>%
-  mutate(xgene = Sugar + Spice) %>%
-  filter(Attribute = "Everything-Nice") %>%
-  group_by(Location) %>%
-  summarise(Meanness = mean(Ness))
-```
-
-<!--
-Whoa is this great code or what? I'm an elite hacker.
--->
-
----
 
 .pull-left[
 
-## Lefties
-
-- Babe Ruth
-- Ty Cobb
-- Lou Gehrig
-- Ken Griffey, Jr.
+"Data science is the process of formulating a quantitative question that can be answered with data, collecting and cleaning the data, analyzing the data, and communicating the answer to the question to a relevant audience."
 
 ]
 
 .pull-right[
 
-## Right-Wing
-
-- Mitt Romney
-- Colin Powell
-- John McCain
-- Lindsey Graham
-
+![](../imgs/leek.png)
 ]
-
-<!--
-Baseball is a wonderful sport. We will study baseball data in depth in this
-course.
--->
+https://simplystatistics.org/2015/03/17/data-science-done-well-looks-easy-and-that-is-a-big-problem-for-data-scientists/
 
 ---
 
-## Witty Insight
+# Data science by any other name...
 
-- Fact we all understand
-- Generalization that is probably true
-- Well-formed thought
+* __Advanced analytics__ - using data to inform business decisions
+* __Biostatistics__ - using data to inform health decisions
+* __Natural language processing__ - using data to understand language
+* __Econometrics__ - using data to understand the economic climate
+* __Signal processing__ - using data to understand electronic signals
+* __Data journalism__ - using data for reporting. 
+Data science - a general purpose term applied to the above
 
-## Consequences
 
-1. Risky conjecture
-2. Big opportunity
-3. Synergies?
+---
+class: center, middle
 
-<!--
-Here are a few ideas to ponder.
--->
+<span style="font-size:52px">The data science process<span>
+
+---
+
+# Structure of a data analysis
+
+* Define the question
+* Define the ideal data set
+* Determine what data you can access
+* Obtain the data
+* Clean the data
+* Exploratory data analysis
+* Statistical prediction/modeling
+* Interpret results
+* Challenge results
+* Synthesize/write up results
+* Create reproducible code
+
+
+---
+
+# An example
+
+* __Start with a general question:__
+    * Can I automatically detect emails that are SPAM that are not?
+* __Make it concrete:__
+    * Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?
+    
+---
+
+class: center, middle
+
+http://science.sciencemag.org/content/347/6228/1314
+
+![](../imgs/typesofquestions.png)
+
+---
+
+# Data may depend on your goal
+
+* Descriptive - a whole population
+* Exploratory - a random sample with many variables measured
+* Inferential - the right population, randomly sampled
+* Predictive - a training and test data set from the same population
+* Causal - data from a randomized study
+* Mechanistic - data about all components of the system
+
+
+
+---
+class: center, middle
+
+<span style="font-size:52px">Activity: guess the question type<span>
+
+
+---
+
+class: center, middle
+
+www.netflix.com
+
+![](../imgs/netflix.png)
+
+
+---
+
+class: center, middle
+
+https://goo.gl/WheVuJ
+
+![](../imgs/houseofcards.png)
+
+
+---
+class: center, middle
+
+
+https://goo.gl/ZRdPcg
+
+![](../imgs/obama.png)
+
+
+
+---
+class: center, middle
+
+# Back to our example
+
+https://www.google.com/about/datacenters/
+
+![](../imgs/google-data.png)
+
+---
+class: center, middle
+
+# Raw data to covariates
+
+![](../imgs/raw-to-covariate.png)
+
+
+---
+
+# Types of "data"
+
+* __Text files__ -> frequency of words, frequency of phrases
+* __Images__ -> edges, corners, blobs, ridges
+* __Webpages__ -> number and type of images, position of elements
+* __People__ -> height, weight, hair color, number of steps etc. 
+
+*__Automated:__ Starting to be better for things like images/videos/text with large training sets. 
+* __Manual:__ Until recently the best approach in almost all cases
+
+---
+
+# Obtain the raw data
+
+* Sometimes you can find data free on the web
+* Other times you may need to buy the data
+* Be sure to respect the terms of use
+* If the data don't exist, you may need to generate it yourself
+* Polite emails go a long way
+* If you will load the data from an internet source, record the url and time accessed
+
+
+---
+class: center, middle
+
+# Raw data to covariates
+
+![](../imgs/google-security.png)
+
+---
+class: center, middle
+
+# A possible solution
+
+
+![](../imgs/kernlab.png)
+
+
+---
+
+# Cleaning the data
+
+* Raw data often needs to be processed
+* If it is pre-processed, make sure you understand how
+* Understand the source of the data (census, sample, convenience sample, etc.)
+* May need reformating, subsampling - record these steps
+
+
+* __Determine if the data are good enough__ - if not, quit or change data
+
+---
+
+# A critical function
+
+.pull-left[
+
+"The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data"
+]
+
+.pull-right[
+
+![](../imgs/tukey.png)
+]
+
+---
+
+# Look at the data
+
+```{r kernlab-glimpse, warning=FALSE,message=FALSE}
+library(kernlab)
+data(spam)
+library(dplyr)
+glimpse(spam)
+```
+
+---
+
+# Split into training and text
+
+```{r training , warning=FALSE,message=FALSE}
+set.seed(123)
+training = rbinom(4601,size=1,prob=0.5)
+table(training)
+
+train_spam = spam[training==1,]
+test_spam = spam[training==0,]
+```
+
+---
+
+
+# Exploratory analysis
+
+```{r}
+plot(log10(train_spam$capitalAve + 1) ~ train_spam$type)
+```
+
+---
+
+# EDA informs modeling
+
+```{r}
+hc1 = hclust(dist(t(log10(train_spam[,1:55]+1))))
+plot(hc1)
+```
+
+
+
+---
+
+# Interpret the results
+
+* Use the appropriate language
+    * describes
+    * correlates with/associated with
+    * leads to/causes
+    * predicts
+* Give an explanation
+* Interpret coefficients
+* Interpret measures of uncertainty
+
+
+---
+
+# Our example
+
+* The fraction of characters that are dollar signs can be used to predict if an email is Spam
+* Anything with more than 6.6\% dollar signs is classified as Spam
+* More dollar signs always means more Spam under our prediction
+* Our test set error rate was 22.4\%
+
+---
+
+# Summarize the results
+
+* Lead with the question
+* Summarize the analyses into the story
+* Don't include every analysis, include it
+    * If it is needed for the story
+    * If it is needed to address a challenge
+* Order analyses according to the story, rather than chronologically
+* Include "pretty" figures that contribute to the story
+
+---
+
+# In our example
+
+* Lead with the question
+    * Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?
+* Describe the approach
+    * Collected data from UCI -> created training/test sets
+    * Explored relationships
+    * Choose logistic model on training set by cross validation
+    * Applied to test, 78\% test set accuracy
+* Interpret results
+    * Number of dollar signs seems reasonable, e.g. "Make money with Viagra \$ \$ \$ \$!"
+* Challenge results
+    * 78\% isn't that great
+    * I could use more variables
+    * Why logistic regression?
+
 

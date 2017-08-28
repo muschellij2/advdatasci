@@ -2,5 +2,12 @@
 title: Introduction
 ---
 
-
-Slides: 
+1. __Announcements__: 
+    * Start picking your project   [here](http://jtleek.com/advdatasci/grading.html)
+    * Sign up for Slack group
+    * Sign up for DataCamp
+    * Fill out Doodle poll for lab times
+2. __Assignment__: 
+    * DataCamp Importing Data From Flat Files
+    * Due Aug 30th by 1:30PM 
+3. __Slides__: http://jtleek.com/advdatasci/slides/01-introduction-slides.html
