@@ -523,6 +523,93 @@ class: center, middle
 
 ---
 
+```{r}
+# Install the package if you haven't already:
+# install.packages("kernlab")
+library(kernlab)
+data(spam)
+str(spam[, 1:5])
+```
+
+---
+
+# Training and Test Sets
+
+```{r}
+# Perform subsampling
+set.seed(3435)
+trainIndicator = rbinom(4601, size = 1, prob = 0.5)
+table(trainIndicator)
+trainSpam = spam[trainIndicator==1,]
+testSpam = spam[trainIndicator==0,]
+```
+
+---
+
+# Exploratory analysis
+
+```{r}
+plot(log10(trainSpam$capitalAve + 1) ~ trainSpam$type)
+```
+
+---
+
+# EDA informs modeling
+
+```{r}
+hCluster = hclust(dist(t(trainSpam[,1:57])))
+plot(hCluster)
+```
+
+---
+
+# EDA informs modeling
+
+```{r}
+hClusterUpdated = hclust(dist(t(trainSpam[,1:55] + 1)))
+plot(hClusterUpdated)
+```
+
+---
+
+# Modeling
+
+```{r, warning=FALSE}
+trainSpam$numType = as.numeric(trainSpam$type) - 1
+costFunction = function(x, y) sum(x!=(y > 0.5))
+cvError = rep(NA, 55)
+library(boot)
+for(i in 1:55){
+  lmFormula = reformulate(names(trainSpam)[i], response = "numType")
+  glmFit = glm(lmFormula, family = "binomial", data = trainSpam)
+  cvError[i] = cv.glm(trainSpam, glmFit, costFunction, 2)$delta[2]
+}
+
+# Which predictor has minimum cross-validated error?
+names(trainSpam)[which.min(cvError)]
+```
+
+---
+
+# Get a measure of uncertainty
+
+```{r,eval=FALSE}
+table(predictedSpam, testSpam$type)
+```
+
+```
+predictedSpam nonspam spam
+      nonspam    1346  458
+         spam      61  449
+```
+
+```{r}
+## Error rate
+(61 + 458) / (1346 + 458 + 61 + 499)
+```
+
+---
+
 # A critical function
 
 .pull-left[
