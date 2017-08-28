@@ -30,6 +30,11 @@ This course is designed for PhD students in the Biostatistics department at John
 ## DataCamp
 We use [DataCamp](https://www.datacamp.com/home) for our assignments.  Please visit the [Advanced Data Science](https://www.datacamp.com/groups/advanced-data-science) link for the assignments
 
+John's email is: [muschellij2@gmail.com](mailto:muschellij2@gmail.com).
+
+Stephen's email is: [stephen@jhmi.edu](mailto:stephen@jhmi.edu).
+
+
 ## Typos and corrections
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: https://github.com/jtleek/advdatasci
