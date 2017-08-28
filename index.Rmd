@@ -27,7 +27,14 @@ This course is designed for PhD students in the Biostatistics department at John
 * Assignments: Please see the grading section for information about assignments. 
 * Equipment: Please bring a laptop to class
 
+## DataCamp
+We use [DataCamp](https://www.datacamp.com/home) for our assignments.  Please visit the [Advanced Data Science](https://www.datacamp.com/groups/advanced-data-science) link for the assignments
 
 ## Typos and corrections
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: https://github.com/jtleek/advdatasci
+
+## Thanks
+
+We would like to thank [DataCamp](https://www.datacamp.com/home) for providing us with a great platform on Grading and Assignments for this course!  Check out their courses and [DataCamp for Education](https://www.datacamp.com/groups/education) to use their platform for your course.
+

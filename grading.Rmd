@@ -72,7 +72,7 @@ Compete for the Zillow prize and write up your results: https://www.zillow.com/p
 
 #### Option 6
 
-You may petition to do your own analysis. You must submit your petition by the 3rd day of class (Wednesday, September 14). We will let you know before the 4th day of class whether you have approval. The minimum requirements for the project include:
+You may petition to do your own analysis. You must submit your petition by the 3rd day of class (Wednesday, September 6). We will let you know before the 4th day of class whether you have approval. The minimum requirements for the project include:
 
 * You must be obtaining your own raw data
 * You must be doing your own data processing
@@ -103,5 +103,5 @@ The times for the reviews each week will be:
 
 ### Datacamp modules
 
-Please see individual lectures for assigned DataCamp modules and due dates. You must sign up with John to get on the Datacamp module list. 
+Please see individual lectures for assigned DataCamp modules and due dates. You must sign up with John to get on the Datacamp module list.  Please visit the [Advanced Data Science](https://www.datacamp.com/groups/advanced-data-science) link for the assignments
 
