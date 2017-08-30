@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Organizing and version control</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Jeff Leek" />
+    <meta name="date" content="2017-08-24" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Organizing and version control
+## Advanced Data Science
+### Jeff Leek
+### 2017-08-24
+
+---
+
+class: center, middle
+
+
+
+
+&lt;span style="font-size:52px"&gt;Motivation&lt;span&gt;
+
+
+---
+class: center, middle
+
+# An exciting result
+
+http://www.nature.com/nm/journal/v12/n11/full/nm1491.html
+
+
+![](../imgs/potti.png)
+
+---
+
+class: center, middle
+
+# Baggerly
+
+https://projecteuclid.org/euclid.aoas/1267453942
+
+
+![](../imgs/baggerly.png)
+
+
+---
+class: center, middle
+
+# Timeline
+
+http://www.nature.com/news/2011/110111/full/469139a/box/1.html
+
+![](../imgs/timeline-potti.png)
+
+---
+class: center, middle
+
+# Potti Fallout
+
+http://dig.abclocal.go.com/wtvd/docs/Duke_lawsuit_090811.pdf
+
+
+![](../imgs/potti-lawsuit.png)
+
+
+---
+class: center, middle
+
+# Worth a watch!
+
+https://goo.gl/T2nWbC
+
+
+![](../imgs/baggerly-talk.png)
+
+
+---
+class: center, middle
+
+# Not just the boogeyman
+
+.pull-left[
+
+"Your closest collaborator is you six months ago, but you don’t reply to emails."
+
+-Karl Broman
+
+]
+
+.pull-right[
+
+![](../imgs/broman.png)
+]
+
+http://kbroman.org/Tools4RR/assets/lectures/06_org_eda.pdf
+
+
+
+---
+class: center, middle
+
+&lt;span style="font-size:52px"&gt;Organizing Projects&lt;span&gt;
+
+
+---
+class: center, middle
+
+.pull-left[
+
+"Your closest collaborator is you six months ago, but you don’t reply to emails."
+
+-Jenny Bryan
+
+]
+
+.pull-right[
+
+![](../imgs/bryan.png)
+]
+
+http://kbroman.org/Tools4RR/assets/lectures/06_org_eda.pdf
+
+---
+# Keys to success
+
+
+*_Step 1_ slow down and document. 
+*_Step 2_ have sympathy for your future self. 
+*_Step 3_ have a system.
+
+---
+class: center,middle
+
+# Not a good plan
+
+http://www.slideshare.net/jenniferbryan5811/cm002-deep-thoughts
+
+
+![](../imgs/ugly-files.png)
+
+
+---
+
+# One strategy
+
+
+.pull-left[
+
+* data
+    - raw_data
+    - processed_data
+* figures
+    - exploratory_figures
+    - final_figures
+* code
+    - raw_code
+    - final_code
+    - rmarkdown
+* text
+    - README
+    - writeup
+]
+
+.pull-right[
+
+]
+
+
+---
+
+# One strategy
+
+
+.pull-left[
+
+* data
+    - raw_data
+    - processed_data
+* figures
+    - exploratory_figures
+    - final_figures
+* code
+    - raw_code
+    - final_code
+    - rmarkdown
+* text
+    - README
+    - writeup
+]
+
+.pull-right[
+* code/
+    * final_code/
+        - 0-preprocess.R
+        - 1-explore.R
+        - 2-model.R
+        - 3-final-plots.R
+
+]
+
+---
+class: center, middle
+
+# Just...no
+
+https://xkcd.com/1459/
+
+![](../imgs/xkcd-filenames.png)
+
+
+---
+
+# Version control 
+
+* Automatically tracks versions of documents
+* Keeps a log of the entire history
+* Let’s you “undo” your work
+* Let’s you view what you changed
+
+
+---
+class: center, middle
+
+# Unfortunate truth
+
+https://twitter.com/mtrc/status/617075570761965568
+
+![](../imgs/xkcd-filenames.png)
+
+---
+
+# Version control options
+
+* __Github__ - where the cool nerds are
+* __Bitbucket__ - where the real nerds are
+* __svn__ - where the old nerds are
+* __Files on your desktop__ - where the frustrated nerds are
+
+
+---
+class: center, middle
+
+# Github
+
+https://github.com/
+
+![](../imgs/github.png)
+
+---
+class: center, middle
+
+# Why this is cool
+
+![](../imgs/hammer-typo.png)
+
+
+---
+class: center,middle
+
+# Git/Github workflow
+
+&lt;img src="../imgs/git-github-workflow.png" style="height:500px"&gt;
+
+
+---
+class: center,middle
+
+# Installing Git/Github
+
+http://happygitwithr.com/install-git.html
+
+![](../imgs/installing-git-github.png)
+
+---
+class: center,middle
+
+# Let's do an example
+
+![](../imgs/newproject1.png)
+
+---
+class: center, middle
+
+&lt;span style="font-size:52px"&gt;Organizing Files&lt;span&gt;
+
+
+---
+# Three* principles of naming things
+
+.pull-left[
+
+* machine readable
+* human readable
+* plays well with default ordering
+* easy to type (added by me)
+]
+
+.pull-right[
+![](../imgs/bryan.png)
+]
+
+https://goo.gl/6cv4wV
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

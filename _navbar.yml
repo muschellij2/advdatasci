@@ -6,6 +6,8 @@ left:
     menu:
       - text: "Introduction"
         href: ./01-introduction.html
+      - text: "Organizing and Version Control"
+        href: ./02-organizing-version-control.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
