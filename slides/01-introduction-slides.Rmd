@@ -53,7 +53,7 @@ As doctor Brian Caffo once said: Pour some science on that data!
 - http://jtleek.com/advdatasci
 - Teach you how to analyze data
 - R programming/stats methods
-- M/W 1:30-3:30, W
+- M/W 1:30-3:30, W4019
 
 ]
 
@@ -103,7 +103,7 @@ class: center, middle
 
 # Github
 
-https://datacamp.com/
+https://github.com/
 
 ![](../imgs/github.png)
 
@@ -523,93 +523,6 @@ class: center, middle
 
 ---
 
-```{r}
-# Install the package if you haven't already:
-# install.packages("kernlab")
-library(kernlab)
-data(spam)
-str(spam[, 1:5])
-```
-
----
-
-# Training and Test Sets
-
-```{r}
-# Perform subsampling
-set.seed(3435)
-trainIndicator = rbinom(4601, size = 1, prob = 0.5)
-table(trainIndicator)
-trainSpam = spam[trainIndicator==1,]
-testSpam = spam[trainIndicator==0,]
-```
-
----
-
-# Exploratory analysis
-
-```{r}
-plot(log10(trainSpam$capitalAve + 1) ~ trainSpam$type)
-```
-
----
-
-# EDA informs modeling
-
-```{r}
-hCluster = hclust(dist(t(trainSpam[,1:57])))
-plot(hCluster)
-```
-
----
-
-# EDA informs modeling
-
-```{r}
-hClusterUpdated = hclust(dist(t(trainSpam[,1:55] + 1)))
-plot(hClusterUpdated)
-```
-
----
-
-# Modeling
-
-```{r, warning=FALSE}
-trainSpam$numType = as.numeric(trainSpam$type) - 1
-costFunction = function(x, y) sum(x!=(y > 0.5))
-cvError = rep(NA, 55)
-library(boot)
-for(i in 1:55){
-  lmFormula = reformulate(names(trainSpam)[i], response = "numType")
-  glmFit = glm(lmFormula, family = "binomial", data = trainSpam)
-  cvError[i] = cv.glm(trainSpam, glmFit, costFunction, 2)$delta[2]
-}
-
-# Which predictor has minimum cross-validated error?
-names(trainSpam)[which.min(cvError)]
-```
-
----
-
-# Get a measure of uncertainty
-
-```{r,eval=FALSE}
-table(predictedSpam, testSpam$type)
-```
-
-```
-predictedSpam nonspam spam
-      nonspam    1346  458
-         spam      61  449
-```
-
-```{r}
-## Error rate
-(61 + 458) / (1346 + 458 + 61 + 499)
-```
-
----
-
 # A critical function
 
 .pull-left[
@@ -664,6 +577,43 @@ hc1 = hclust(dist(t(log10(train_spam[,1:55]+1))))
 plot(hc1)
 ```
 
+---
+
+# Modeling
+
+```{r, warning=FALSE}
+train_spam$numType = as.numeric(train_spam$type) - 1
+cost_func = function(x, y) sum(x!=(y > 0.5))
+cv_error = rep(NA, 55)
+library(boot)
+for(i in 1:55){
+  lm_formula = reformulate(names(train_spam)[i], response = "numType")
+  glm_fit = glm(lm_formula, family = "binomial", data = train_spam)
+  cv_error[i] = cv.glm(train_spam, glm_fit, cost_func, 2)$delta[2]
+}
+
+# Which predictor has minimum cross-validated error?
+names(train_spam)[which.min(cv_error)]
+```
+
+---
+
+# Get a measure of uncertainty
+
+```{r,warning=FALSE}
+## Fit the model with the best predictor
+pred_mod = glm(numType ~ charDollar,family="binomial",data=train_spam)
+
+## Get predictions on the test set
+pred_test = predict(pred_mod,test_spam)
+pred_spam = rep("nonspam",dim(test_spam)[1])
+
+## Classify as `spam' for those with prob > 0.5
+pred_spam[pred_mod$fitted > 0.5] = "spam"
+
+table(pred_spam,test_spam$type)
+mean(pred_spam==test_spam$type)
+```
 
 
 ---
@@ -685,9 +635,9 @@ plot(hc1)
 # Our example
 
 * The fraction of characters that are dollar signs can be used to predict if an email is Spam
-* Anything with more than 6.6\% dollar signs is classified as Spam
+* Anything with more than 6.6% dollar signs is classified as Spam
 * More dollar signs always means more Spam under our prediction
-* Our test set error rate was 22.4\%
+* Our test set error rate was 22.4%
 
 ---
 
@@ -713,10 +663,33 @@ plot(hc1)
     * Choose logistic model on training set by cross validation
     * Applied to test, 78\% test set accuracy
 * Interpret results
-    * Number of dollar signs seems reasonable, e.g. "Make money with Viagra \$ \$ \$ \$!"
+    * Number of dollar signs seems reasonable, e.g. "Make money with Viagra $ $ $ $!"
 * Challenge results
-    * 78\% isn't that great
+    * 78% isn't that great
     * I could use more variables
     * Why logistic regression?
 
 
+---
+class: center, middle
+
+# Make your code reproducible
+
+![](../imgs/intro-script.png)
+
+
+---
+
+# Structure of a data analysis
+
+* Define the question
+* Define the ideal data set
+* Determine what data you can access
+* Obtain the data
+* Clean the data
+* Exploratory data analysis
+* Statistical prediction/modeling
+* Interpret results
+* Challenge results
+* Synthesize/write up results
+* Create reproducible code

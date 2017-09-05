@@ -1,0 +1,13 @@
+---
+title: Organizing and version control
+---
+
+1. __Announcements__: 
+    * Lab times: 
+        * Monday 3-4PM, Genome Cafe (but not next Monday)
+        * Friday 10-11AM, Biostatistics Library
+    * Bring to lab: Github repo with a description of your plan
+2. __Assignment__: 
+    * DataCamp Rstudio IDE Projects + Rstudio IDE Version Control
+    * Due Sep 5th by 1:30PM 
+3. __Slides__: http://jtleek.com/advdatasci/slides/02-organizing-version-control-slides.html
