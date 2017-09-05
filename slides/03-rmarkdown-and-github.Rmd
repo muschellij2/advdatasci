@@ -46,3 +46,46 @@ background-size: 100%
 <div style="color: blue; font-size: 30pt; background-color: #ffffff;">After making some changes adding, committing, pushing</div>
 
 
+---
+
+
+# RMarkdown
+
+```{r rmd_files, results='asis', echo = FALSE}
+top_cat = c("---\nbackground-image: url(../imgs/rmarkdown/")
+bottom_cat = c(")\nbackground-size: 100% \n\n\n")
+files_in_order = c(
+  "new_rmarkdown", "new_template",
+  "yaml", "code_chunk", 
+  "code_chunk_plot", "knit", 
+  "saving_file", "rmarkdown", 
+  "output")
+files_in_order = paste0(files_in_order, ".png")
+res = paste0(top_cat, files_in_order, bottom_cat)
+cat(res, sep = "")
+```
+
+---
+
+# RStudio Projects and GitHub
+
+```{r gh_files, results='asis', echo = FALSE}
+top_cat = c("---\nbackground-image: url(../imgs/rstudio_github/")
+bottom_cat = c(")\nbackground-size: 100% \n\n\n")
+files_in_order = c(
+  "prefs", "prefs_git",
+  "new_project", "new_project_dir", 
+  "new_project_project", "new_project_name", 
+  "new_project_made", "new_project_files", 
+  "new_project_commit_message", "new_project_commit",
+  "github", "github_new_repo", "github_repo", 
+  "github_default", "github_terminal", 
+  "github_add_remote", "github_behind",
+  "github_push", "github_push_reflected")
+files_in_order = paste0(files_in_order, ".png")
+res = paste0(top_cat, files_in_order, bottom_cat)
+cat(res, sep = "")
+```
+
+
+
