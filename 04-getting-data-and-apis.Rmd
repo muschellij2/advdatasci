@@ -1,0 +1,13 @@
+---
+title: Getting Data and APIs
+---
+
+1. __Announcements__: 
+    * Lab times: 
+        * Monday 3-4PM, Genome Cafe
+        * Friday 10-11AM, Biostatistics Library
+    * Bring to lab: NAAAAAAAAAAAAAAAAAAAAAA
+2. __Assignment__: 
+    * DataCamp: NAAAAAAAAAAAAAAAAAAAAAA
+    * Due Sep 18th by 1:30PM 
+3. __Slides__: http://jtleek.com/advdatasci/slides/02-organizing-version-control-slides.html

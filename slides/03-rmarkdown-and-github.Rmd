@@ -1,0 +1,48 @@
+---
+title: "RMarkdown and GitHub"
+subtitle: "JHU Data Science"
+author: "www.jtleek.com/advdatasci"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "additional.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    keep_md: true
+---
+background-image: url(../imgs/github/gh.png)
+background-size: 100% 
+
+```{r setup, include = FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r files, results='asis', echo = FALSE}
+top_cat = c("---\nbackground-image: url(../imgs/github/")
+bottom_cat = c(")\nbackground-size: 100% \n\n\n")
+files_in_order = c("files", "readme_box", "readme", 
+                   "raw_box", "raw", "issues_box", "issues",
+                   "branches_box", "branches", 
+                   "recent_commit_box", "recent_commit",
+                   "contributors_box", "contributors", 
+                   "commits_box", "commits", 
+                   "releases_box", "releases", 
+                   "fork_box", "fork", "fork2",
+                   "forked", "fork_commit_ahead", 
+                   "clone",
+                   "pull_request_box")
+files_in_order = paste0(files_in_order, ".png")
+res = paste0(top_cat, files_in_order, bottom_cat)
+cat(res, sep = "")
+```
+
+
+---
+background-image: url(../imgs/github/pull_request_output.png)
+background-size: 100% 
+
+<div style="color: blue; font-size: 30pt; background-color: #ffffff;">After making some changes adding, committing, pushing</div>
+
+
