@@ -187,7 +187,7 @@
 
 <p><a href='https://kbroman.wordpress.com/2015/09/09/reproducibility-is-hard/' title=''>https://kbroman.wordpress.com/2015/09/09/reproducibility-is-hard/</a></p>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Project Structure</h2></hgroup><article  id="project-structure">
+</article></slide><slide class=''><hgroup><h2>Project Structure</h2></hgroup><article  id="project-structure">
 
 <ul>
 <li>RStudio Projects</li>
@@ -347,7 +347,7 @@ file.exists(outfile)</pre>
 <pre class = 'prettyprint lang-r'>system.time({x = read.csv(outfile)})</pre>
 
 <pre >   user  system elapsed 
-  4.894   0.064   4.990 </pre>
+  5.084   0.080   5.283 </pre>
 
 <pre class = 'prettyprint lang-r'>class(x)</pre>
 
@@ -367,7 +367,7 @@ cols(
 <pre >See spec(...) for full column specifications.</pre>
 
 <pre >   user  system elapsed 
-  0.836   0.019   0.858 </pre>
+  0.885   0.055   0.952 </pre>
 
 <pre class = 'prettyprint lang-r'>class(x)</pre>
 
@@ -396,7 +396,7 @@ Attaching package: &#39;data.table&#39;</pre>
 <pre class = 'prettyprint lang-r'>system.time({x = fread(outfile)})</pre>
 
 <pre >   user  system elapsed 
-  0.203   0.016   0.222 </pre>
+  0.179   0.006   0.188 </pre>
 
 <pre class = 'prettyprint lang-r'>class(x)</pre>
 

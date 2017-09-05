@@ -117,7 +117,7 @@ _Some other important tips_
 
 https://kbroman.wordpress.com/2015/09/09/reproducibility-is-hard/
 
-# Project Structure
+## Project Structure
 
 - RStudio Projects
 - Project template: http://projecttemplate.net/getting_started.html
@@ -730,4 +730,3 @@ check_Sal = Sal
 rownames(check_Sal) = NULL
 all.equal(check_Sal, dplyr_sal)
 ```
-
