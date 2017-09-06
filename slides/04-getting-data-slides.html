@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Getting data</title>
+    <meta charset="utf-8">
+    <meta name="author" content="www.jtleek.com/advdatasci" />
+    <link href="libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="additional.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Getting data
+## JHU Data Science
+### www.jtleek.com/advdatasci
+
+---
+
+class: center, middle
+# What you wish data looked like
+
+![](../imgs/tidy-data-example.png)
+
+---
+class: center, middle
+# What it actually looks like
+
+
+
+![](../imgs/fastq.png)
+
+
+---
+class: center, middle
+# What it actually looks like
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/twitter-api.png)
+
+---
+class: center, middle
+# What it actually looks like
+
+http://healthdesignchallenge.com/
+
+![](../imgs/ehr.png)
+
+---
+class: center, middle
+# Spreadsheet tales
+
+
+![](../imgs/spreadsheet-tales.png)
+
+
+---
+class: center, middle
+# It gets very crazy
+
+https://github.com/jennybc/2016-06_spreadsheets/blob/master/2016-06_useR-stanford.pdf
+
+![](../imgs/enron-spreadsheet.png)
+
+---
+class: center, middle
+# Other people's data
+
+[#otherpeoplesdata](https://twitter.com/search?q=%23otherpeoplesdata)
+
+![](../imgs/ohterpeoples-data.png)
+
+---
+class: center, middle
+# Where you wish data were
+
+![](../imgs/your-laptop.png)
+
+
+---
+class: center, middle
+# Where they actually are
+
+![](../imgs/databases.png)
+
+---
+class: center, middle
+# What they actually are
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/twitter-api.png)
+
+---
+class: center, middle
+# What they actually are
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/bmore-data.png)
+
+
+---
+class: center, middle
+# Our plan
+
+![](../imgs/all-data.png)
+
+
+---
+class: center, middle
+
+# Data brainstorming
+
+&lt;span style="font-size:52px"&gt;https://goo.gl/9j3T7y&lt;span&gt;
+
+
+---
+class: center, middle
+# What are data? 
+
+http://en.wikipedia.org/wiki/Data
+
+&lt;span style="font-size:52px"&gt;Data are values of qualitative or quantitative variables, belonging to a set of items.&lt;span&gt;
+
+---
+class: center, middle
+# Relativity of raw data
+
+https://simplystatistics.org/2016/07/20/relativity-raw-data/
+
+&lt;span style="font-size:40px"&gt; ...raw data is raw to you if you have done no processing, manipulation, coding, or analysis of the data. In other words, the file you received from the person before you is untouched. But it may not be the rawest version of the data. The person who gave you the raw data may have done some computations. They have a different "raw data set"..&lt;span&gt;
+
+---
+class: center, middle
+# The relativity of raw data - example
+
+![](../imgs/hiseq.png)
+
+
+---
+class: center, middle
+# The relativity of raw data - example
+
+![](../imgs/hiseq-workflow.png)
+
+
+---
+class: center, middle
+
+# How to share data
+
+
+![](../imgs/ellis-datashare.png)
+
+
+---
+# The four parts
+
+
+1. The raw data.
+2. A tidy data set
+3. A code book describing each variable and its values in the tidy data set.
+4. An explicit and exact recipe you used to go from 1 -&gt; 2,3
+
+---
+class: center, middle
+
+# Raw data
+
+
+![](../imgs/raw-data.png)
+
+---
+class: center, middle
+
+# Tidy data
+
+
+![](../imgs/tidy-data.png)
+
+---
+class: center, middle
+
+# Code book
+
+
+![](../imgs/code-book.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-best.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-meh.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-no.png)
+
+
+---
+class: center, middle
+
+&lt;span style="font-size:52px"&gt;Getting data&lt;span&gt;
+
+
+---
+# Relative versus absolute paths
+
+.pull-left[
+__Do__
+
+```r
+setwd("../data")
+setwd("./files")
+setwd("..\tmp")
+```
+
+]
+.pull-right[
+__Don't__
+
+```r
+setwd("/Users/jtleek/data")
+setwd("~/Desktop/files/data")
+setwd("C:\\Users\\Andrew\\Downloads")
+```
+]
+
+---
+# Finding and creating files
+
+
+```r
+if(!file.exists("data")){
+  dir.create("data")
+}
+list.files("data")
+```
+
+---
+# Downloading data
+
+
+```r
+file_url &lt;- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+
+download.file(file_url,
+    destfile="./data/cameras.csv",
+    method="curl")
+list.files("./data")
+date_downloaded &lt;- date()
+date_downloaded
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

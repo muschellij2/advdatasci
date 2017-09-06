@@ -1,0 +1,261 @@
+---
+title: "Getting data"
+subtitle: "JHU Data Science"
+author: "www.jtleek.com/advdatasci"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "additional.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    keep_md: true
+---
+class: center, middle
+# What you wish data looked like
+
+![](../imgs/tidy-data-example.png)
+
+---
+class: center, middle
+# What it actually looks like
+
+
+
+![](../imgs/fastq.png)
+
+
+---
+class: center, middle
+# What it actually looks like
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/twitter-api.png)
+
+---
+class: center, middle
+# What it actually looks like
+
+http://healthdesignchallenge.com/
+
+![](../imgs/ehr.png)
+
+---
+class: center, middle
+# Spreadsheet tales
+
+
+![](../imgs/spreadsheet-tales.png)
+
+
+---
+class: center, middle
+# It gets very crazy
+
+https://github.com/jennybc/2016-06_spreadsheets/blob/master/2016-06_useR-stanford.pdf
+
+![](../imgs/enron-spreadsheet.png)
+
+---
+class: center, middle
+# Other people's data
+
+[#otherpeoplesdata](https://twitter.com/search?q=%23otherpeoplesdata)
+
+![](../imgs/ohterpeoples-data.png)
+
+---
+class: center, middle
+# Where you wish data were
+
+![](../imgs/your-laptop.png)
+
+
+---
+class: center, middle
+# Where they actually are
+
+![](../imgs/databases.png)
+
+---
+class: center, middle
+# What they actually are
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/twitter-api.png)
+
+---
+class: center, middle
+# What they actually are
+
+https://dev.twitter.com/docs/api/1/get/blocks/blocking
+
+![](../imgs/bmore-data.png)
+
+
+---
+class: center, middle
+# Our plan
+
+![](../imgs/all-data.png)
+
+
+---
+class: center, middle
+
+# Data brainstorming
+
+<span style="font-size:52px">https://goo.gl/9j3T7y<span>
+
+
+---
+class: center, middle
+# What are data? 
+
+http://en.wikipedia.org/wiki/Data
+
+<span style="font-size:52px">Data are values of qualitative or quantitative variables, belonging to a set of items.<span>
+
+---
+class: center, middle
+# Relativity of raw data
+
+https://simplystatistics.org/2016/07/20/relativity-raw-data/
+
+<span style="font-size:40px"> ...raw data is raw to you if you have done no processing, manipulation, coding, or analysis of the data. In other words, the file you received from the person before you is untouched. But it may not be the rawest version of the data. The person who gave you the raw data may have done some computations. They have a different "raw data set"..<span>
+
+---
+class: center, middle
+# The relativity of raw data - example
+
+![](../imgs/hiseq.png)
+
+
+---
+class: center, middle
+# The relativity of raw data - example
+
+![](../imgs/hiseq-workflow.png)
+
+
+---
+class: center, middle
+
+# How to share data
+
+
+![](../imgs/ellis-datashare.png)
+
+
+---
+# The four parts
+
+
+1. The raw data.
+2. A tidy data set
+3. A code book describing each variable and its values in the tidy data set.
+4. An explicit and exact recipe you used to go from 1 -> 2,3
+
+---
+class: center, middle
+
+# Raw data
+
+
+![](../imgs/raw-data.png)
+
+---
+class: center, middle
+
+# Tidy data
+
+
+![](../imgs/tidy-data.png)
+
+---
+class: center, middle
+
+# Code book
+
+
+![](../imgs/code-book.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-best.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-meh.png)
+
+---
+class: center, middle
+
+# Recipe
+
+
+![](../imgs/recipe-no.png)
+
+
+---
+class: center, middle
+
+<span style="font-size:52px">Getting data<span>
+
+
+---
+# Relative versus absolute paths
+
+.pull-left[
+__Do__
+```{r eval=FALSE}
+setwd("../data")
+setwd("./files")
+setwd("..\tmp")
+```
+
+]
+.pull-right[
+__Don't__
+```{r eval=FALSE}
+setwd("/Users/jtleek/data")
+setwd("~/Desktop/files/data")
+setwd("C:\\Users\\Andrew\\Downloads")
+```
+]
+
+---
+# Finding and creating files
+
+```{r, eval=FALSE}
+if(!file.exists("data")){
+  dir.create("data")
+}
+list.files("data")
+```
+
+---
+# Downloading data
+
+```{r, eval=FALSE}
+file_url <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+
+download.file(file_url,
+    destfile="./data/cameras.csv",
+    method="curl")
+list.files("./data")
+date_downloaded <- date()
+date_downloaded
+```
+
