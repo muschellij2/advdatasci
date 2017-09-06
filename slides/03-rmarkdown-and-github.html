@@ -17,6 +17,112 @@ class: center, middle, inverse, title-slide
 
 ---
 
+class: inverse, middle, center
+
+
+
+# What is RMarkdown?
+
+
+
+---
+
+# RMarkdown: http://rmarkdown.rstudio.com/
+
+
+&lt;div style="font-size:25pt;"&gt;
+.pull-left[
+  
+- Data + Code + prose/text
+- A YAML configuration header
+- Inline code
+    - &lt;code class="r"&gt;``` `r mean(x)` ```&lt;/code&gt;
+
+]
+&lt;/div&gt;
+
+.pull-right[ 
+![](../imgs/rmarkdown/RMarkdownOutputFormats.png)
+
+]
+
+(http://rmarkdown.rstudio.com/images/RMarkdownOutputFormats.png)
+
+---
+class: inverse, middle, center
+
+# Creating RMarkdown Documents in RStudio 
+
+&lt;div&gt;
+
+```
+install.packages("rmarkdown")
+```
+
+&lt;/div&gt;
+
+---
+background-image: url(../imgs/rmarkdown/new_rmarkdown.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/new_template.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/yaml.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/code_chunk.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/code_chunk_plot.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/knit.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/saving_file.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/rmarkdown.png)
+background-size: 100% 
+
+
+---
+background-image: url(../imgs/rmarkdown/output.png)
+background-size: 100% 
+
+---
+
+# Rendering
+
+
+  
+
+```r
+library(rmarkdown)
+render("test.Rmd")
+```
+
+
+
+
+&lt;!-- here is the github stuff --&gt; 
+
+---
 background-image: url(../imgs/github/gh.png)
 background-size: 100% 
 
@@ -149,54 +255,6 @@ background-size: 100%
 &lt;div style="color: blue; font-size: 30pt; background-color: #ffffff;"&gt;After making some changes adding, committing, pushing&lt;/div&gt;
 
 
----
-
-
-# RMarkdown
-
----
-background-image: url(../imgs/rmarkdown/new_rmarkdown.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/new_template.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/yaml.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/code_chunk.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/code_chunk_plot.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/knit.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/saving_file.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/rmarkdown.png)
-background-size: 100% 
-
-
----
-background-image: url(../imgs/rmarkdown/output.png)
-background-size: 100% 
 
 ---
 
