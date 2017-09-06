@@ -14,9 +14,9 @@ output:
 ---
 class: inverse, middle, center
 
-
-
 # What is RMarkdown?
+
+
 
 ```{r setup, include = FALSE}
 options(htmltools.dir.version = FALSE)
@@ -28,9 +28,7 @@ rcode <- function(code) {
 }
 ```
 
----
 
-# RMarkdown: http://rmarkdown.rstudio.com/
 
 
 <div style="font-size:25pt;">
@@ -94,6 +92,11 @@ class: inverse, middle, center
 
 </div>
 
+---
+class: inverse, middle, center
+
+
+# RMarkdown Options : http://rmarkdown.rstudio.com/
 
 
 
