@@ -141,9 +141,8 @@ background-size: 100%
 
 <div style="color: blue; font-size: 30pt; background-color: #ffffff;">After making some changes adding, committing, pushing</div>
 
-
-
 ---
+class: inverse, middle, center
 
 # RStudio Projects and GitHub
 
