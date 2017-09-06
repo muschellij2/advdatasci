@@ -23,6 +23,9 @@ options(htmltools.dir.version = FALSE)
 rinline <- function(code) { 
   sprintf('<code class="r">``` `r %s` ```</code>', code) 
 }
+rcode <- function(code) { 
+  sprintf('<code class="r">%s</code>', code) 
+}
 ```
 
 ---
@@ -53,9 +56,14 @@ class: inverse, middle, center
 
 # Creating RMarkdown Documents in RStudio 
 
-```{r, eval = FALSE}
-install.packages("rmarkdown")
-```
+<div style="font-size:30pt">
+
+`r rcode('install.packages("rmarkdown")')`
+
+</div>
+
+
+
 
 ```{r rmd_files, results='asis', echo = FALSE}
 top_cat = c("---\nbackground-image: url(../imgs/rmarkdown/")
@@ -72,20 +80,30 @@ cat(res, sep = "")
 ```
 
 ---
+class: inverse, middle, center
 
 # Rendering
 
 
   
-```{r eval = FALSE}
-library(rmarkdown)
-render("test.Rmd")
-```
+<div style="font-size:30pt">
+
+`r rcode('library(rmarkdown)')`
+
+`r rcode('render("test.Rmd")')`
+
+</div>
 
 
 
 
 <!-- here is the github stuff --> 
+
+---
+class: inverse, middle, center
+
+
+# GitHub: Online Server of Git Repositories
 
 ---
 background-image: url(../imgs/github/gh.png)
@@ -145,4 +163,7 @@ cat(res, sep = "")
 ```
 
 
+---
+class: inverse, middle, center
 
+# You can also go Tools → Version Control → Commit
