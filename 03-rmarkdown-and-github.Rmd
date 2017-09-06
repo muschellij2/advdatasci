@@ -10,6 +10,7 @@ title: RMarkdown and GitHub
     * Add/Drop is Fri Sep 8
     * Projects must be chosen by Sep 8
     * 99% of communication with go through Slack.  Emails will be referred to Slack
+    * Log into experiment https://jhubiostatistics.shinyapps.io/doda/ with password "pilot"
 2. __Assignment__: 
     * DataCamp: Authoring R Markdown Reports +  Authoring R Markdown Reports
     * Due Sep 11th by 1:30PM 
