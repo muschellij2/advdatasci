@@ -4,7 +4,7 @@
     <title>Getting data</title>
     <meta charset="utf-8">
     <meta name="author" content="www.jtleek.com/advdatasci" />
-    <link href="libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
     <link rel="stylesheet" href="additional.css" type="text/css" />
   </head>
   <body>
@@ -18,7 +18,10 @@ class: center, middle, inverse, title-slide
 ---
 
 class: center, middle
+
 # What you wish data looked like
+
+
 
 ![](../imgs/tidy-data-example.png)
 
@@ -69,7 +72,7 @@ class: center, middle
 
 [#otherpeoplesdata](https://twitter.com/search?q=%23otherpeoplesdata)
 
-![](../imgs/ohterpeoples-data.png)
+![](../imgs/otherpeoples-data.png)
 
 ---
 class: center, middle
@@ -258,7 +261,7 @@ list.files("data")
 
 
 ```r
-file_url &lt;- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+file_url &lt;- paste0("https://data.baltimorecity.gov/api/", "views/dz54-2aru/rows.csv?accessType=DOWNLOAD")
 
 download.file(file_url,
     destfile="./data/cameras.csv",
@@ -267,6 +270,460 @@ list.files("./data")
 date_downloaded &lt;- date()
 date_downloaded
 ```
+
+---
+class: inverse, center, middle
+
+# Google Sheets
+
+
+---
+class: inverse, center, middle
+
+# Google Sheets
+
+---
+background-image: url(../imgs/getting_data/gsheet.png)
+background-size: 80% 
+background-position: center
+
+# https://docs.google.com/spreadsheets
+
+
+
+
+---
+background-image: url(../imgs/getting_data/gsheets_jenny.png)
+background-size: 80% 
+background-position: bottom
+
+# &lt;p style='font-size:20pt'&gt;https://speakerdeck.com/jennybc/googlesheets-talk-at-user2015&lt;/p&gt;
+
+
+
+
+---
+class: inverse, middle
+
+&lt;div style="font-size:28pt"&gt;
+
+&lt;code class="r"&gt;library(devtools)&lt;/code&gt;
+
+&lt;code class="r"&gt;install_github("jennybc/googlesheets")&lt;/code&gt;
+
+&lt;code class="r"&gt;library(googlesheets)&lt;/code&gt;
+
+&lt;br&gt;
+&lt;code class="r"&gt;?gs_read&lt;/code&gt;
+&lt;br&gt;
+&lt;code class="r"&gt;?"cell-specification"&lt;/code&gt;
+
+&lt;/div&gt;
+
+
+---
+background-image: url(../imgs/getting_data/sheet1.png)
+background-size: 100% 
+background-position: center
+
+# &lt;p style='font-size:14pt'&gt;https://docs.google.com/spreadsheets/d/18KQQd4LY5k8Ucux1MvWCsQGQJlvd0ECTnn-3ixdOKFM/pubhtml&lt;/p&gt;
+
+---
+background-image: url(../imgs/getting_data/sheet2.png)
+background-size: 100% 
+background-position: center
+
+# Publish to the web
+
+
+---
+class: inverse, middle
+
+&lt;div style="font-size:24pt"&gt;
+
+&lt;code class="r"&gt;sheets_url = "https://docs.google.com/spreadsheets&lt;/code&gt;
+&lt;code class="r"&gt;/d/18KQQd4LY5k8Ucux1MvWCsQGQJlvd0ECTnn-3ixdOKFM/pubhtml"&lt;/code&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;code class="r"&gt;gsurl1 = gs_url(sheets_url)&lt;/code&gt;
+&lt;br&gt;
+&lt;code class="r"&gt;dat = gs_read(gsurl1)&lt;/code&gt;
+
+&lt;/div&gt;
+
+
+---
+class: inverse, middle, center
+
+# JSON
+
+---
+background-image: url(../imgs/getting_data/json.png)
+background-size: 100% 
+background-position: center
+
+# https://en.wikipedia.org/wiki/JSON
+
+
+
+---
+background-image: url(../imgs/getting_data/json.png)
+background-size: 100% 
+background-position: center
+
+# Why JSON matters
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;p style='font-size:14pt'&gt;https://developer.github.com/v3/search/&lt;/p&gt;
+
+---
+# Reading in JSON: jsonlite
+
+```r
+github_url = "https://api.github.com/users/jtleek/repos"
+
+install.packages("jsonlite")
+library(jsonlite)
+jsonData &lt;- fromJSON(github_url)
+dim(jsonData)
+jsonData$name
+```
+
+
+---
+
+# Data frame structure from JSON
+
+```r
+table(sapply(jsonData,class))
+
+dim(jsonData$owner)
+
+names(jsonData$owner)
+```
+
+---
+class: inverse, middle, center
+
+
+# Web Scraping
+
+
+---
+background-image: url(../imgs/getting_data/this_is_data.png)
+background-size: 80% 
+background-position: bottom
+
+# This is data&lt;p style='font-size:20pt'&gt;.right[http://bowtie-bio.sourceforge.net/recount/]&lt;/p&gt;
+
+
+---
+background-image: url(../imgs/getting_data/view_source.png)
+background-size: 80% 
+background-position: center
+
+# View Source
+
+
+---
+background-image: url(../imgs/getting_data/computer_sees.png)
+background-size: 80% 
+background-position: center
+
+# What the computer sees
+---
+background-image: url(../imgs/getting_data/inspect_element.png)
+background-size: 80% 
+background-position: center
+
+# Inspect element
+---
+background-image: url(../imgs/getting_data/copy_xpath.png)
+background-size: 80% 
+background-position: center
+
+# Copy XPath
+
+---
+
+## `rvest` package
+
+
+```r
+recount_url = "http://bowtie-bio.sourceforge.net/recount/"
+install.packages("rvest")
+library(rvest)
+htmlfile = read_html(recount_url)
+
+nds = html_nodes(htmlfile,                
+xpath='//*[@id="recounttab"]/table')
+dat = html_table(nds)
+dat = as.data.frame(dat)
+head(dat)
+```
+
+
+---
+background-image: url(../imgs/getting_data/okcupid.png)
+background-size: 80% 
+background-position: center
+
+# &lt;p style='font-size:20pt'&gt;http://motherboard.vice.com/read/70000-okcupid-users-just-had-their-data-published&lt;/p&gt;
+
+
+---
+background-image: url(../imgs/getting_data/guardian.png)
+background-size: 80% 
+background-position: center
+
+# &lt;p style='font-size:20pt'&gt;https://www.theguardian.com/science/2012/may/23/text-mining-research-tool-forbidden&lt;/p&gt;
+
+---
+class: inverse, center, middle
+
+# APIs
+
+---
+background-image: url(../imgs/getting_data/apis.png)
+background-size: 80% 
+background-position: bottom
+
+# Application Programming Interfaces&lt;p style='font-size:20pt'&gt;.right[http://bowtie-bio.sourceforge.net/recount/]&lt;/p&gt;
+
+
+
+
+---
+background-image: url(../imgs/getting_data/pubmed.png)
+background-size: 100% 
+background-position: bottom
+
+# In biology too!&lt;p style='font-size:18pt'&gt;.right[http://www.ncbi.nlm.nih.gov/books/NBK25501/]&lt;/p&gt;
+
+
+
+
+---
+background-image: url(../imgs/getting_data/step0.png)
+background-size: 80% 
+background-position: bottom
+
+# Step 0: Did someone do this already&lt;p style='font-size:20pt'&gt;.right[https://ropensci.org/]&lt;/p&gt;
+
+
+---
+background-image: url(../imgs/getting_data/figshare.png)
+background-size: 80% 
+background-position: bottom
+
+# Figshare&lt;p style='font-size:20pt'&gt;.right[https://figshare.com]&lt;/p&gt;
+
+---
+
+## Figshare API wrapper
+
+```r
+install.packages("rfigshare")
+library(rfigshare)
+leeksearch = fs_search("Leek")
+
+length(leeksearch)
+leeksearch[[1]]
+```
+
+
+---
+background-image: url(../imgs/getting_data/diy.png)
+background-size: 100% 
+background-position: bottom
+
+# Do it yourself
+
+
+---
+background-image: url(../imgs/getting_data/read_docs.png)
+background-size: 100% 
+background-position: bottom
+
+# Read the docs
+
+
+---
+background-image: url(../imgs/getting_data/api_limit.png)
+background-size: 100% 
+background-position: center
+
+# Read the docs
+
+
+---
+background-image: url(../imgs/getting_data/example_query.png)
+background-size: 100% 
+background-position: center
+
+# Example query
+
+---
+class: middle
+
+# A dissected example
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/search/repositories?q=created:2014-08-13+language:r+-user:cran&amp;type &lt;/font&gt;
+
+&lt;/p&gt;
+
+
+---
+class: middle
+
+# Base URL
+
+&lt;p style='font-size:30pt'&gt;
+
+https://api.github.com/&lt;font color="lightgray"&gt;search/repositories?q=created:2014-08-13+language:r+-user:cran&amp;type&lt;/font&gt;
+
+&lt;/p&gt;
+
+
+---
+class: middle
+
+# The Path: Search repositories
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/&lt;/font&gt;search/repositories&lt;font color="lightgray"&gt;?q=created:2014-08-13+language:r+-user:cran&amp;type&lt;/font&gt;
+
+&lt;/p&gt;
+
+
+---
+class: middle
+
+# Create a query
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/search/repositories&lt;/font&gt;?q=created:2014-08-13+language:r+-user:cran&amp;type
+
+&lt;/p&gt;
+
+
+---
+class: middle
+
+# Date repo was created
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/search/repositories?q=&lt;/font&gt;created:2014-08-13&lt;font color="lightgray"&gt;+language:r+-user:cran&amp;type&lt;/font&gt;
+
+&lt;/p&gt;
+
+
+---
+class: middle
+
+# Language repo is in
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/search/repositories?q=created:2014-08-13&lt;/font&gt;+language:r&lt;font color="lightgray"&gt;+-user:cran&amp;type&lt;/font&gt;
+
+&lt;/p&gt;
+
+
+
+
+---
+class: middle
+
+# Ignore repos from CRAN
+
+&lt;p style='font-size:30pt'&gt;
+
+&lt;font color="lightgray"&gt;https://api.github.com/search/repositories?q=created:2014-08-13+language:r&lt;/font&gt;+-user:cran&amp;type
+
+&lt;/p&gt;
+
+
+---
+## Using httr to call the API
+
+
+```r
+install.packages("httr")
+library(httr)
+
+query_url = paste0("https://api.github.com/search/",
+"repositories?q=created:2014-08-13+language:r+-user:cran")
+
+req = GET(query_url)
+names(content(req))
+```
+
+
+---
+background-image: url(../imgs/getting_data/non_open_apis.png)
+background-size: 100% 
+background-position: bottom
+
+# Not all APIs are "open"
+
+
+---
+# Authentication!
+
+
+```r
+myapp = oauth_app(
+  "twitter",
+  key="yourConsumerKeyHere",
+  secret="yourConsumerSecretHere")
+sig = sign_oauth1.0(
+  myapp,
+  token = "yourTokenHere",
+  token_secret = "yourTokenSecretHere")
+homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", 
+             sig)
+```
+
+
+---
+## But you can get cool data
+
+```
+json1 = content(homeTL)
+json2 = jsonlite::fromJSON(toJSON(json1))
+json2[1,1:4]
+
+                    created_at           id             id_str
+1 Mon Jan 13 05:18:04 +0000 2014 4.225984e+17 422598398940684288
+                                                                                                                                         text
+1 Now that P. Norvig's regex golf IPython notebook hit Slashdot, 
+let's see if our traffic spike tops the previous one: http://t.co/Vc6JhZXOo8
+```
+
+
+---
+## Summary
+
+
+* `httr` to interact with the web (VERBS like GET/PUT)
+
+
+* `rvest` to grab all the exact elements you want
+    - Check out selector gadget 
+    
+
+* `googlesheets` for ... Google Sheets
+* `googledrive` (http://googledrive.tidyverse.org/) just came out
+
+
+* `jsonlite` for JSON
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

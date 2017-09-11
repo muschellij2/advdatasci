@@ -6,8 +6,7 @@ title: Getting Data and APIs
     * Lab times: 
         * Monday 3-4PM, Genome Cafe
         * Friday 10-11AM, Biostatistics Library
-    * Bring to lab: NAAAAAAAAAAAAAAAAAAAAAA
 2. __Assignment__: 
-    * DataCamp: NAAAAAAAAAAAAAAAAAAAAAA
-    * Due Sep 18th by 1:30PM 
-3. __Slides__: http://jtleek.com/advdatasci/slides/02-organizing-version-control-slides.html
+    * DataCamp:  Using httr to interact with APIs directly and Downloading Files and Using API Clients
+    * Due Sep 15th by 5PM 
+3. __Slides__: http://jtleek.com/advdatasci/slides/04-getting-data-slides.html

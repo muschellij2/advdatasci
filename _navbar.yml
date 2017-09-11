@@ -9,7 +9,9 @@ left:
       - text: "Organizing and Version Control"
         href: ./02-organizing-version-control.html
       - text: "RMarkdown and GitHub"
-        href: ./03-rmarkdown-and-github.html        
+        href: ./03-rmarkdown-and-github.html     
+      - text: "Getting Data and APIs"
+        href: ./04-getting-data-and-apis.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
