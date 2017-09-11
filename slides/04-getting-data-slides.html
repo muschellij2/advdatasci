@@ -99,7 +99,7 @@ https://dev.twitter.com/docs/api/1/get/blocks/blocking
 class: center, middle
 # What they actually are
 
-https://dev.twitter.com/docs/api/1/get/blocks/blocking
+https://data.baltimorecity.gov
 
 ![](../imgs/bmore-data.png)
 
@@ -261,12 +261,12 @@ list.files("data")
 
 
 ```r
-file_url &lt;- paste0("https://data.baltimorecity.gov/api/", "views/dz54-2aru/rows.csv?accessType=DOWNLOAD")
+file_url &lt;- paste0("https://data.baltimorecity.gov/api/",
+                   "views/dz54-2aru/rows.csv?accessType=DOWNLOAD")
 
 download.file(file_url,
-    destfile="./data/cameras.csv",
-    method="curl")
-list.files("./data")
+    destfile="cameras.csv")
+list.files(".")
 date_downloaded &lt;- date()
 date_downloaded
 ```
@@ -307,9 +307,7 @@ class: inverse, middle
 
 &lt;div style="font-size:28pt"&gt;
 
-&lt;code class="r"&gt;library(devtools)&lt;/code&gt;
-
-&lt;code class="r"&gt;install_github("jennybc/googlesheets")&lt;/code&gt;
+&lt;code class="r"&gt;install.packages("googlesheets")&lt;/code&gt;
 
 &lt;code class="r"&gt;library(googlesheets)&lt;/code&gt;
 
@@ -446,8 +444,22 @@ background-position: center
 # Copy XPath
 
 ---
+background-image: url(../imgs/getting_data/selector_gadget.png)
+background-size: 80% 
+background-position: center
+
+# Selector Gadget
+---
+background-image: url(../imgs/getting_data/run_selector_gadget.png)
+background-size: 80% 
+background-position: center
+
+# Selector Gadget
+
+---
 
 ## `rvest` package
+
 
 
 ```r
