@@ -770,3 +770,7 @@ center_slide("tidygenomics")
 install.packages("tidygenomics")
 ```
 
+```{r, include = FALSE}
+file.remove("my_db.sqlite3")
+```
+
