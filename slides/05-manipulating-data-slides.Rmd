@@ -1,0 +1,142 @@
+---
+title: "Manipulating data"
+subtitle: "JHU Data Science"
+author: "www.jtleek.com/advdatasci"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "additional.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    keep_md: true
+---
+class: inverse, center, middle
+
+# dplyr
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = "")
+options(htmltools.dir.version = FALSE)
+source("../slide_functions.R")
+folder = "../imgs/manipulating_data/"
+```
+
+---
+## dplyr verbs
+
+--
+
+* `filter` (and `slice`) : select rows
+
+--
+
+* `arrange`: order rows
+
+--
+
+* `select` (and `rename`) : order/rename columns
+
+--
+
+* `distinct`: find distinct rows
+
+--
+
+* `mutate` (and `transmute`): add new variables
+
+--
+
+* `summarise`: summarize across a data set
+
+--
+
+* `sample_n` and `sample_frac`: sample from a data set
+
+--
+
+* `group_by`: Group data by varaible(s)
+
+
+
+---
+class: inverse, middle, center
+
+
+## Gapminder Example
+
+```{r, eval = FALSE}
+install.packages("gapminder")
+```
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+library(gapminder)
+str(gapminder)
+gtbl = gapminder
+```
+
+---
+
+```{r}
+glimpse(gtbl)
+```
+
+---
+
+--
+
+```{r}
+filter(gtbl, lifeExp < 29)
+```
+
+--
+
+```{r}
+select(gtbl, country, year, pop)
+```
+
+---
+
+--
+
+```{r}
+arrange(gtbl, pop) %>% head(3)
+```
+
+--
+
+```{r}
+arrange(gtbl, desc(pop)) %>% head(3)
+```
+
+---
+
+```{r}
+gtbl = mutate(gtbl, newVar = lifeExp / gdpPercap)
+select(gtbl, lifeExp,gdpPercap,newVar) %>% head(3)
+```
+
+---
+
+```{r}
+sub_gtbl = select(gtbl, country, year)
+distinct(sub_gtbl)
+```
+
+```{r gapminder, results='asis', echo = FALSE}
+bg_slide("gapminder", 
+  folder = folder,
+  position = "bottom",
+  size = "80%",
+  title = "<p style='font-size:20pt'>https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en
+</p>")
+```
+
+
+
+
+```{r gapminder2, results='asis', echo = FALSE}
+bg_slide("gapminder", 
+  folder = folder)
+```

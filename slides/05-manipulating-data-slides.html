@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manipulating data</title>
+    <meta charset="utf-8">
+    <meta name="author" content="www.jtleek.com/advdatasci" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="additional.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Manipulating data
+## JHU Data Science
+### www.jtleek.com/advdatasci
+
+---
+
+class: inverse, center, middle
+
+# dplyr
+
+
+
+---
+## dplyr verbs
+
+--
+
+* `filter` (and `slice`) : select rows
+
+--
+
+* `arrange`: order rows
+
+--
+
+* `select` (and `rename`) : order/rename columns
+
+--
+
+* `distinct`: find distinct rows
+
+--
+
+* `mutate` (and `transmute`): add new variables
+
+--
+
+* `summarise`: summarize across a data set
+
+--
+
+* `sample_n` and `sample_frac`: sample from a data set
+
+--
+
+* `group_by`: Group data by varaible(s)
+
+
+
+---
+class: inverse, middle, center
+
+
+## Gapminder Example
+
+
+```r
+install.packages("gapminder")
+```
+
+```r
+library(dplyr)
+library(gapminder)
+str(gapminder)
+```
+
+```
+Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
+ $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+ $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+ $ gdpPercap: num  779 821 853 836 740 ...
+```
+
+```r
+gtbl = gapminder
+```
+
+---
+
+
+```r
+glimpse(gtbl)
+```
+
+```
+Observations: 1,704
+Variables: 6
+$ country   &lt;fctr&gt; Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
+$ continent &lt;fctr&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
+$ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
+$ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
+$ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
+$ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
+```
+
+---
+
+--
+
+
+```r
+filter(gtbl, lifeExp &lt; 29)
+```
+
+```
+# A tibble: 2 x 6
+      country continent  year lifeExp     pop gdpPercap
+       &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan      Asia  1952  28.801 8425333  779.4453
+2      Rwanda    Africa  1992  23.599 7290203  737.0686
+```
+
+--
+
+
+```r
+select(gtbl, country, year, pop)
+```
+
+```
+# A tibble: 1,704 x 3
+       country  year      pop
+        &lt;fctr&gt; &lt;int&gt;    &lt;int&gt;
+ 1 Afghanistan  1952  8425333
+ 2 Afghanistan  1957  9240934
+ 3 Afghanistan  1962 10267083
+ 4 Afghanistan  1967 11537966
+ 5 Afghanistan  1972 13079460
+ 6 Afghanistan  1977 14880372
+ 7 Afghanistan  1982 12881816
+ 8 Afghanistan  1987 13867957
+ 9 Afghanistan  1992 16317921
+10 Afghanistan  1997 22227415
+# ... with 1,694 more rows
+```
+
+---
+
+--
+
+
+```r
+arrange(gtbl, pop) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 6
+                country continent  year lifeExp   pop gdpPercap
+                 &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt;
+1 Sao Tome and Principe    Africa  1952  46.471 60011  879.5836
+2 Sao Tome and Principe    Africa  1957  48.945 61325  860.7369
+3              Djibouti    Africa  1952  34.812 63149 2669.5295
+```
+
+--
+
+
+```r
+arrange(gtbl, desc(pop)) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 6
+  country continent  year lifeExp        pop gdpPercap
+   &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+1   China      Asia  2007  72.961 1318683096  4959.115
+2   China      Asia  2002  72.028 1280400000  3119.281
+3   China      Asia  1997  70.426 1230075000  2289.234
+```
+
+---
+
+
+```r
+gtbl = mutate(gtbl, newVar = lifeExp / gdpPercap)
+select(gtbl, lifeExp,gdpPercap,newVar) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 3
+  lifeExp gdpPercap     newVar
+    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1  28.801  779.4453 0.03695064
+2  30.332  820.8530 0.03695180
+3  31.997  853.1007 0.03750671
+```
+
+---
+
+
+```r
+sub_gtbl = select(gtbl, country, year)
+distinct(sub_gtbl)
+```
+
+```
+# A tibble: 1,704 x 2
+       country  year
+        &lt;fctr&gt; &lt;int&gt;
+ 1 Afghanistan  1952
+ 2 Afghanistan  1957
+ 3 Afghanistan  1962
+ 4 Afghanistan  1967
+ 5 Afghanistan  1972
+ 6 Afghanistan  1977
+ 7 Afghanistan  1982
+ 8 Afghanistan  1987
+ 9 Afghanistan  1992
+10 Afghanistan  1997
+# ... with 1,694 more rows
+```
+
+---
+background-image: url(../imgs/manipulating_data/gapminder.png)
+background-size: 80% 
+background-position: bottom
+
+# &lt;p style='font-size:20pt'&gt;https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en
+&lt;/p&gt;
+
+
+
+
+---
+background-image: url(../imgs/manipulating_data/gapminder.png)
+background-size: 100% 
+background-position: center
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
