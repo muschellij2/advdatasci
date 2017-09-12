@@ -12,6 +12,8 @@ left:
         href: ./03-rmarkdown-and-github.html     
       - text: "Getting Data and APIs"
         href: ./04-getting-data-and-apis.html
+      - text: "Manipulating Data"
+        href: ./05-manipulating-data.html      
   - text: "Grading"
     href: grading.html
   - text: "Staff"

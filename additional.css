@@ -6,3 +6,15 @@
 .super { font-size: 150% }
 .huge { font-size: 200% }
 
+.bullets {
+    display: inline-block;
+}
+
+.left-column-equal {
+  width: 47%;
+  float: left;
+}
+.right-column-equal {
+  width: 47%;
+  float: right;
+}

@@ -14,8 +14,8 @@ bg_slide = function(
 ){
   n_files = length(files_in_order)
   files_in_order = paste0(files_in_order, suffix)
-  folder = rep(folder, n_files)
-  size = rep(size, n_files)
+  folder = rep(folder, length.out = n_files)
+  size = rep_len(size, length.out = n_files)
   top_cat = paste0("---\nbackground-image: url(", folder)
   bottom_cat = paste0(")\nbackground-size: ", size, " \n")
   bottom_cat = paste0(bottom_cat, paste0(
@@ -25,5 +25,11 @@ bg_slide = function(
   titles[  keep ] = paste0("\n# ", titles[keep])
   bottom_cat = paste0(bottom_cat, titles)
   res = paste0(top_cat, files_in_order, bottom_cat, "\n")
+  cat(res, sep = "")
+}
+
+center_slide = function(title) {
+  res = paste0("---\nclass: inverse, middle, center\n",
+         "# ", title, "\n\n")
   cat(res, sep = "")
 }

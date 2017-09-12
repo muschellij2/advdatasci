@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="www.jtleek.com/advdatasci" />
     <link href="libs/remark-css/example.css" rel="stylesheet" />
-    <link rel="stylesheet" href="additional.css" type="text/css" />
+    <link rel="stylesheet" href="../additional.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -25,8 +25,6 @@ class: inverse, center, middle
 
 ---
 ## dplyr verbs
-
---
 
 * `filter` (and `slice`) : select rows
 
@@ -61,8 +59,6 @@ class: inverse, center, middle
 
 
 ---
-class: inverse, middle, center
-
 
 ## Gapminder Example
 
@@ -92,6 +88,18 @@ gtbl = gapminder
 ```
 
 ---
+background-image: url(../imgs/manipulating_data/gapminder.png)
+background-size: 100% 
+background-position: center
+
+# Gapminder Example
+
+.footnote[https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en]
+
+---
+class: inverse
+
+## Glimpse - a better `str`
 
 
 ```r
@@ -110,8 +118,9 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
 ```
 
 ---
+class: inverse
 
---
+## Select rows and columns
 
 
 ```r
@@ -151,8 +160,9 @@ select(gtbl, country, year, pop)
 ```
 
 ---
+class: inverse
 
---
+## Order rows ascending and descending
 
 
 ```r
@@ -185,6 +195,9 @@ arrange(gtbl, desc(pop)) %&gt;% head(3)
 ```
 
 ---
+class: inverse
+
+## Add new columns
 
 
 ```r
@@ -202,6 +215,9 @@ select(gtbl, lifeExp,gdpPercap,newVar) %&gt;% head(3)
 ```
 
 ---
+class: inverse
+
+## Distinct: a better `unique` for data sets
 
 
 ```r
@@ -226,21 +242,954 @@ distinct(sub_gtbl)
 # ... with 1,694 more rows
 ```
 
----
-background-image: url(../imgs/manipulating_data/gapminder.png)
-background-size: 80% 
-background-position: bottom
-
-# &lt;p style='font-size:20pt'&gt;https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en
-&lt;/p&gt;
-
-
-
 
 ---
-background-image: url(../imgs/manipulating_data/gapminder.png)
+background-image: url(../imgs/manipulating_data/big_data.png)
 background-size: 100% 
 background-position: center
+
+# Key principle of big data
+---
+background-image: url(../imgs/manipulating_data/careful.png)
+background-size: 100% 
+background-position: center
+
+# Key principle of big data
+
+
+---
+background-image: url(../imgs/manipulating_data/dogma.png)
+background-size: 90% 
+background-position: center
+
+# Central dogma of statistics
+
+---
+class: inverse
+
+## Sampling
+
+
+```r
+n1000 = sample_n(gtbl, 1000)
+```
+
+
+```r
+pct0.5= sample_frac(gtbl, 0.5)
+dim(pct0.5)
+```
+
+```
+[1] 852   7
+```
+
+&lt;font style='font-size:30pt'&gt;
+Also good with `group_by` for stratified sampling.
+&lt;/font&gt;
+
+---
+class: inverse, middle, center
+
+# Pipes
+
+---
+class: inverse, middle, center
+
+# %&gt;%
+
+&lt;font style='font-size:30pt'&gt;
+Read as "then"
+&lt;/font&gt;
+
+&lt;br&gt;
+&lt;font style='font-size:30pt'&gt;
+http://cran.r-project.org/web/packages/magrittr/index.html
+&lt;/font&gt;
+
+---
+class: inverse, middle
+
+# Piping stuff
+
+
+```r
+gtbl %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 7
+      country continent  year lifeExp      pop gdpPercap     newVar
+       &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 Afghanistan      Asia  1952  28.801  8425333  779.4453 0.03695064
+2 Afghanistan      Asia  1957  30.332  9240934  820.8530 0.03695180
+3 Afghanistan      Asia  1962  31.997 10267083  853.1007 0.03750671
+```
+
+&lt;font style='font-size:30pt'&gt;
+RStudio does tab completion with column names of a data set.
+&lt;br&gt;
+No more "what did I call that variable again?"
+&lt;/font&gt;
+
+
+---
+class: inverse, middle, center
+
+# Uh...big deal?
+
+---
+class: inverse, center, middle
+
+## Example
+
+&lt;font color="yellow"  style='font-size:30pt'&gt;
+Show me a random sample of size 10 for the data of Asian countries with life expectancy &lt; 65.
+&lt;/font&gt;
+
+
+---
+class: inverse
+
+## In base R:
+
+
+```r
+ # new table
+gtbl1 = gtbl[gtbl$continent=="Asia",]
+
+ # reassignment
+gtbl2 = gtbl1[gtbl1$lifeExp &lt; 65,]
+
+# functions in brackets
+gtbl3 = gtbl2[sample(1:dim(gtbl2)[1],size=10),]
+
+gtbl3
+```
+
+---
+class: inverse
+
+## With pipes + dplyr
+
+
+```r
+gtbl %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  filter(lifeExp &lt; 65) %&gt;%
+  sample_n(10)
+
+gtbl %&gt;% 
+  filter(continent == "Asia", lifeExp &lt; 65) %&gt;%
+  sample_n(10)
+
+gtbl %&gt;% 
+  filter(continent == "Asia" &amp; lifeExp &lt; 65) %&gt;%
+  sample_n(10)
+```
+
+
+---
+class: inverse
+
+## Getting complicated, but readable
+
+
+```r
+gtbl %&gt;% 
+  filter(year &gt; 1960) %&gt;%
+  group_by(country) %&gt;% 
+  sample_n(10) %&gt;% 
+  mutate(pop_exp = pop / lifeExp,
+         sampled = TRUE)
+```
+
+```
+# A tibble: 1,420 x 9
+# Groups:   country [142]
+       country continent  year lifeExp      pop gdpPercap     newVar
+        &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Afghanistan      Asia  1992  41.674 16317921  649.3414 0.06417887
+ 2 Afghanistan      Asia  1962  31.997 10267083  853.1007 0.03750671
+ 3 Afghanistan      Asia  2007  43.828 31889923  974.5803 0.04497115
+ 4 Afghanistan      Asia  1972  36.088 13079460  739.9811 0.04876881
+ 5 Afghanistan      Asia  1967  34.020 11537966  836.1971 0.04068419
+ 6 Afghanistan      Asia  1987  40.822 13867957  852.3959 0.04789089
+ 7 Afghanistan      Asia  2002  42.129 25268405  726.7341 0.05797031
+ 8 Afghanistan      Asia  1982  39.854 12881816  978.0114 0.04075003
+ 9 Afghanistan      Asia  1997  41.763 22227415  635.3414 0.06573317
+10 Afghanistan      Asia  1977  38.438 14880372  786.1134 0.04889626
+# ... with 1,410 more rows, and 2 more variables: pop_exp &lt;dbl&gt;,
+#   sampled &lt;lgl&gt;
+```
+
+---
+class: inverse, center, middle
+
+## Example 2
+
+&lt;font color="yellow"  style='font-size:30pt'&gt;
+What is the average life expectancy by continent?
+&lt;/font&gt;
+
+
+---
+class: inverse
+
+## With pipes + dplyr
+
+```r
+gtbl %&gt;% 
+  group_by(continent) %&gt;% 
+  summarize(aveLife = mean(lifeExp))
+```
+
+```
+# A tibble: 5 x 2
+  continent  aveLife
+     &lt;fctr&gt;    &lt;dbl&gt;
+1    Africa 48.86533
+2  Americas 64.65874
+3      Asia 60.06490
+4    Europe 71.90369
+5   Oceania 74.32621
+```
+
+---
+class: inverse
+
+## Multiple Summarizations: just add more
+
+
+```r
+gtbl %&gt;% 
+  group_by(continent) %&gt;% 
+  summarize(aveLife = mean(lifeExp),
+            n = n())
+```
+
+```
+# A tibble: 5 x 3
+  continent  aveLife     n
+     &lt;fctr&gt;    &lt;dbl&gt; &lt;int&gt;
+1    Africa 48.86533   624
+2  Americas 64.65874   300
+3      Asia 60.06490   396
+4    Europe 71.90369   360
+5   Oceania 74.32621    24
+```
+
+
+---
+class: inverse
+
+# Common Summarization options 
+
+- mean:  mean within groups
+
+- sum:  sum within groups
+
+- sd:  standard deviation within groups
+
+- max:  max within groups
+
+- ...  ...
+
+dplyr functions:
+
+- `n()`:  number in each group
+- `first()`:  first in group
+- `last()`:  last in group
+- `nth(n=3)`:  nth in group (3rd here)
+
+- `tally()` is short-hand for `summarise(n = n())` (see `add_tally`)
+- `count()` is a short-hand for `group_by() + tally()` (see `add_count`)
+
+
+
+
+
+---
+class: inverse, middle, center
+
+# dplyr lab
+
+&lt;font color="blue"  style='font-size:40pt'&gt;
+https://goo.gl/bryfeH
+&lt;/font&gt;
+
+
+---
+class: inverse, middle, center
+
+# Merging Data Sets
+
+---
+class: inverse, middle, center
+
+# The worst and most common task
+
+
+---
+background-image: url(../imgs/manipulating_data/joins.png)
+background-size: 100% 
+background-position: center
+
+.footnote[https://www.blubgoo.com/sql-join-overview/]
+
+
+---
+background-image: url(../imgs/manipulating_data/relational.png)
+background-size: 60% 
+background-position: center
+
+.footnote[http://r4ds.had.co.nz/relational-data.html]
+
+---
+background-image: url(../imgs/manipulating_data/inner_join.png)
+background-size: 100% 
+background-position: center
+
+# Inner Join&lt;img src="../imgs/manipulating_data/relational.png" style="width:20%"&gt;
+---
+background-image: url(../imgs/manipulating_data/left_join.png)
+background-size: 100% 
+background-position: center
+
+# Left Join&lt;img src="../imgs/manipulating_data/relational.png" style="width:20%"&gt;
+---
+background-image: url(../imgs/manipulating_data/full_join.png)
+background-size: 100% 
+background-position: center
+
+# Full Join&lt;img src="../imgs/manipulating_data/relational.png" style="width:20%"&gt;
+
+.footnote[http://r4ds.had.co.nz/relational-data.html]
+
+
+---
+class: inverse
+
+## Superheroes Example
+
+
+```r
+superheroes &lt;-
+  c("    name, alignment, gender,         publisher",
+    " Magneto,       bad,   male,            Marvel",
+    "   Storm,      good, female,            Marvel",
+    "Mystique,       bad, female,            Marvel",
+    "  Batman,      good,   male,                DC",
+    "   Joker,       bad,   male,                DC",
+    "Catwoman,       bad, female,                DC",
+    " Hellboy,      good,   male, Dark Horse Comics")
+superheroes &lt;- read.csv(text = superheroes, 
+                        strip.white = TRUE)
+head(superheroes)
+```
+
+```
+      name alignment gender publisher
+1  Magneto       bad   male    Marvel
+2    Storm      good female    Marvel
+3 Mystique       bad female    Marvel
+4   Batman      good   male        DC
+5    Joker       bad   male        DC
+6 Catwoman       bad female        DC
+```
+
+.footnote[http://stat545.com/bit001_dplyr-cheatsheet.html]
+
+
+---
+class: inverse
+
+## Superheroes Example
+
+
+```r
+publishers &lt;- 
+  c("publisher, yr_founded",
+    "       DC,       1934",
+    "   Marvel,       1939",
+    "    Image,       1992")
+publishers &lt;- read.csv(text = publishers, 
+                       strip.white = TRUE)
+head(publishers)
+```
+
+```
+  publisher yr_founded
+1        DC       1934
+2    Marvel       1939
+3     Image       1992
+```
+
+.footnote[http://stat545.com/bit001_dplyr-cheatsheet.html]
+
+---
+
+
+```r
+ijsp = inner_join(superheroes, publishers)
+```
+
+```
+Joining, by = "publisher"
+```
+
+```
+Warning: Column `publisher` joining factors with different levels, coercing
+to character vector
+```
+
+![](../imgs/manipulating_data/superhero_inner_join.png)
+
+.footnote[http://stat545.com/bit001_dplyr-cheatsheet.html]
+
+---
+
+
+```r
+ljsp = left_join(superheroes, publishers)
+```
+
+```
+Joining, by = "publisher"
+```
+
+```
+Warning: Column `publisher` joining factors with different levels, coercing
+to character vector
+```
+
+![](../imgs/manipulating_data/superhero_left_join.png)
+
+.footnote[http://stat545.com/bit001_dplyr-cheatsheet.html]
+
+
+---
+
+
+```r
+fjsp = left_join(superheroes, publishers)
+```
+
+```
+Joining, by = "publisher"
+```
+
+```
+Warning: Column `publisher` joining factors with different levels, coercing
+to character vector
+```
+
+![](../imgs/manipulating_data/superhero_full_join.png)
+
+.footnote[http://stat545.com/bit001_dplyr-cheatsheet.html]
+
+---
+class: inverse, middle, center
+
+# Merging lab
+
+&lt;font color="blue"  style='font-size:40pt'&gt;
+https://goo.gl/Z3hqyT
+&lt;/font&gt;
+
+---
+class: inverse, middle, center
+# dplyr + databases
+
+---
+class: inverse
+layout: false
+
+## "flat files" vs. databases
+
+&lt;!-- .left-column-equal[Flat files --&gt;
+.pull-left[Flat files
+- Formats
+    - .csv, .xlsx, .txt, ...
+
+- How used
+    - Usually read into RAM
+
+- Good for
+    - Small/medium sized data 
+
+- Disadvantage
+    - Big data = big computer
+    - Slow reading
+]
+&lt;!-- .right-column-equal[ --&gt;
+.pull-right[Databases
+
+- Formats
+  - sqllite, postgres, mongodb
+  
+- How used
+    - Data stays on disk
+
+- Good for
+    - Big data  
+
+- Disadvantage
+    - Low interactivity
+    - Potentially slow I/O
+]
+
+
+
+---
+background-image: url(../imgs/manipulating_data/database.png)
+background-size: 100% 
+background-position: center
+
+.footnote[http://r4ds.had.co.nz/relational-data.html]
+---
+class: inverse
+## Setup
+
+
+```r
+# install.packages("dplyr")
+# install.packages("babynames")
+# install.packages("pryr")
+library(dplyr)
+library(babynames)
+library(pryr)
+```
+
+---
+class: inverse
+
+## Checking out babynames
+
+
+```r
+?babynames
+View(babynames)
+```
+
+```r
+str(babynames)
+```
+
+```
+Classes 'tbl_df', 'tbl' and 'data.frame':	1858689 obs. of  5 variables:
+ $ year: num  1880 1880 1880 1880 1880 1880 1880 1880 1880 1880 ...
+ $ sex : chr  "F" "F" "F" "F" ...
+ $ name: chr  "Mary" "Anna" "Emma" "Elizabeth" ...
+ $ n   : int  7065 2604 2003 1939 1746 1578 1472 1414 1320 1288 ...
+ $ prop: num  0.0724 0.0267 0.0205 0.0199 0.0179 ...
+```
+
+```r
+pryr::object_size(babynames)
+```
+
+```
+71.6 MB
+```
+
+---
+class: inverse
+
+## Getting set up
+
+
+```r
+my_db &lt;- src_sqlite("my_db.sqlite3", create = TRUE)
+babys_sqlite &lt;- copy_to(my_db, babynames, 
+                        temporary = FALSE,
+                        overwrite = TRUE)
+src_tbls(my_db)
+```
+
+```
+[1] "babynames"    "sqlite_stat1"
+```
+
+```r
+tbl(my_db,"babynames")
+```
+
+```
+# Source:   table&lt;babynames&gt; [?? x 5]
+# Database: sqlite 3.11.1
+#   [/Users/johnmuschelli/Dropbox/Teaching/advdatasci/slides/my_db.sqlite3]
+    year   sex      name     n       prop
+   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;      &lt;dbl&gt;
+ 1  1880     F      Mary  7065 0.07238433
+ 2  1880     F      Anna  2604 0.02667923
+ 3  1880     F      Emma  2003 0.02052170
+ 4  1880     F Elizabeth  1939 0.01986599
+ 5  1880     F    Minnie  1746 0.01788861
+ 6  1880     F  Margaret  1578 0.01616737
+ 7  1880     F       Ida  1472 0.01508135
+ 8  1880     F     Alice  1414 0.01448711
+ 9  1880     F    Bertha  1320 0.01352404
+10  1880     F     Sarah  1288 0.01319618
+# ... with more rows
+```
+
+---
+class: inverse
+
+## Now you can use dplyr just like before!
+
+
+```r
+newtbl = my_db %&gt;% 
+  tbl("babynames")%&gt;% 
+  filter( name == "Hilary") %&gt;% 
+  select(year,n,name, sex)
+```
+
+--
+
+`dplyr` waits to access the database. Here it only gets the first 10 rows:
+
+```r
+newtbl
+```
+
+```
+# Source:   lazy query [?? x 4]
+# Database: sqlite 3.11.1
+#   [/Users/johnmuschelli/Dropbox/Teaching/advdatasci/slides/my_db.sqlite3]
+    year     n   name   sex
+   &lt;dbl&gt; &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;
+ 1  1882     7 Hilary     M
+ 2  1883     6 Hilary     M
+ 3  1887     7 Hilary     M
+ 4  1891     8 Hilary     M
+ 5  1896     6 Hilary     M
+ 6  1897     5 Hilary     M
+ 7  1898     5 Hilary     M
+ 8  1902     8 Hilary     M
+ 9  1904     5 Hilary     M
+10  1905     6 Hilary     M
+# ... with more rows
+```
+
+--
+
+---
+class: inverse
+
+## Now you can use dplyr just like before!
+
+
+```r
+newtbl = my_db %&gt;% 
+  tbl("babynames") %&gt;% 
+  filter(name=="Hilary") %&gt;% 
+  select(year,n,name, sex)
+```
+
+`collect()` asks for the whole result
+
+```r
+output = newtbl %&gt;% collect()
+dim(output)
+```
+
+```
+[1] 191   4
+```
+
+
+---
+class: inverse
+
+
+```r
+library(ggplot2)
+output %&gt;% 
+  filter(year &gt; 1930) %&gt;% 
+  ggplot(aes(x = year, y = n, colour = sex)) + 
+  geom_line() + ggtitle("Incidence of babies named Hilary") +
+  theme(legend.position = c(0.25, 0.75))
+```
+
+![](05-manipulating-data-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+---
+class: inverse
+
+## Top 100 Baby Names: `data.frame`.
+
+
+```r
+popular = babynames %&gt;%
+  
+  group_by(name) %&gt;%
+  summarise(N = sum(n)) %&gt;%
+  arrange(desc(N)) %&gt;% 
+  
+  top_n(100)
+```
+
+```
+Selecting by N
+```
+
+.footnote[http://cpsievert.github.io/slides/intro/#44]
+
+
+
+
+---
+class: inverse
+
+## Top 100 Baby Names: database
+
+
+```r
+popular = my_db %&gt;%
+  tbl("babynames")%&gt;%
+  group_by(name) %&gt;%
+  summarise(N = sum(n)) %&gt;%
+  arrange(desc(N)) %&gt;% 
+  
+  top_n(100)
+```
+
+```
+Selecting by N
+```
+
+
+This won't work out of the box as `rank` is not supported for this database (so `top_n` is not either)
+
+--
+
+
+```r
+popular
+```
+```
+Error: Window function `rank()` is not supported by this database
+```
+
+.footnote[http://cpsievert.github.io/slides/intro/#44]
+
+---
+class: inverse
+
+## Top 100 Baby Names: database
+
+
+```r
+popular = my_db %&gt;%
+  tbl("babynames")%&gt;%
+  group_by(name) %&gt;%
+  summarise(N = sum(n)) %&gt;%
+  arrange(desc(N)) %&gt;% 
+  collect() %&gt;% 
+  top_n(100)
+```
+
+```
+Selecting by N
+```
+
+--
+
+
+```r
+popular %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 2
+    name       N
+   &lt;chr&gt;   &lt;int&gt;
+1  James 5144205
+2   John 5117331
+3 Robert 4823167
+```
+
+
+.right[
+.footnote[http://cpsievert.github.io/slides/intro/#44]
+]
+---
+class: inverse
+
+## Operations in Databases
+
+- basic math operators: +, -, *, /, %%, ^
+
+- math functions: abs, acos, acosh, asin, asinh, atan, atan2, atanh, ceiling,
+  cos, cosh, cot, coth, exp, floor, log,log10, round, sign, sin, sinh, sqrt, tan,
+  tanh
+- logical comparisons: &lt;, &lt;=, !=, &gt;=, &gt;, ==, %in%
+
+- boolean operations: &amp;, &amp;&amp;, |, ||, !, xor
+
+- basic aggregations: mean, sum, min, max, sd, var
+
+.footnote[https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html]
+
+---
+class: inverse
+
+## SQL Translation!
+
+
+```r
+suppressPackageStartupMessages({library(dbplyr)})
+translate_sql(filter(name=="James"))
+```
+
+```
+&lt;SQL&gt; FILTER("name" = 'James')
+```
+
+```r
+translate_sql(filter(df,name=="James"))
+```
+
+```
+&lt;SQL&gt; FILTER("df", "name" = 'James')
+```
+
+```r
+translate_sql(summarize(group_by(df), mean(x)))
+```
+
+```
+&lt;SQL&gt; SUMMARIZE(GROUP_BY("df"), avg("x") OVER ())
+```
+
+---
+class: inverse
+
+## SQL Translation with pipes
+
+
+```r
+translate_sql({
+  df %&gt;% 
+    group_by(continent) %&gt;% 
+    summarize(x = mean(x))
+  })
+```
+
+```
+Warning: Named arguments ignored for SQL SUMMARIZE
+```
+
+```
+&lt;SQL&gt; (SUMMARIZE(GROUP_BY("df", "continent"), avg("x") OVER () AS "x"))
+```
+
+---
+class: inverse
+
+## Explain details: runs SQL EXPLAIN (query plan)
+
+
+```r
+how_female = my_db %&gt;% 
+  tbl("babynames") %&gt;% 
+  group_by(name) %&gt;% 
+  summarize(m = mean(sex == "F"))
+
+explain(how_female)
+```
+
+```
+&lt;SQL&gt;
+SELECT `name`, AVG(`sex` = 'F') AS `m`
+FROM `babynames`
+GROUP BY `name`
+```
+
+```
+
+```
+
+```
+&lt;PLAN&gt;
+   addr       opcode p1 p2  p3        p4 p5 comment
+1     0         Init  0 43   0           00      NA
+2     1   SorterOpen  1  2   0    k(1,B) 00      NA
+3     2      Integer  0  5   0           00      NA
+4     3      Integer  0  4   0           00      NA
+5     4         Null  0  8   8           00      NA
+6     5        Gosub  7 40   0           00      NA
+7     6     OpenRead  0  2   0         3 00      NA
+8     7       Rewind  0 13   0           00      NA
+9     8       Column  0  2  10           00      NA
+10    9       Column  0  1  11           00      NA
+11   10   MakeRecord 10  2  12           00      NA
+12   11 SorterInsert  1 12   0           00      NA
+13   12         Next  0  8   0           01      NA
+14   13        Close  0  0   0           00      NA
+15   14   OpenPseudo  2 12   2           00      NA
+16   15   SorterSort  1 42   0           00      NA
+17   16   SorterData  1 12   2           00      NA
+18   17       Column  2  0   9           00      NA
+19   18      Compare  8  9   1    k(1,B) 00      NA
+20   19         Jump 20 24  20           00      NA
+21   20         Move  9  8   1           00      NA
+22   21        Gosub  6 34   0           00      NA
+23   22        IfPos  5 42   0           00      NA
+24   23        Gosub  7 40   0           00      NA
+25   24       Column  2  1  13           00      NA
+26   25           Eq 14 10  13  (BINARY) 62      NA
+27   26     AggStep0  0 10   2    avg(1) 01      NA
+28   27       Column  2  0   1           00      NA
+29   28      Integer  1  4   0           00      NA
+30   29   SorterNext  1 16   0           00      NA
+31   30        Gosub  6 34   0           00      NA
+32   31         Goto  0 42   0           00      NA
+33   32      Integer  1  5   0           00      NA
+34   33       Return  6  0   0           00      NA
+35   34        IfPos  4 36   0           00      NA
+36   35       Return  6  0   0           00      NA
+37   36     AggFinal  2  1   0    avg(1) 00      NA
+38   37         Copy  1 15   1           00      NA
+39   38    ResultRow 15  2   0           00      NA
+40   39       Return  6  0   0           00      NA
+41   40         Null  0  1   3           00      NA
+42   41       Return  7  0   0           00      NA
+43   42         Halt  0  0   0           00      NA
+44   43  Transaction  0  0 178         0 01      NA
+45   44    TableLock  0  2   0 babynames 00      NA
+46   45      String8  0 14   0         F 00      NA
+47   46         Goto  0  1   0           00      NA
+```
+
+---
+class: inverse, middle, center
+# Databases lab
+
+&lt;font color="blue"  style='font-size:40pt'&gt;
+https://goo.gl/ekBcv1
+&lt;/font&gt;
+
+
+---
+class: inverse, middle, center
+# When tidy won't do
+
+---
+background-image: url(../imgs/manipulating_data/nmeth.png)
+background-size: 100% 
+background-position: center
+.footnote[http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html]
+
+---
+class: inverse, middle, center
+# tidygenomics
+
+```r
+install.packages("tidygenomics")
+```
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
