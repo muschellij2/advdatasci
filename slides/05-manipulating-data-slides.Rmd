@@ -346,7 +346,7 @@ class: inverse, middle, center
 
 # dplyr lab
 
-<font color="blue"  style='font-size:40pt'>
+<font color="red"  style='font-size:40pt'>
 https://goo.gl/bryfeH
 </font>
 
@@ -467,7 +467,7 @@ class: inverse, middle, center
 
 # Merging lab
 
-<font color="blue"  style='font-size:40pt'>
+<font color="red"  style='font-size:40pt'>
 https://goo.gl/Z3hqyT
 </font>
 
@@ -748,7 +748,7 @@ explain(how_female)
 center_slide("Databases lab")
 ```
 
-<font color="blue"  style='font-size:40pt'>
+<font color="red"  style='font-size:40pt'>
 https://goo.gl/ekBcv1
 </font>
 

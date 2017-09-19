@@ -1,0 +1,353 @@
+---
+title: "Tidy text and sentiment analysis"
+subtitle: "JHU Data Science"
+author: "www.jtleek.com/advdatasci"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "../additional.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    keep_md: true
+---
+class: inverse, middle, center
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = "")
+muffleError <- function(x,options) {}
+reg_error_hook = knitr::knit_hooks$get("error")
+options(htmltools.dir.version = FALSE)
+source("../slide_functions.R")
+folder = "../imgs/tidytext/"
+```
+
+
+# What are the data we see?
+
+```{r this_is_data, results='asis', echo = FALSE}
+bg_slide("trump", 
+  folder = folder,
+  size = "60%",
+  position = "bottom",
+  title = "This is data")
+```
+
+```{r ja, results='asis', echo = FALSE}
+bg_slide("janeaustin", 
+  folder = folder,
+  size = "80%",
+  position = "bottom",
+  title = "This too")
+```
+
+
+```{r tidytext, results='asis', echo = FALSE}
+bg_slide("tidytext", 
+  folder = folder,
+  size = "80%")
+```
+
+.footnote[http://joss.theoj.org/papers/89fd1099620268fe0342ffdcdf66776f]
+
+---
+class: inverse
+
+## Look at some text
+
+```{r}
+suppressPackageStartupMessages({library(dplyr)})
+library(tidytext)
+txt = c("These are words", "so are these", "this is running on")
+sentence = c(1, 2, 3)
+dat = tibble(txt, sentence)
+unnest_tokens(dat,tok,txt)
+```
+
+---
+class: inverse
+
+## What is tokenization? 
+
+<div style='font-size:30pt'>
+
+> "The process of segmenting running text into words and sentences."
+
+- Split on white space/punctuation
+- Make lower case 
+- Keep contractions together
+- Maybe put quoted words together (not in unnest_tokens)
+
+</p>
+
+---
+class: inverse
+
+## One line per row
+
+```{r}
+library(janeaustenr)
+original_books <- austen_books() %>%
+  group_by(book) %>%
+  mutate(linenumber = row_number()) %>%
+  ungroup()
+head(original_books)
+```
+
+---
+class: inverse
+
+## One token per row
+
+```{r}
+tidy_books <- original_books %>% unnest_tokens(word, text)
+head(tidy_books)
+```
+
+
+```{r wordcloud, results='asis', echo = FALSE}
+bg_slide("wordcloud", 
+  folder = folder,
+  size = "80%",
+  title = "Stop words/words to filter",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://xpo6.com/list-of-english-stop-words/]
+
+---
+class: inverse
+
+## Stop words/words to filter
+
+```{r}
+tidy_books %>% 
+  group_by(word) %>% 
+  tally() %>% 
+  arrange(desc(n))
+```
+
+
+---
+class: inverse
+
+## Stemming
+
+```{r}
+library(SnowballC)
+wordStem(c("running","fasted"))
+```
+
+---
+class: inverse
+
+## Filtering with joins
+
+```{r}
+head(stop_words)
+tidy_books = tidy_books %>% anti_join(stop_words, by = "word")
+head(tidy_books)
+```
+
+---
+class: inverse
+
+## Example classification
+
+
+.pull-left[
+![](`r paste0(folder, "janeaustin.png")`)
+]
+<p style="  display: inline-block; font-size: 20pt; padding: 15% 0;"> vs. </p>
+.pull-right[
+![](`r paste0(folder, "ap.png")`)
+]
+
+
+---
+class: inverse
+
+## Example classification
+
+```{r}
+library(tm); 
+data("AssociatedPress", package = "topicmodels")
+AssociatedPress
+class(AssociatedPress)
+```
+
+---
+class: inverse
+
+## Compare frequencies
+
+```{r}
+comparison <- tidy(AssociatedPress) %>%
+    count(word = term) %>%
+    rename(AP = n) %>%
+    inner_join(count(tidy_books, word)) %>%
+    rename(Austen = n) %>%
+    mutate(AP = AP / sum(AP),
+           Austen = Austen / sum(Austen),
+           diff=AP - Austen) %>% 
+  arrange(diff)
+head(comparison)
+```
+
+
+
+---
+class: inverse
+
+## Bag of words
+
+```{r}
+tidy_freq = tidy_books %>% 
+  group_by(book, word) %>%
+  summarize(count=n()) %>% 
+  ungroup()
+head(tidy_freq)
+```
+
+---
+class: inverse
+
+## Bag of words
+
+```{r}
+nonum = tidy_freq %>% 
+  filter(is.na(as.numeric(word)))
+head(nonum)
+```
+
+---
+class: inverse
+
+## Combine "bags"
+```{r}
+tidy_ap = tidy(AssociatedPress) %>% 
+  rename(book = document, 
+         word = term, 
+         count = count)
+dat = rbind(tidy_ap, tidy_freq) 
+head(dat)
+```
+
+
+---
+class: inverse
+
+## Term-document matrices
+
+```{r}
+dtm = dat %>% cast_dtm(book,word, count)
+inspect(dtm[1:6,1:10])
+dtm = as.matrix(dtm)
+dtm = dtm/rowSums(dtm)
+```
+
+
+---
+class: inverse
+
+## Classify
+
+```{r}
+cor1 = cor(dtm[1,], t(dtm))[1,]; print(cor1); plot(cor1)
+```
+
+---
+class: inverse
+
+## Classify
+
+```{r}
+which.max(cor1[-1])
+cor_ss = cor(dtm[2252,],t(dtm))[1,]
+which.max(cor_ss[-2252])
+```
+
+---
+class: inverse, center, middle
+
+# Sentiment analysis
+
+<font  style='font-size:40pt'>
+"I hate this stupid class. But I love the instructor"
+</font>
+
+
+---
+class: inverse, center, middle
+
+# Sentiment analysis
+
+<font  style='font-size:40pt'>
+"I <font color="red">hate</font> this <font color="red">stupid</font> class. But I <font color="blue">love</font> the instructor"
+</font>
+
+
+---
+class: inverse, center, middle
+
+# Sentiment analysis
+
+<font  style='font-size:40pt'>
+"I <font color="red">hate</font> this <font color="red">stupid</font> class. But I <font color="blue">love</font> the instructor"
+<br>
+"Oh yeah, I totally <font color="blue">love</font> doing DataCamp sessions"
+</font>
+
+
+
+
+
+---
+class: inverse
+
+## Sentiments
+
+```{r}
+library(tidyr)
+bing <- sentiments %>%
+  filter(lexicon == "bing") %>%
+  select(-score)
+head(bing)
+```
+
+---
+class: inverse
+
+## Assigning sentiments to words
+
+```{r}
+janeaustensentiment <- tidy_books %>%
+  inner_join(bing) %>% 
+  count(book, index = linenumber %/% 80, sentiment) %>% 
+  spread(sentiment, n, fill = 0) %>% 
+  mutate(sentiment = positive - negative)
+head(janeaustensentiment)
+```
+
+---
+class: inverse
+
+## Plotting the sentiment trajectory
+
+```{r, fig.width = 12, fig.height = 6}
+suppressPackageStartupMessages({library(ggplot2)})
+ggplot(janeaustensentiment, aes(index, sentiment, fill = book)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  facet_wrap(~book, ncol = 3, scales = "free_x")
+```
+
+---
+class: inverse, middle, center
+
+# Tidy text lab
+
+<font color="red"  style='font-size:40pt'>
+https://goo.gl/BaiBS1
+</font>
+

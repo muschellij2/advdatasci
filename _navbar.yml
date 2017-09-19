@@ -15,7 +15,10 @@ left:
       - text: "Manipulating Data"
         href: ./05-manipulating-data.html
       - text: "Strings and Regular Expressions"
-        href: ./06-strings-and-regular-expressions.html       
+        href: ./06-strings-and-regular-expressions.html   
+      - text: "Tidy text and sentiment analysis"
+        href: ./07-tidy-text-and-sentiment-analysis.html           
+   
   - text: "Grading"
     href: grading.html
   - text: "Staff"

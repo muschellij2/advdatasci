@@ -18,3 +18,17 @@
   width: 47%;
   float: right;
 }
+
+.pull-left-third {
+  float: left;
+  width: 30%;
+}
+.pull-right-third {
+  float: right;
+  width: 30%;
+}
+.pull-center-third {
+  display: inline-block; 
+  width: 33%; 
+}
+
