@@ -15,7 +15,7 @@ output:
 class: inverse, middle, center
 
 
-# Topic Models is a 
+# Topic Models are a 
 
 > type of statistical model for discovering the abstract "topics" that occur in a collection of documents. Topic modeling is a frequently used text-mining tool for discovery of hidden semantic structures in a text body.
 
@@ -182,7 +182,6 @@ class: inverse
 ## simplystats data - what is it? 
 
 ```{r ss, cache = TRUE, message = FALSE}
-## downloaded  github.com/simplystats/simplystats.github.io
 tdir = file.path(tempdir(), "ss")
 x = git2r::clone(url = "https://github.com/simplystats/simplystats.github.io",
              local_path = tdir,progress = FALSE)
@@ -191,8 +190,7 @@ library(tm)
 suppressPackageStartupMessages({library(dplyr)})
 ds = DirSource(posts)
 simply = VCorpus(ds)
-class(simply)
-length(simply)
+class(simply); length(simply)
 str(simply[[1]])
 ```
 
@@ -218,9 +216,8 @@ class: inverse
 ```{r}
 tidy_simply %>% as.data.frame %>% head(2)
 tidy_simply %>% as.data.frame %>% tail(2)
-
-table(tidy_simply$word)
 tidy_simply %>% group_by(word) %>% count()
+print(table(tidy_simply$word))
 ```
 
 
@@ -275,7 +272,7 @@ class: inverse
 ```{r quartet, results='asis', echo = FALSE}
 bg_slide("quartet", 
   folder = folder,
-  size = "80%",
+  size = "70%",
   add_opts = "class: inverse",
   titles = "Why plot")
 ```
@@ -287,11 +284,15 @@ class: inverse
 
 ## Characteristics of exploratory plots
 
-.huge[
+.superduper[
 - They are made quickly
+<br>
 - A large number are made
+<br>
 - The goal is for personal understanding
+<br>
 - Axes/legends are generally cleaned up
+<br>
 - Color/size are primarily used for information
 ]
 
@@ -301,11 +302,14 @@ class: inverse
 
 ## EDA
 
-.huge[
+.superduper[
 
 - EDA is part statistics, part psychology
+<br>
 - Unfortunately we (humans) are designed to find patterns even when there aren't any
+<br>
 - Visual perception is biased by your humanness.
+<br>
 - The key goal in exploratory EDA is to not trick yourself
 ]
 
@@ -347,7 +351,7 @@ bg_slide("ggplot",
 ```{r tasks, results='asis', echo = FALSE}
 bg_slide("tasks", 
   folder = folder,
-  size = "50%",
+  size = "45%",
   add_opts = "class: inverse",
   titles = "Background perceptual tasks")
 ```
@@ -369,7 +373,7 @@ bg_slide(c("pos_length", "pos_length_results"),
 bg_slide(
   files_in_order = c("pos_angle", "pos_angle_results"),
   folder = folder,
-  size = c("80%", "90%"),
+  size = c("75%", "90%"),
   add_opts = "class: inverse",
   titles = c("Position vs. angle", "Position vs. angle - results"),
   footnotes = "http://www.jstor.org/stable/2288400")
@@ -496,7 +500,7 @@ class: inverse
 
 ## Colors for confounders
 
-```{r, fig.width = 4, fig.height = 4}
+```{r, fig.width = 5, fig.height = 5}
 library(ISLR)
 suppressPackageStartupMessages({library(ggplot2)})
 
@@ -504,6 +508,24 @@ p = ggplot(aes(age,wage), data = Wage)
 p + geom_point(); p + geom_point(aes(colour = jobclass))
 ```
 
+
+---
+class: inverse
+
+## Smooth scatter for big data
+
+```{r}
+smoothScatter(Wage$age,Wage$wage)
+```
+
+---
+class: inverse
+
+## Smooth scatter for big data
+
+```{r}
+library(rafalib); splot(Wage$age,Wage$wage)
+```
 
 
 ---
@@ -516,6 +538,112 @@ class: inverse
 * <font color="red">**png**</font>: bitmapped format, good for line drawings or images with solid colors, uses lossless compression (like the old GIF format), most web browsers can read this format natively, good for plotting many many many points, does not resize well
 * <font color="red">**jpeg**</font>: good for photographs or natural scenes, uses lossy compression, good for plotting many many many points, does not resize well, can be read by almost any computer and any web browser, not great for line drawings
 ]
+
+
+
+---
+class: inverse
+
+## Models as visual aid
+
+```{r, fig.width = 10, fig.height = 5.5}
+qq = qplot(age,wage,colour=education,data=Wage)
+qq +  geom_smooth(method='lm',formula=y~x)
+```
+
+---
+class: inverse
+
+## Models as visual aid
+
+```{r, fig.width = 10, fig.height = 5.5}
+library(modelr); mod1 = lm(wage ~ age*education, data=Wage)
+Wage1 = Wage %>% add_predictions(mod1)
+qq <- qplot(age,wage,colour=education,data=Wage1)
+qq + geom_point(aes(age,pred),colour="black")
+```
+
+---
+class: inverse
+
+## Residuals, colored
+
+```{r, fig.width = 10, fig.height = 5.5}
+Wage1 = Wage1 %>%  mutate(resid=wage-pred)
+qplot(age,resid,colour=education,data=Wage1)
+```
+
+
+---
+class: inverse
+
+## Factors for plotting groups
+
+```{r}
+suppressPackageStartupMessages({library(Hmisc)})
+cutWage <- cut2(Wage$wage,g=3); 
+table(cutWage,Wage$jobclass)
+```
+
+---
+class: inverse
+
+## Factors for plotting groups
+
+```{r, fig.width = 7, fig.height = 5.5}
+p1 = qplot(cutWage,age, data=Wage,fill=cutWage, geom=c("boxplot")); p1
+```
+
+---
+class: inverse
+
+## Overlay points
+
+```{r, fig.width = 10, fig.height = 5.5}
+p2 = qplot(cutWage,age, data=Wage,fill=cutWage, geom=c("boxplot","jitter"))
+gridExtra::grid.arrange(p1,p2,ncol=2)
+```
+
+
+---
+class: inverse
+
+## Heatmaps
+
+```{r}
+library(pheatmap); 
+head(USArrests, 3)
+args(pheatmap)
+```
+
+
+---
+class: inverse
+
+## Heatmaps
+
+```{r}
+pheatmap(USArrests)
+```
+
+
+```{r ggplot2_no, results='asis', echo = FALSE}
+bg_slide("ggplot2_no",
+  folder = folder,
+  size = "70%",
+  add_opts = "class: inverse",
+  footnotes = "http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/")
+```
+
+```{r ggplot2_yes, results='asis', echo = FALSE}
+bg_slide("ggplot2_yes",
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse",
+  footnotes = "https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/")
+```
+
+
 
 
 
