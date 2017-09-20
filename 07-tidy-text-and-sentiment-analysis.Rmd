@@ -6,6 +6,8 @@ title: Tidy text and sentiment analysis
     * Lab times: 
         * Monday 3-4PM, Genome Cafe
         * Friday 10-11AM, Biostatistics Library
+    * **You should be very close to having a collected data set**
+    * Please come with a step-by-step analysis plan even if you haven't done it yet 
 2. __Assignment__: 
     * DataCamp: Shakespeare gets Sentimental and Tweets across the United States
     * Due Sep 22th by 11:59PM
