@@ -62,7 +62,7 @@ class: inverse
 
 ## But text is more complicated
 
-<div style='font-size:30pt'>
+.huge[
 
 We need a way to express
 
@@ -71,7 +71,7 @@ We need a way to express
 - the beginning and end of a line
 - alternatives ("war" or "peace") 
 
-</div>
+]
 
 ---
 class: inverse
@@ -450,8 +450,8 @@ class: inverse
 
 ## Classify
 
-```{r}
-cor1 = cor(dtm[1,], t(dtm))[1,]; print(cor1); plot(cor1)
+```{r, fig.width = 8, fig.height = 5}
+cor1 = cor(dtm[1,], t(dtm))[1,]; print(cor1[1:5]); plot(cor1)
 ```
 
 ---

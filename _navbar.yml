@@ -18,7 +18,8 @@ left:
         href: ./06-strings-and-regular-expressions.html   
       - text: "Tidy text and sentiment analysis"
         href: ./07-tidy-text-and-sentiment-analysis.html           
-   
+      - text: "Topic Models and EDA"
+        href: ./08-topic-models-and-eda.html        
   - text: "Grading"
     href: grading.html
   - text: "Staff"
