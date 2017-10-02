@@ -1,0 +1,12 @@
+Dimension Reduction
+Unsupervised Learning
+	- KNN
+	- Hierarchical
+	- PCA
+	- latent factor model/factor analysis
+	- Keras
+Supervised Learning/Modeling
+	- Caret
+	- Linear regression
+	- cost functions
+EDA/Model Checking

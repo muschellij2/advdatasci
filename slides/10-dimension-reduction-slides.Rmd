@@ -1,0 +1,574 @@
+---
+title: "Dimension Reduction"
+subtitle: "JHU Data Science"
+author: "www.jtleek.com/advdatasci"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "../additional.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    keep_md: true
+---
+class: inverse, middle, center
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = "")
+source("../slide_functions.R")
+folder = "../imgs/dim_red//"
+knitr::opts_chunk$set(
+  echo = TRUE,
+  prompt = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  comment = ""
+  )
+library(RColorBrewer)
+library(pheatmap)
+```
+
+# Dimension Reduction ≈ compression of data
+
+```{r latent, results='asis', echo = FALSE}
+bg_slide("pagerank", 
+  folder = folder,
+  size = "70%",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://ilpubs.stanford.edu:8090/422/1/1999-66.pdf]
+
+
+```{r genome_svd, results='asis', echo = FALSE}
+bg_slide("genome_svd", 
+  folder = folder,
+  size = "70%",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://www.pnas.org/content/97/18/10101.full]
+
+```{r genome_svd2, results='asis', echo = FALSE}
+bg_slide("genome_svd2", 
+  folder = folder,
+  size = "60%",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://www.nature.com/ng/journal/v38/n8/full/ng1847.html]
+
+---
+class: inverse
+
+## Matrix Data
+
+```{r pars, echo = FALSE}
+opar = par(no.readonly = TRUE)
+set.seed(12345)
+par(mar = rep(0.2, 4))
+```
+
+```{r plot, fig.width = 8, fig.height = 6}
+dataMatrix <- matrix(rnorm(400), nrow = 40)
+image(1:10, 1:40, t(dataMatrix)[, nrow(dataMatrix):1])
+```
+
+---
+class: inverse
+## Matrix Data
+
+```{r pheatmap, fig.width = 8, fig.height = 6}
+pheatmap::pheatmap(dataMatrix)
+```
+
+
+```{r pars_reset, echo = FALSE}
+par(opar)
+```
+
+---
+class: inverse
+## Matrix Data: add a pattern
+
+```{r pattern}
+set.seed(678910)
+for(i in 1:40){
+  # flip a coin
+  coinFlip <- rbinom(1,size=1,prob=0.5)
+  # if coin is heads add a common pattern to that row
+  if(coinFlip){
+    dataMatrix[i,] <- dataMatrix[i,] + rep(c(0,3),each=5)
+  }
+}
+```
+
+---
+class: inverse
+## Matrix Data: add a pattern
+
+```{r, fig.width = 8, fig.height = 6}
+pheatmap(dataMatrix,cluster_rows=FALSE,cluster_cols=FALSE)
+```
+
+---
+class: inverse
+## Matrix Data: add a pattern
+
+```{r, fig.width = 8, fig.height = 6}
+pheatmap(dataMatrix)
+```
+
+
+
+
+---
+class: inverse
+## Row and column patterns
+
+```{r, echo = FALSE}
+par(mfrow=c(1,3))
+```
+
+```{r, fig.width = 15, fig.height = 5}
+hh <- hclust(dist(dataMatrix)); dataMatrixOrdered <- dataMatrix[hh$order,]; par(mfrow=c(1,3))
+pal = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1], col = pal)
+plot(rowMeans(dataMatrixOrdered), 40:1, xlab="Row Mean", ylab="Row", pch=19)
+plot(colMeans(dataMatrixOrdered), xlab="Column", ylab="Column Mean", pch=19)
+```
+
+```{r, echo = FALSE}
+par(mfrow=c(1,1))
+```
+
+---
+class: inverse
+## A simple plotting function (for mildly-better plots)
+
+```{r}
+myplot = function(x, y, type = "p", ...) {
+  if (missing(y)) {
+    plot(x, ..., type = type, cex.axis = 2, cex.lab = 2, pch = 19)
+  } else {
+    plot(x, y, ..., type = type, cex.axis = 2, cex.lab = 2, pch = 19)
+  }}
+```
+
+```{r echo = FALSE, fig.width = 15, fig.height = 5}
+par(mfrow=c(1,3))
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1], col = pal)
+myplot(rowMeans(dataMatrixOrdered), 40:1, xlab="Row Mean", ylab="Row")
+myplot(colMeans(dataMatrixOrdered), xlab="Column", ylab="Column Mean")
+```
+
+---
+class: inverse
+
+## Related problems
+
+.super[
+
+You have multivariate variables $X_{1},...,X_{n}$ 
+* Find a new set of multivariate variables that are uncorrelated and explain as much variance as possible.
+<br><br>
+* If you put all the variables together in one matrix, find the best matrix created with fewer variables (lower rank) that explains the original data.
+
+The first goal is statistical and the second goal is data compression.
+]
+
+---
+class: inverse
+
+## Related solutions
+
+.super[
+SVD
+
+* If X is a matrix with each variable in a column and each observation in a row then the SVD is a "matrix decomposition"
+
+$$
+X = UDV^{T}
+$$
+
+where the columns of U are orthogonal (left singular vectors), the columns of V are orthogonal (right singular vectors) and D is a diagonal matrix (singular values).
+
+PCA
+
+* The principal components are equal to the right singular values if you first scale (subtract the mean, divide by the standard deviation) the variables.
+]
+
+```{r pca_math, results='asis', echo = FALSE}
+bg_slide("pca_math", 
+  folder = folder,
+  size = "70%",
+  title = "PCA",
+  add_opts = "class: inverse")
+```
+
+```{r pca_twovar, results='asis', echo = FALSE}
+bg_slide("pca_twovar", 
+  folder = folder,
+  size = "45%",
+  title = "PCA with two variables",
+  positions = "bottom",
+  add_opts = "class: inverse")
+```
+
+---
+class: inverse
+## Example in two dimensions
+
+```{r, echo = FALSE}
+par(mfrow=c(1,3))
+```
+
+```{r prcomp}
+x = rnorm(100); y = rnorm(100, mean=x);dat = cbind(x,y); 
+pca1 = prcomp(dat)
+```
+
+```{r, echo = FALSE, fig.width = 12, fig.height = 6}
+par(mfrow=c(1,2))
+myplot(dat)
+myplot(x-mean(x),y-mean(y))
+abline(-pca1$rotation[,1])
+abline(-pca1$rotation[,2])
+```
+
+```{r, echo = FALSE}
+par(mfrow=c(1,1))
+```
+
+
+```{r svd_math, results='asis', echo = FALSE}
+bg_slide("svd_math", 
+  folder = folder,
+  size = "80%",
+  title = "SVD math!",
+  add_opts = "class: inverse")
+```
+
+
+```{r svd_qr, results='asis', echo = FALSE}
+bg_slide("svd_qr", 
+  folder = folder,
+  size = "80%",
+  title = "SVD best q rank approximation",
+  add_opts = "class: inverse")
+```
+
+```{r svd_math2, results='asis', echo = FALSE}
+bg_slide("svd_math2", 
+  folder = folder,
+  size = "70%",
+  title = "More facts...",
+  add_opts = "class: inverse")
+```
+
+
+```{r svd_picture, results='asis', echo = FALSE}
+bg_slide("svd_picture", 
+  folder = folder,
+  size = "70%",
+  title = "SVD in pictures",
+  add_opts = "class: inverse")
+```
+
+.footnote[https://dl.dropboxusercontent.com/u/7710864/jhsph753/lectures/vadim.pdf]
+
+
+```{r svd_cat, results='asis', echo = FALSE}
+bg_slide("svd_cat", 
+  folder = folder,
+  size = "90%",
+  title = "SVD and residuals",
+  add_opts = "class: inverse")
+```
+ 
+```{r svd_compression, results='asis', echo = FALSE}
+bg_slide("svd_compression", 
+  folder = folder,
+  size = "80%",
+  title = "SVD compression",
+  add_opts = "class: inverse")
+```
+
+.footnote[https://dl.dropboxusercontent.com/u/7710864/jhsph753/lectures/vadim.pdf]
+
+```{r svd_covar, results='asis', echo = FALSE}
+bg_slide("svd_covar", 
+  folder = folder,
+  size = "80%",
+  title = "An important fact",
+  add_opts = "class: inverse")
+```
+
+
+```{r svd_genome3, results='asis', echo = FALSE}
+bg_slide("svd_genome3", 
+  folder = folder,
+  size = "55%",
+  title = "A widely used trick",
+  positions = "bottom",
+  add_opts = "class: inverse")
+```
+
+
+---
+class: inverse
+## Back to our example
+
+
+
+```{r svd, eval = FALSE}
+svd1 <- svd(scale(dataMatrixOrdered))
+image(t(dataMatrixOrdered)[,nrow(dataMatrixOrdered):1])
+myplot(svd1$u[,1],40:1,,xlab="Row",ylab="First left singular vector")
+myplot(svd1$v[,1],xlab="Column",ylab="First right singular vector")
+```
+
+```{r svd_show, echo = FALSE, fig.width = 15, fig.height = 5.5}
+par(mfrow=c(1,3))
+svd1 <- svd(scale(dataMatrixOrdered))
+image(t(dataMatrixOrdered)[,nrow(dataMatrixOrdered):1])
+myplot(svd1$u[,1],40:1,,xlab="Row",ylab="First left singular vector")
+myplot(svd1$v[,1],xlab="Column",ylab="First right singular vector")
+```
+
+```{r, echo = FALSE}
+par(mfrow=c(1,2))
+```
+
+---
+class: inverse
+## Components of SVD - variance explained
+
+```{r, fig.width = 12, fig.height = 6}
+par(mfrow=c(1,2))
+myplot(svd1$d,xlab="Column",ylab="Singular value")
+myplot(svd1$d^2/sum(svd1$d^2),xlab="Column",ylab="Prop. of variance explained")
+```
+
+
+
+---
+class: inverse
+## Relationship to PCs
+
+```{r, fig.width = 8, fig.height = 6}
+svd1 <- svd(scale(dataMatrixOrdered)); pca1 <- prcomp(dataMatrixOrdered,scale=TRUE)
+myplot(pca1$rotation[,1],svd1$v[,1], xlab="Principal Component 1",ylab="Right Singular Vector 1")
+abline(c(0,1))
+```
+
+---
+class: inverse
+## Back to variance explained
+
+
+```{r}
+constantMatrix <- dataMatrixOrdered*0
+for(i in 1:nrow(dataMatrixOrdered)) constantMatrix[i,] <- rep(c(0,1),each=5)
+svd1 <- svd(constantMatrix)
+```
+
+```{r, echo = FALSE, fig.width = 15, fig.height = 5}
+par(mfrow=c(1,3))
+image(t(constantMatrix)[,nrow(constantMatrix):1],
+col=pal)
+myplot(svd1$d,xlab="Column",ylab="Singular value")
+myplot(svd1$d^2/sum(svd1$d^2),xlab="Column", ylab="Prop. of variance explained")
+```
+
+---
+class: inverse
+## What if we add a second pattern?
+
+```{r}
+set.seed(678910)
+for(i in 1:40){
+  # flip a coin
+  coinFlip1 <- rbinom(1,size=1,prob=0.5)
+  coinFlip2 <- rbinom(1,size=1,prob=0.5)
+  # if coin is heads add a common pattern to that row
+  if(coinFlip1){
+    dataMatrix[i,] <- dataMatrix[i,] + rep(c(0,5),each=5)
+  }
+  if(coinFlip2){
+    dataMatrix[i,] <- dataMatrix[i,] + rep(c(0,5),5)
+  }
+}
+hh <- hclust(dist(dataMatrix)); dataMatrixOrdered <- dataMatrix[hh$order,]
+```
+
+---
+class: inverse
+## What if we add a second pattern?
+
+```{r, fig.width = 15, fig.height = 5}
+svd2 <- svd(scale(dataMatrixOrdered))
+par(mfrow=c(1,3))
+image(t(dataMatrixOrdered)[,nrow(dataMatrixOrdered):1],col=pal)
+myplot(rep(c(0,1),each=5),xlab="Column",ylab="Pattern 1")
+myplot(rep(c(0,1),5),xlab="Column",ylab="Pattern 2")
+```
+
+---
+class: inverse
+## v and row patterns
+
+```{r, fig.width = 15, fig.height = 5}
+par(mfrow=c(1,3))
+image(t(dataMatrixOrdered)[,nrow(dataMatrixOrdered):1],col=pal)
+plot(svd2$v[,1],xlab="Column",ylab="First right singular vector")
+plot(svd2$v[,2],xlab="Column",ylab="Second right singular vector")
+```
+
+---
+class: inverse
+## A pathological case
+
+```{r, fig.width = 10, fig.height = 5}
+dataMatrix <- matrix(rnorm(400),nrow=40); dataMatrix[1,] = 50*rep(c(0,1),each=5)
+ss = svd(dataMatrix - rowMeans(dataMatrix))
+```
+.left-column-equal[
+```{r, fig.width = 6, fig.height = 5}
+myplot(ss$v[,1]); 
+```
+]
+.right-column-equal[
+```{r, fig.width = 6, fig.height = 5}
+pheatmap(dataMatrix)
+```
+]
+---
+class: inverse
+## Missing values
+
+```{r, fig.width = 12, fig.height = 6}
+dataMatrix2 <- dataMatrixOrdered
+
+## Randomly insert some missing data
+dataMatrix2[sample(1:100,size=40,replace=FALSE)] <- NA
+
+# fails because scale doesn't like missing data!
+# svd_miss <- svd(scale(dataMatrix2)) 
+```
+
+---
+class: inverse
+## Missing values
+
+```{r, fig.width = 12, fig.height = 6}
+library(impute)  ## Available from http://bioconductor.org
+data_imputed <- impute.knn(dataMatrix2)$data
+svd_non_miss <- svd(scale(data_imputed)); svd_full <- svd(scale(dataMatrixOrdered))
+```
+```{r echo = FALSE, fig.width = 12, fig.height = 6}
+par(mfrow=c(1,2)); 
+ylim = range(c(svd_full$v[,1], svd_non_miss$v[,1]))
+myplot(svd_full$v[,1], main = "Full data", ylim = ylim)
+myplot(svd_non_miss$v[,1], main = "Imputed data", ylim = ylim)
+```
+
+```{r digits, results='asis', echo = FALSE}
+bg_slide("digits", 
+  folder = folder,
+  size = "50%",
+  title = "Digits example",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://statweb.stanford.edu/~tibs/ElemStatLearn/]
+
+
+```{r threes, results='asis', echo = FALSE}
+bg_slide("threes", 
+  folder = folder,
+  size = "70%",
+  title = "Validation in threes",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://statweb.stanford.edu/~tibs/ElemStatLearn/]
+
+```{r pagerank2, results='asis', echo = FALSE}
+bg_slide("pagerank2", 
+  folder = folder,
+  size = "70%",
+  title = "Pagerank",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://statweb.stanford.edu/~tibs/ElemStatLearn/]
+
+
+
+```{r pagerank_math, results='asis', echo = FALSE}
+bg_slide("pagerank_math", 
+  folder = folder,
+  size = "70%",
+  title = "Random surfer model",
+  add_opts = "class: inverse")
+```
+
+```{r pagerank_eigen, results='asis', echo = FALSE}
+bg_slide("pagerank_eigen", 
+  folder = folder,
+  size = "65%",
+  title = "Pagerank as eigenvector problem",
+  add_opts = "class: inverse")
+```
+
+```{r pagerank_binary, results='asis', echo = FALSE}
+bg_slide("pagerank_binary", 
+  folder = folder,
+  size = "80%",
+  title = "Example",
+  add_opts = "class: inverse")
+```
+
+
+---
+class: inverse
+## Calculate Page Ranks
+
+```{r pagerank}
+L = matrix(
+  c(0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0),
+  byrow = TRUE,
+  nrow = 4)
+cc = colSums(L)
+d = 0.85
+e = rep(1, 4)
+N = 4
+A = (1 - d) * e %*% t(e) + d * L %*% solve(diag(cc))
+Re(eigen(A)$values)
+phat = Re(eigen(A)$vectors[1,])
+phat = (N * phat / c( t(e) %*% phat))
+phat
+```
+
+
+---
+class: inverse
+
+## Dimension Reduction
+
+.super[
+- PCA is a highly-useful (and used tool)
+<br><br>
+- Many use variance explained threshold for dimension reduction
+<br><br>
+- Also an orthogonalizing tool
+<br><br>
+- Rank of matrix X is always $\max(n, p)$
+<br><br>
+- Use the lower-dimensional matrix for big data
+<br><br>
+]
+

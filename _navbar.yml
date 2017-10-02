@@ -22,6 +22,8 @@ left:
         href: ./08-topic-models-and-eda.html   
       - text: "Expository Graphs"
         href: ./09-expository-graphs.html
+      - text: "Dimension Reduction"
+        href: ./10-dimension-reduction.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
