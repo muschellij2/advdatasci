@@ -566,7 +566,7 @@ class: inverse
 <br><br>
 - Also an orthogonalizing tool
 <br><br>
-- Rank of matrix X is always $\max(n, p)$
+- Maximum Rank of matrix X is always $\min(n, p)$
 <br><br>
 - Use the lower-dimensional matrix for big data
 <br><br>
