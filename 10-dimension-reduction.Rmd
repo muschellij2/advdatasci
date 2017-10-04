@@ -1,5 +1,5 @@
 ---
-title: Expository Graphs
+title: Dimension Reduction
 ---
 
 1. __Announcements__: 

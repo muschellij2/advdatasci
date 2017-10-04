@@ -1,0 +1,14 @@
+---
+title: Unsupervised Analysis
+---
+
+1. __Announcements__: 
+    * Lab times: 
+        * Monday 3-4PM, Genome Cafe
+        * Friday 10-11AM, Biostatistics Library
+    * 2-3 pages of writing
+    * 1 figure/table for final report
+2. __Assignment__: 
+    * DataCamp:  Classification Trees and Naive Bayes
+    * Due Oct 6th by 11:59PM
+3. __Slides__: [http://jtleek.com/advdatasci/slides/11-unsupervised-analysis-slides.html](slides/11-unsupervised-analysis-slides.html)

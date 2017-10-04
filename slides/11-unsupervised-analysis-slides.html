@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Unsupervised Analysis</title>
+    <meta charset="utf-8">
+    <meta name="author" content="www.jtleek.com/advdatasci" />
+    <link href="libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../additional.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Unsupervised Analysis
+## JHU Data Science
+### www.jtleek.com/advdatasci
+
+---
+
+class: inverse, middle, center
+
+# Final Project Discussion
+
+
+
+---
+class: inverse
+
+## In approximate order of difficulty
+
+.super[
+* Descriptive
+&lt;br&gt;&lt;br&gt;
+* Exploratory
+&lt;br&gt;&lt;br&gt;
+* Inferential
+&lt;br&gt;&lt;br&gt;
+* Predictive
+&lt;br&gt;&lt;br&gt;
+* Causal
+&lt;br&gt;&lt;br&gt;
+* Mechanistic
+&lt;br&gt;&lt;br&gt;
+* Unsupervised/Supervised
+]
+
+---
+class: inverse
+
+## Supervised vs. unsupervised
+
+.super[
+Supervised
+
+* You have an outcome YY and some covariates XX
+&lt;br&gt;&lt;br&gt;
+* You typically want to solve something like `\(\arg\min_{f} E[(Y−f(X))^2]\)`
+
+Unsupervised
+* You have a bunch of observations X and you want to understand the relationships between them.
+&lt;br&gt;&lt;br&gt;
+* You are usually trying to understand patterns in X or group the variables in X in some way
+]
+
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/face.png)
+background-size: 35% 
+background-position: center
+
+# Semi-supervised
+
+.footnote[http://static.googleusercontent.com/media/research.google.com/en/us/archive/unsupervised_icml2012.pdf]
+
+
+---
+class: inverse
+
+## A few techniques for unsupervised
+
+.super[
+* Kernel density estimation
+&lt;br&gt;&lt;br&gt;
+* Clustering
+&lt;br&gt;&lt;br&gt;
+* Principal components analysis/SVD
+&lt;br&gt;&lt;br&gt;
+* Factor analysis
+&lt;br&gt;&lt;br&gt;
+* MDS/ICA/MFPCA/...
+]
+
+---
+class: inverse
+
+## Example: stamp thickness
+
+
+```r
+library(bootstrap)
+str(stamp)
+```
+
+```
+'data.frame':	485 obs. of  1 variable:
+ $ Thickness: num  0.06 0.064 0.064 0.065 0.066 0.068 0.069 0.069 0.069 0.069 ...
+```
+
+```r
+thick = stamp$Thickness
+head(stamp)
+```
+
+```
+  Thickness
+1     0.060
+2     0.064
+3     0.064
+4     0.065
+5     0.066
+6     0.068
+```
+
+
+
+
+---
+class: inverse
+
+## Summary statistics
+
+.left-column-equal[
+
+```r
+ggplot(stamp, aes(y = Thickness, x = 1)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(height = 0) + theme_big
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+.right-column-equal[
+
+```r
+boxplot(thick); 
+stripchart(thick, add =TRUE, vertical=TRUE, jitter=0.1, method = "jitter", pch=19, col=2)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/binning.png)
+background-size: 70% 
+background-position: bottom
+
+# Binning
+
+---
+class: inverse
+
+## You've seen this: histograms
+
+
+```r
+par(mfrow=c(1,2))
+hist(thick,col=2); hist(thick,breaks=100,col=2)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/est_density.png)
+background-size: 80% 
+background-position: bottom
+
+# Estimating the density
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/kde.png)
+background-size: 60% 
+background-position: bottom
+
+# Kernel density estimator
+
+---
+class: inverse
+
+## You've seen this, too
+
+.left-column-equal[
+
+```r
+ggplot(stamp, aes(x = Thickness)) + 
+  geom_density()
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+.right-column-equal[
+
+```r
+dens = density(thick); 
+plot(dens, col=2)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse
+
+## Make our own kde
+
+
+```r
+normer = function(x) dnorm(dens$x, mean=x, sd=dens$bw)/length(thick)
+plot(dens$x, normer(thick[1]), type="l")
+for(i in 1:length(thick)){
+  lines(dens$x, normer(thick[i]), col=2)
+}
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Make our own kde
+
+
+```r
+dvals = rep(0,length(dens$x))
+for(i in 1:length(thick)){
+  dvals = dvals + dnorm(dens$x,mean=thick[i],sd=dens$bw)/length(thick)
+}
+plot(dens,col=3,lwd=3); points(dens$x,dvals,col=2,pch=19,cex=0.5)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+class: inverse, middle, center
+
+# Exercise: How would we estimate the number of modes in a density estimate as a function of hh?
+
+
+---
+class: inverse
+
+## One answer
+
+.super[
+
+```r
+nmodes &lt;- function(y) {
+  x &lt;- diff(y)
+  n &lt;- length(x)
+  sum(x[2:n] &lt; 0  &amp; x[1:(n - 1)] &gt;  0)
+}
+nmodes(dens$y)
+```
+
+```
+[1] 2
+```
+]
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/smooth_ex.png)
+background-size: 25% 
+background-position: center
+
+# Smoothing example
+.footnote[http://genomicsclass.github.io/book/]
+
+---
+class: inverse
+
+## Smoothing example
+
+
+
+```r
+library(Biobase); library(SpikeIn); library(hgu95acdf); data(SpikeIn95)
+##Example with two columns
+i = 10; j = 9
+
+##remove the spiked in genes and take random sample
+siNames &lt;- colnames(pData(SpikeIn95))
+ind &lt;- which(!probeNames(SpikeIn95) %in% siNames)
+pms &lt;- pm(SpikeIn95)[ind , c(i, j)]
+
+##pick a representative sample for A and order A
+Y = log2(pms[, 1]) - log2(pms[, 2])
+X = (log2(pms[, 1]) + log2(pms[, 2])) / 2
+set.seed(4)
+ind &lt;- tapply(seq(along = X), round(X * 5), function(i) {
+  if (length(i) &gt; 20) {
+    return(sample(i, 20))
+  } else { return(NULL)   }
+})
+ind &lt;- unlist(ind); X &lt;- X[ind]; Y &lt;- Y[ind]
+o &lt;- order(X); X &lt;- X[o]; Y &lt;- Y[o]
+```
+
+
+---
+class: inverse
+
+## Smoothing example
+
+```r
+fit &lt;- lm(Y ~ X); plot(X, Y); points(X, Y, pch = 21, bg = ifelse(Y &gt; fit$fitted, 1, 3))
+abline(fit, col = 2, lwd = 4, lty = 2)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+
+---
+class: inverse
+
+## Bin smoothing
+
+```r
+centers &lt;- seq(min(X), max(X), 0.1)
+plot(X, Y, col = "darkgrey", pch = 16)
+windowSize &lt;- 1.25
+
+i &lt;- 25
+center &lt;- centers[i]
+ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
+fit &lt;- lm(Y ~ X, subset = ind)
+points(X[ind], Y[ind], bg = 3, pch = 21)
+a &lt;- min(X[ind])
+b &lt;- max(X[ind])
+lines(c(a, b), fit$coef[1] + fit$coef[2] * c(a, b), col = 2, lty = 2, lwd = 3)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+
+
+---
+class: inverse
+
+## Many windows
+
+
+```r
+windowSize &lt;- 0.5
+smooth &lt;- rep(NA, length(centers))
+for (i in seq(along = centers)) {
+  center &lt;- centers[i]
+  ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
+  smooth[i] &lt;- mean(Y[ind])
+  if (i %% round(length(centers) / 12) == 1) {
+    ##we show 12
+    plot(X, Y, col = "grey", pch = 16)
+    points(X[ind], Y[ind], bg = 3, pch = 21)
+    lines(c(min(X[ind]), max(X[ind])),
+          c(smooth[i], smooth[i]),
+          col = 2,
+          lwd = 2)
+    lines(centers[1:i], smooth[1:i], col = "black")
+    points(centers[i],
+           smooth[i],
+           col = "black",
+           pch = 16,
+           cex = 1.5)
+  }
+}
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-2.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-3.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-4.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-5.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-6.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-7.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-8.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-9.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-10.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-11.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-18-12.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## The result
+
+
+```r
+par(mfrow=c(1,1))
+plot(X,Y,col="darkgrey",pch=16)
+lines(centers,smooth,col=2,lwd=3)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Loess
+.left-column-equal[
+
+```r
+centers &lt;- seq(min(X), max(X), 0.1)
+plot(X, Y, col = "darkgrey", pch = 16)
+windowSize &lt;- 1.25
+
+i &lt;- 25
+center &lt;- centers[i]
+ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
+fit &lt;- lm(Y ~ X, subset = ind)
+points(X[ind], Y[ind], bg = 3, pch = 21)
+a &lt;- min(X[ind])
+b &lt;- max(X[ind])
+lines(c(a, b), fit$coef[1] + fit$coef[2] * c(a, b), col = 2, lty = 2, lwd = 3)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+.right-column-equal[
+
+```r
+i &lt;- 60
+center &lt;- centers[i]
+ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
+fit &lt;- lm(Y ~ X, subset = ind)
+points(X[ind], Y[ind], bg = 3, pch = 21)
+a &lt;- min(X[ind])
+b &lt;- max(X[ind])
+lines(c(a, b), fit$coef[1] + fit$coef[2] * c(a, b), col = 2, lty = 2, lwd = 3)
+```
+]
+
+
+---
+class: inverse
+
+## Final result for loess
+
+
+```r
+fit &lt;- loess(Y ~ X, degree = 1, span = 1 / 3)
+newx &lt;- seq(min(X), max(X), len = 100)
+smooth &lt;- predict(fit, newdata = data.frame(X = newx))
+plot(X, Y, col = "darkgrey", pch = 16); lines(newx, smooth, col = "black", lwd = 3)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/loess.png)
+background-size: 50% 
+background-position: center
+
+# A big deal!
+
+.footnote[http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1979.10481038
+]
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/curse_dimensionality.png)
+background-size: 65% 
+background-position: bottom
+
+# Curse of dimensionality
+
+---
+class: inverse
+
+## Clustering - when you have many variables
+
+.huge[
+Clustering organizes things that are &lt;font color="yellow"&gt;close&lt;/font&gt; into groups
+
+* How do we define close?
+* How do we group things?
+* How do we visualize the grouping?
+* How do we interpret the grouping?
+]
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/cluster_analysis.png)
+background-size: 60% 
+background-position: center
+
+# Another big one!
+
+.footnote[https://scholar.google.com/scholar?hl=en&amp;q=cluster+analysis&amp;btnG=]
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/distance.png)
+background-size: 50% 
+background-position: center
+
+# Defining close
+
+.footnote[http://rafalab.jhsph.edu/688/lec/lecture5-clustering.pdf]
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/euclid.png)
+background-size: 60% 
+background-position: center
+
+# Euclidean distance
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/manhattan.png)
+background-size: 50% 
+background-position: center
+
+# Manhattan distance
+
+.footnote[http://en.wikipedia.org/wiki/Taxicab_geometry]
+
+
+---
+class: inverse
+
+## Hierarchical clustering
+
+.left-column-equal[
+&lt;img src = "../imgs/unsupervised/hierarchical.png" style="width:70%"&gt;
+]
+.right-column-equal[
+.super[
+An agglomerative approach
+* Find closest two things
+* Put them together
+* Find next closest
+Requires
+* A defined distance
+* A merging approach
+Produces
+* A tree showing how close things are to each other
+]
+]
+
+---
+class: inverse, center
+
+## Hierarchical clustering - an example
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Distances
+
+
+```r
+dataFrame &lt;- data.frame(x = x, y = y); pheatmap(dist(dataFrame), cluster_rows = FALSE, cluster_cols = FALSE)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Step one - find closest
+
+
+```r
+library(fields); dataFrame &lt;- data.frame(x = x, y = y)
+rdistxy &lt;- rdist(dataFrame); diag(rdistxy) &lt;- diag(rdistxy) + 1e5
+ind &lt;- which(rdistxy == min(rdistxy), arr.ind = TRUE)
+```
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Step one - find closest
+
+
+```r
+distxy = dist(dataFrame); hcluster = hclust(distxy)
+dendro = as.dendrogram(hcluster); cutDendro = cut(dendro,h=(hcluster$height[1]+0.00001) )
+```
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+
+
+
+---
+class: inverse
+
+## Step two - merge closest
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
+
+---
+class: inverse
+
+## Find next closest and repeat
+
+
+```r
+ind &lt;- which(rdistxy == rdistxy[order(rdistxy)][3], arr.ind = TRUE)
+```
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
+
+---
+class: inverse
+
+## Find next closest and repeat
+
+
+```r
+cutDendro &lt;- cut(dendro, h = (hcluster$height[2]))
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Hierachical clustering - hclust
+
+```r
+dataFrame &lt;- data.frame(x=x,y=y); 
+distxy &lt;- dist(dataFrame); hClustering &lt;- hclust(distxy)
+```
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/merging.png)
+background-size: 40% 
+background-position: center
+
+# Merging points - complete
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/merging_avg.png)
+background-size: 40% 
+background-position: center
+
+# Merging points - average
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/linkage.png)
+background-size: 60% 
+background-position: center
+
+# What these choices look like
+
+
+---
+class: inverse
+
+## Hierarchical clustering
+
+.left-column-equal[
+&lt;img src = "../imgs/unsupervised/kmeans.png" style="width:100%"&gt;
+]
+.right-column-equal[
+.super[
+A partioning approach
+* Fix a number of clusters
+* Get "centroids" of each cluster
+* Assign things to closest centroid
+* Reclaculate centroids
+Requires
+* A defined distance metric
+* A number of clusters
+* An initial guess as to cluster centroids
+Produces
+* Final estimate of cluster centroids
+* An assignment of each point to clusters
+]
+]
+
+
+---
+class: inverse
+
+## K-means example
+
+
+```r
+x = rnorm(12, mean = rep(1:3, each = 4), sd = 0.2)
+y = rnorm(12, mean = rep(c(1, 2, 1), each = 4), sd = 0.2)
+```
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## K-means - starting centroids
+
+
+```r
+cx &lt;- c(1,1.8,2.5); cy &lt;- c(2,1,1.5)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/plotstuff-1.png)&lt;!-- --&gt;
+---
+class: inverse
+
+## K-means - assign to closest centroid
+
+
+```r
+distTmp &lt;- matrix(NA,nrow=3,ncol=12); d = function(i) (x-cx[i])^2 + (y-cy[i])^2;
+distTmp[1,] &lt;- d(1); distTmp[2,] &lt;- d(2); distTmp[3,] &lt;- d(3); 
+newClust &lt;- apply(distTmp,2,which.min); points(x,y,pch=19,cex=2,col=cols1[newClust])
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+
+
+
+&lt;!-- ***MISSING SLIDES HERE*** --&gt;
+
+---
+class: inverse
+
+## K-means
+
+
+```r
+dataFrame &lt;- data.frame(x,y)
+kmeansObj &lt;- kmeans(dataFrame,centers=3)
+names(kmeansObj)
+```
+
+```
+[1] "cluster"      "centers"      "totss"        "withinss"    
+[5] "tot.withinss" "betweenss"    "size"         "iter"        
+[9] "ifault"      
+```
+
+```r
+kmeansObj$cluster
+```
+
+```
+ [1] 1 1 1 1 2 2 2 2 3 3 3 3
+```
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/model_based.png)
+background-size: 70% 
+background-position: center
+
+# Model based clustering
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/em.png)
+background-size: 50% 
+background-position: bottom
+
+# Estimating parameters - EM like approach
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/bayes.png)
+background-size: 80% 
+background-position: center
+
+# Select the number of clusters with Bayes factors
+
+
+---
+class: inverse
+background-image: url(../imgs/unsupervised/faithful.png)
+background-size: 40% 
+background-position: center
+
+# Old faithful example
+
+.footnote[https://en.wikipedia.org/wiki/Old_Faithful]
+
+---
+class: inverse
+
+## Update
+
+```r
+library(mclust); faithfulMclust &lt;- Mclust(faithful)
+summary(faithfulMclust,parameters=TRUE)
+```
+
+```
+----------------------------------------------------
+Gaussian finite mixture model fitted by EM algorithm 
+----------------------------------------------------
+
+Mclust EEE (ellipsoidal, equal volume, shape and orientation) model with 3 components:
+
+ log.likelihood   n df       BIC       ICL
+      -1126.361 272 11 -2314.386 -2360.865
+
+Clustering table:
+  1   2   3 
+130  97  45 
+
+Mixing probabilities:
+        1         2         3 
+0.4632682 0.3564512 0.1802806 
+
+Means:
+               [,1]      [,2]      [,3]
+eruptions  4.475059  2.037798  3.817687
+waiting   80.890383 54.493272 77.650757
+
+Variances:
+[,,1]
+           eruptions    waiting
+eruptions 0.07734049  0.4757779
+waiting   0.47577787 33.7403885
+[,,2]
+           eruptions    waiting
+eruptions 0.07734049  0.4757779
+waiting   0.47577787 33.7403885
+[,,3]
+           eruptions    waiting
+eruptions 0.07734049  0.4757779
+waiting   0.47577787 33.7403885
+```
+
+---
+class: inverse
+
+## Update
+
+```r
+plot(faithfulMclust)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-56-2.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-56-3.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-56-4.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## A pathological example
+
+```r
+clust1 = data.frame(x=rnorm(100),y=rnorm(100)); a = runif(100,0,2*pi)
+clust2 = data.frame(x=8*cos(a) + rnorm(100),y=8*sin(a) + rnorm(100))
+plot(clust2,col='blue',pch=19); points(clust1,col='green',pch=19)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+
+
+---
+class: inverse
+
+## What happens
+
+```r
+dat = rbind(clust1,clust2); kk = kmeans(dat,centers=2); plot(dat,col=(kk$clust+2),pch=19)
+```
+
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+---
+class: inverse
+
+## Clustering wrap-up
+
+.super[
+* Algomerative (h-clustering) versus divisive (k-means)
+&lt;br&gt;&lt;br&gt;
+* Distance matters!
+* Merging matters!
+&lt;br&gt;&lt;br&gt;
+* Number of clusters is rarely estimated in advance
+&lt;br&gt;&lt;br&gt;
+* H-clustering: Deterministic - but you don’t get a fixed number of clusters
+&lt;br&gt;&lt;br&gt;
+* K-means: Stochastic - fix the number of clusters in advance
+&lt;br&gt;&lt;br&gt;
+* Model based: Can select the number of clusters, may be stochastic, careful about assumptions!
+]
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
