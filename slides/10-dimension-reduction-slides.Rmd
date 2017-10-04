@@ -553,6 +553,17 @@ phat = (N * phat / c( t(e) %*% phat))
 phat
 ```
 
+---
+class: inverse
+# An example of interpretable pcs
+
+```{r genes-geo, results='asis', echo = FALSE}
+bg_slide("genes-geography", 
+  folder = folder,
+  size = "80%",
+  title = "Genetics PCs",
+  add_opts = "class: inverse")
+```
 
 ---
 class: inverse
