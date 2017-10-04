@@ -410,15 +410,17 @@ lines(centers,smooth,col=2,lwd=3)
 class: inverse
 
 ## Loess
+
+
+
 .left-column-equal[
 
 ```r
-centers &lt;- seq(min(X), max(X), 0.1); windowSize &lt;- 1.25
-i &lt;- 25
-center &lt;- centers[i]; ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
+i &lt;- 25; center &lt;- centers[i]; 
+ind = which(X &gt; center - windowSize &amp; X &lt; center + windowSize)
 fit &lt;- lm(Y ~ X, subset = ind)
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 .right-column-equal[
 
@@ -426,7 +428,7 @@ fit &lt;- lm(Y ~ X, subset = ind)
 i &lt;- 60
 center &lt;- centers[i]
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -443,7 +445,7 @@ smooth &lt;- predict(fit, newdata = data.frame(X = newx))
 plot(X, Y, col = "darkgrey", pch = 16); lines(newx, smooth, col = "black", lwd = 3)
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -548,7 +550,7 @@ class: inverse, center
 
 ## Hierarchical clustering - an example
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -560,7 +562,7 @@ class: inverse
 dataFrame &lt;- data.frame(x = x, y = y); pheatmap(dist(dataFrame), cluster_rows = FALSE, cluster_cols = FALSE)
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -573,7 +575,7 @@ library(fields); dataFrame &lt;- data.frame(x = x, y = y)
 rdistxy &lt;- rdist(dataFrame); diag(rdistxy) &lt;- diag(rdistxy) + 1e5
 ind &lt;- which(rdistxy == min(rdistxy), arr.ind = TRUE)
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -585,7 +587,7 @@ class: inverse
 distxy = dist(dataFrame); hcluster = hclust(distxy)
 dendro = as.dendrogram(hcluster); cutDendro = cut(dendro,h=(hcluster$height[1]+0.00001) )
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 
 
 
@@ -594,7 +596,7 @@ class: inverse
 
 ## Step two - merge closest
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -606,7 +608,7 @@ class: inverse
 ```r
 ind &lt;- which(rdistxy == rdistxy[order(rdistxy)][3], arr.ind = TRUE)
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -619,7 +621,7 @@ class: inverse
 cutDendro &lt;- cut(dendro, h = (hcluster$height[2]))
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -630,7 +632,7 @@ class: inverse
 dataFrame &lt;- data.frame(x=x,y=y); 
 distxy &lt;- dist(dataFrame); hClustering &lt;- hclust(distxy)
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -694,7 +696,7 @@ class: inverse
 x = rnorm(12, mean = rep(1:3, each = 4), sd = 0.2)
 y = rnorm(12, mean = rep(c(1, 2, 1), each = 4), sd = 0.2)
 ```
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -719,7 +721,7 @@ distTmp[1,] &lt;- d(1); distTmp[2,] &lt;- d(2); distTmp[3,] &lt;- d(3);
 newClust &lt;- apply(distTmp,2,which.min); points(x,y,pch=19,cex=2,col=cols1[newClust])
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 
 
@@ -845,7 +847,7 @@ class: inverse
 plot(faithfulMclust)
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-59-2.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-59-3.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-59-4.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-60-2.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-60-3.png)&lt;!-- --&gt;![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-60-4.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -858,7 +860,7 @@ clust2 = data.frame(x=8*cos(a) + rnorm(100),y=8*sin(a) + rnorm(100))
 plot(clust2,col='blue',pch=19); points(clust1,col='green',pch=19)
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -870,7 +872,7 @@ class: inverse
 dat = rbind(clust1,clust2); kk = kmeans(dat,centers=2); plot(dat,col=(kk$clust+2),pch=19)
 ```
 
-![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
+![](11-unsupervised-analysis-slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse

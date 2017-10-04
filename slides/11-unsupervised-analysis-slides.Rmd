@@ -369,11 +369,15 @@ lines(centers,smooth,col=2,lwd=3)
 class: inverse
 
 ## Loess
+
+```{r, echo = FALSE}
+centers <- seq(min(X), max(X), 0.1); windowSize <- 1.25
+```
+
 .left-column-equal[
 ```{r, eval = TRUE}
-centers <- seq(min(X), max(X), 0.1); windowSize <- 1.25
-i <- 25
-center <- centers[i]; ind = which(X > center - windowSize & X < center + windowSize)
+i <- 25; center <- centers[i]; 
+ind = which(X > center - windowSize & X < center + windowSize)
 fit <- lm(Y ~ X, subset = ind)
 ```
 ```{r, echo = FALSE}
@@ -390,6 +394,7 @@ i <- 60
 center <- centers[i]
 ```
 ```{r, eval = TRUE, echo = FALSE}
+ind = which(X > center - windowSize & X < center + windowSize)
 fit <- lm(Y ~ X, subset = ind)
 plot(X, Y, col = "darkgrey", pch = 16)
 points(X[ind], Y[ind], bg = 3, pch = 21)
