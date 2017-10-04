@@ -371,14 +371,13 @@ class: inverse
 ## Loess
 .left-column-equal[
 ```{r, eval = TRUE}
-centers <- seq(min(X), max(X), 0.1)
-plot(X, Y, col = "darkgrey", pch = 16)
-windowSize <- 1.25
-
+centers <- seq(min(X), max(X), 0.1); windowSize <- 1.25
 i <- 25
-center <- centers[i]
-ind = which(X > center - windowSize & X < center + windowSize)
+center <- centers[i]; ind = which(X > center - windowSize & X < center + windowSize)
 fit <- lm(Y ~ X, subset = ind)
+```
+```{r, echo = FALSE}
+plot(X, Y, col = "darkgrey", pch = 16)
 points(X[ind], Y[ind], bg = 3, pch = 21)
 a <- min(X[ind])
 b <- max(X[ind])
@@ -386,11 +385,13 @@ lines(c(a, b), fit$coef[1] + fit$coef[2] * c(a, b), col = 2, lty = 2, lwd = 3)
 ```
 ]
 .right-column-equal[
-```{r, eval = FALSE}
+```{r}
 i <- 60
 center <- centers[i]
-ind = which(X > center - windowSize & X < center + windowSize)
+```
+```{r, eval = TRUE, echo = FALSE}
 fit <- lm(Y ~ X, subset = ind)
+plot(X, Y, col = "darkgrey", pch = 16)
 points(X[ind], Y[ind], bg = 3, pch = 21)
 a <- min(X[ind])
 b <- max(X[ind])
