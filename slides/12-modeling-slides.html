@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Modeling</title>
+    <meta charset="utf-8">
+    <meta name="author" content="www.jtleek.com/advdatasci" />
+    <link href="libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../additional.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Modeling
+## JHU Data Science
+### www.jtleek.com/advdatasci
+
+---
+
+class: inverse, middle, center
+
+# Modeling: one way of making sense of data
+
+
+
+---
+class: inverse
+background-image: url(../imgs/modeling/chromebook.png)
+background-size: 60% 
+background-position: center
+
+---
+class: inverse
+background-image: url(../imgs/modeling/jtleek.png)
+background-size: 55% 
+background-position: center
+
+
+---
+class: inverse
+background-image: url(../imgs/modeling/flowchart.png)
+background-size: 50% 
+background-position: center
+
+.footnote[http://www.sciencemag.org/content/347/6228/1314]
+
+---
+background-image: url(../imgs/modeling/dogma.png)
+background-size: 90% 
+background-position: center
+
+# Central dogma of statistics
+
+.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
+
+
+---
+background-image: url(../imgs/modeling/upshot.png)
+background-size: 90% 
+background-position: center
+
+---
+background-image: url(../imgs/modeling/princeton.png)
+background-size: 90% 
+background-position: center
+
+---
+background-image: url(../imgs/modeling/forecasts.png)
+background-size: 90% 
+background-position: center
+
+---
+background-image: url(../imgs/modeling/538.png)
+background-size: 70% 
+background-position: center
+
+
+---
+class: inverse, middle, center
+
+# .huge[Why did this happen?!?]
+
+
+---
+background-image: url(../imgs/modeling/dogma_probability.png)
+background-size: 90% 
+background-position: center
+
+# Central dogma of statistics
+
+.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
+
+
+---
+background-image: url(../imgs/modeling/dogma_inference.png)
+background-size: 90% 
+background-position: center
+
+# Central dogma of statistics
+
+.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
+
+
+---
+class: inverse, middle, center
+
+# Silver example &lt;br&gt;&lt;br&gt; http://jtleek.com/advdatasci16/code/midterm2012
+
+
+---
+class: inverse, center, middle
+
+.huge[
+
+`\begin{align}
+Y &amp;= \text{some outcome} \\
+X &amp;= \text{some covariate} \\
+D &amp;= (X,Y) \\
+&amp; lm(Y ~ X)
+\end{align}`
+
+]
+
+
+---
+background-image: url(../imgs/modeling/pipeline.png)
+background-size: 35% 
+background-position: center
+
+.footnote[Leek and Peng, Nature 2015]
+
+
+---
+background-image: url(../imgs/modeling/tidy.png)
+background-size: 90% 
+background-position: center
+
+---
+
+.pull-left-third[
+.huge[Who?&lt;br&gt;&lt;br&gt;
+What?&lt;br&gt;&lt;br&gt;
+When?&lt;br&gt;&lt;br&gt;
+Why?&lt;br&gt;&lt;br&gt;
+Where?&lt;br&gt;
+&lt;font color = "red"&gt; How?&lt;/font&gt;
+]
+]
+&lt;img src="../imgs/modeling/tidy.png" style="width:70%"&gt;
+
+
+---
+
+.pull-left-third[
+.huge[Who?&lt;br&gt;&lt;br&gt;
+What?&lt;br&gt;&lt;br&gt;
+When?&lt;br&gt;
+&lt;font color = "red"&gt; Why?&lt;/font&gt;&lt;br&gt;&lt;br&gt;
+Where?&lt;br&gt;&lt;br&gt;
+How?
+]
+]
+&lt;img src="../imgs/modeling/tidy_hegemony.png" style="width:70%"&gt;
+
+
+---
+class: inverse
+
+## Basic approach to model building and inference
+
+.super[
+1.  Hold out some data for evaluation
+2.  Start with the simplest sensible model
+3.  Plot the data and the model
+4.  Look at residuals and model fit versus the data
+5.  Augment with new variables
+6.  Repeat this process
+7.  Watch out for overfitting with 3-6!
+8.  Evaluate the statistical significance on the held out data
+]
+
+---
+class: inverse, middle, center
+
+# `\(F_{0} \subseteq F_{0}(S) \subseteq F_{0}(Y)\)`
+
+.footnote[Fithian, Sun and Taylor arXiv 2015]
+
+---
+class: inverse, middle, center
+
+# `\(F_{0}\)`
+.huge[
+σ-algebra: - what we know
+]
+
+---
+class: inverse, middle, center
+
+# `\(F_{0}\)`
+
+.huge[
+"we've done nothing"
+]
+
+---
+class: inverse, middle, center
+# `\(F_{0}(S)\)`
+.huge[
+"we did model selection"
+]
+---
+class: inverse, middle, center
+# `\(F_{0}(Y)\)`
+.huge[
+"we looked at all the data"
+]
+
+---
+class: inverse, middle, center
+
+# `\(E[\beta | F_{0}] \neq E[\beta | F_{0}(S)]\)`
+
+
+
+---
+class: inverse
+background-image: url(../imgs/modeling/eda.png)
+background-size: 40% 
+background-position: center
+
+# EDA is significance testing
+
+.footnote[http://vita.had.co.nz/papers/inference-infovis.pdf]
+
+
+---
+background-image: url(../imgs/modeling/patil.png)
+background-size: 80% 
+background-position: center
+
+---
+background-image: url(../imgs/modeling/patil.png)
+background-size: 80% 
+background-position: center
+
+.pull-right-third[
+.huge[
+`\begin{align}
+F_0 &amp;\subseteq F_{0}(1_{P,Q}(H)) \\
+&amp;\subseteq F_{0}(1_{ED}(E)) \\
+&amp;\subseteq F_{0}(1_{ED;E}(D)) \\
+&amp;\subseteq F_{0}(1_{AP;A}(C)) \\
+&amp;\subseteq F_{0}(1_{C}(A*))
+\end{align}`
+]
+]
+
+
+---
+background-image: url(../imgs/modeling/perspectives.png)
+background-size: 100% 
+background-position: center
+
+
+
+
+---
+background-image: url(../imgs/modeling/scatter.png)
+background-size: 50% 
+background-position: center
+
+---
+class: inverse
+background-image: url(../imgs/modeling/r4ds.png)
+background-size: 45% 
+background-position: center
+
+.footnote[http://r4ds.had.co.nz/model-building.html#introduction-16]
+
+
+
+---
+class: inverse
+background-image: url(../imgs/modeling/transparency.png)
+background-size: 80% 
+background-position: center
+
+---
+class: inverse
+background-image: url(../imgs/modeling/religous.png)
+background-size: 55% 
+background-position: center
+
+---
+class: inverse
+background-image: url(../imgs/modeling/upshot2.png)
+background-size: 90% 
+background-position: center
+
+
+---
+class: inverse
+background-image: url(../imgs/modeling/falsepositive.png)
+background-size: 80% 
+background-position: center
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
