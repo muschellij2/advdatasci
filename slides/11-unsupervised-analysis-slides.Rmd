@@ -653,6 +653,7 @@ bg_slide("linkage",
   folder = folder,
   size = "70%",
   add_opts = "class: inverse",
+  positions = "bottom",
   title = "What these choices look like")
 ```
 
@@ -755,6 +756,7 @@ bg_slide("model_based",
   folder = folder,
   size = "70%",
   add_opts = "class: inverse",
+  positions = "bottom",
   title = "Model based clustering")
 ```
 
