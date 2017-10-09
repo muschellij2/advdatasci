@@ -651,7 +651,7 @@ bg_slide("merging_avg",
 ```{r, results='asis', echo = FALSE}
 bg_slide("linkage", 
   folder = folder,
-  size = "60%",
+  size = "70%",
   add_opts = "class: inverse",
   title = "What these choices look like")
 ```
@@ -660,7 +660,7 @@ bg_slide("linkage",
 ---
 class: inverse
 
-## Hierarchical clustering
+## K-means clustering
 
 .left-column-equal[
 <img src = "../imgs/unsupervised/kmeans.png" style="width:100%">

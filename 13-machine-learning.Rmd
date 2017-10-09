@@ -6,7 +6,6 @@ title: Machine Learning
     * Lab times: 
         * Monday 3-4PM, Genome Cafe
         * Friday 10-11AM, Biostatistics Library
-    * First full draft
 2. __Assignment__: 
     * DataCamp:  Hierarchical clustering,  Dimensionality reduction with PCA, Preparing data for analysis, Tidying data
     * Due Oct 13th by 11:59PM
