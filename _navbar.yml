@@ -26,6 +26,8 @@ left:
         href: ./10-dimension-reduction.html
       - text: "Unsupervised Analysis"
         href: ./11-unsupervised-analysis.html    
+      - text: "Building R Packages"
+        href: ./14-building-r-packages.html
       - text: "Modeling"
         href: ./12-modeling.html
   - text: "Grading"
