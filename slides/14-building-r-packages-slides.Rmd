@@ -1,5 +1,5 @@
 ---
-title: "Machine Learning"
+title: "Building R Packages"
 subtitle: "JHU Data Science"
 author: "www.jtleek.com/advdatasci"
 output: 
