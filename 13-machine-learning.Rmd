@@ -7,6 +7,6 @@ title: Machine Learning
         * Monday 3-4PM, Genome Cafe
         * Friday 10-11AM, Biostatistics Library
 2. __Assignment__: 
-    * DataCamp:  Hierarchical clustering,  Dimensionality reduction with PCA, Preparing data for analysis, Tidying data
-    * Due Oct 13th by 11:59PM
-3. __Slides__: [http://jtleek.com/advdatasci/slides/12-modeling-slides.html](slides/12-modeling-slides.html)
+    * DataCamp: 
+    * Due 
+3. __Slides__: [http://jtleek.com/advdatasci/slides/13-machine-learning-slides.html](slides/13-machine-learning-slides.html)

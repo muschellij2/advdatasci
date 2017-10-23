@@ -35,315 +35,379 @@ library(pheatmap)
 theme_big = theme(text = element_text(size = 20))
 ```
 
+---
+class: inverse
+
+## Other names for prediction 
+
+.huge[
+* Prediction -> statisticians
+* Statistical learning -> statisticians
+* Machine learning -> computer scientists
+* Forecasting -> atmospheric scientists/bankers
+* Artificial intelligence -> the popular press
+]
+
 ```{r, results='asis', echo = FALSE}
-bg_slide("chromebook", 
+bg_slide("selfcar", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("whetlab", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("self_drive", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("blackbox", 
   folder = folder,
   size = "60%",
   add_opts = "class: inverse")
 ```
 
-```{r, results='asis', echo = FALSE}
-bg_slide("jtleek", 
-  folder = folder,
-  size = "55%",
-  add_opts = "class: inverse")
-```
 
-
-```{r, results='asis', echo = FALSE}
-bg_slide("flowchart", 
-  folder = folder,
-  size = "50%",
-  add_opts = "class: inverse")
-```
-
-.footnote[http://www.sciencemag.org/content/347/6228/1314]
-
-```{r dogma, results='asis', echo = FALSE}
-bg_slide("dogma",
-  folder = folder,
-  size = "90%",
-  title = "Central dogma of statistics")
-```
-
-.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("upshot",
-  folder = folder,
-  size = "90%"
-)
-```
-
-```{r, results='asis', echo = FALSE}
-bg_slide("princeton",
-  folder = folder,
-  size = "90%"
-)
-```
-
-```{r, results='asis', echo = FALSE}
-bg_slide("forecasts",
-  folder = folder,
-  size = "90%"
-)
-```
-
-```{r, results='asis', echo = FALSE}
-bg_slide("538",
-  folder = folder,
-  size = "70%"
-)
-```
-
-
----
-class: inverse, middle, center
-
-# .huge[Why did this happen?!?]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("dogma_probability",
-  folder = folder,
-  size = "90%",
-  title = "Central dogma of statistics")
-```
-
-.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("dogma_inference",
-  folder = folder,
-  size = "90%",
-  title = "Central dogma of statistics")
-```
-
-.footnote[http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf]
-
-
----
-class: inverse, middle, center
-
-# Silver example <br><br> http://jtleek.com/advdatasci16/code/midterm2012
-
-
----
-class: inverse, center, middle
-
-.huge[
-$
-\begin{align}
-Y &= \text{some outcome} \\
-X &= \text{some covariate} \\
-D &= (X,Y) \\
-& lm(Y ~ X)
-\end{align}
-$
-]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("pipeline",
-  folder = folder,
-  size = "35%")
-```
-
-.footnote[Leek and Peng, Nature 2015]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("tidy",
-  folder = folder,
-  size = "90%")
-```
-
----
-
-.pull-left-third[
-.huge[Who?<br><br>
-What?<br><br>
-When?<br><br>
-Why?<br><br>
-Where?<br>
-<font color = "red"> How?</font>
-]
-]
-<img src="../imgs/modeling/tidy.png" style="width:70%">
-
-
----
-
-.pull-left-third[
-.huge[Who?<br><br>
-What?<br><br>
-When?<br>
-<font color = "red"> Why?</font><br><br>
-Where?<br><br>
-How?
-]
-]
-<img src="../imgs/modeling/tidy_hegemony.png" style="width:70%">
-
+.footnote[https://twitter.com/notajf/status/795717253505413122]
 
 ---
 class: inverse
 
-## Basic approach to model building and inference
-
-.super[
-1.  Hold out some data for evaluation
-2.  Start with the simplest sensible model
-3.  Plot the data and the model
-4.  Look at residuals and model fit versus the data
-5.  Augment with new variables
-6.  Repeat this process
-7.  Watch out for overfitting with 3-6!
-8.  Evaluate the statistical significance on the held out data
-]
-
----
-class: inverse, middle, center
-
-# $F_{0} \subseteq F_{0}(S) \subseteq F_{0}(Y)$
-
-.footnote[Fithian, Sun and Taylor arXiv 2015]
-
----
-class: inverse, middle, center
-
-# $F_{0}$
-.huge[
-σ-algebra: - what we know
-]
-
----
-class: inverse, middle, center
-
-# $F_{0}$
+## Key idea: know why x predicts y
 
 .huge[
-"we've done nothing"
+>The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data. <br><br>-John Tukey
 ]
 
----
-class: inverse, middle, center
-# $F_{0}(S)$
-.huge[
-"we did model selection"
-]
----
-class: inverse, middle, center
-# $F_{0}(Y)$
-.huge[
-"we looked at all the data"
-]
-
----
-class: inverse, middle, center
-
-# $E[\beta | F_{0}] \neq E[\beta | F_{0}(S)]$
-
+```{r, results='asis', echo = FALSE}
+bg_slide("nobel", 
+  folder = folder,
+  size = "70%",
+  add_opts = "class: inverse")
+```
+.footnote[http://www.nejm.org/doi/full/10.1056/NEJMon1211064]
 
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("eda", 
+bg_slide("prob", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("study_design", 
   folder = folder,
   size = "40%",
-  add_opts = "class: inverse",
-  title = "EDA is significance testing")
-```
-
-.footnote[http://vita.had.co.nz/papers/inference-infovis.pdf]
-
-
-```{r, results='asis', echo = FALSE}
-bg_slide("patil", 
-  folder = folder,
-  size = "80%"
-  )
+  title = "Study design",
+  add_opts = "class: inverse")
 ```
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("patil", 
+bg_slide("overfitting", 
   folder = folder,
-  size = "80%"
-  )
+  size = "80%",
+  titles = "Overfitting",
+  add_opts = "class: inverse")
 ```
 
-.pull-right-third[
-.huge[
-\begin{align}
-F_0 &\subseteq F_{0}(1_{P,Q}(H)) \\
-&\subseteq F_{0}(1_{ED}(E)) \\
-&\subseteq F_{0}(1_{ED;E}(D)) \\
-&\subseteq F_{0}(1_{AP;A}(C)) \\
-&\subseteq F_{0}(1_{C}(A*))
-\end{align}
+.footnote[http://blog.fliptop.com/blog/2015/03/02/bias-variance-and-overfitting-machine-learning-overview/]
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("training_data", 
+  folder = folder,
+  size = "65%",
+  titles = "Training data matters a lot",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://www.google.org/flutrends/]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("failed", 
+  folder = folder,
+  size = "80%",
+  titles = "Changes in population -> failed predictions",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://gking.harvard.edu/files/gking/files/0314policyforumff.pdf]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("machine_bias", 
+  folder = folder,
+  size = "80%",
+  titles = "Prediction != unbiased",
+  add_opts = "class: inverse")
+```
+
+
+.footnote[https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("science", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("science_retract", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("prediction_vs_assoc", 
+  folder = folder,
+  size = "80%",
+  titles = "Prediction vs. association",
+  add_opts = "class: inverse")
+```
+
+.footnote[Slide courtesy Ingo Ruczinski]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("sens_spec", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://en.wikipedia.org/wiki/Sensitivity_and_specificity]
+
+---
+class: inverse
+
+## Most common error measures
+
+.super[
+1. Mean squared error (or root mean squared error)
+    - Continuous data, sensitive to outliers
+2. Median absolute deviation
+    - Continuous data, often more robust
+3. Sensitivity (recall)
+    - If you want few missed positives
+4.  Specificity
+    - If you want few negatives called positives
+5. Accuracy
+    - Weights false positives/negatives equally
+6. Concordance
+    - One example is kappa
+7.  Predictive value of a positive (precision)
+    - When you are screeing and prevelance is low
 ]
-]
 
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("perspectives", 
+bg_slide("roc", 
   folder = folder,
-  size = "100%"
-  )
+  size = "50%",
+  title = "ROC",
+  add_opts = "class: inverse")
+```
+
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("precision_recall", 
+  folder = folder,
+  size = "70%",
+  add_opts = "class: inverse")
 ```
 
 
 
 
-```{r, results='asis', echo = FALSE}
-bg_slide("scatter", 
-  folder = folder,
-  size = "50%"
-  )
-```
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("r4ds", 
+bg_slide("recall_curve", 
   folder = folder,
   size = "45%",
-  add_opts = "class: inverse"
-  )
+  title = "Precision/Recall",
+  add_opts = "class: inverse")
 ```
 
-.footnote[http://r4ds.had.co.nz/model-building.html#introduction-16]
-
-
+```{r, results='asis', echo = FALSE}
+bg_slide("measure_good", 
+  folder = folder,
+  size = "50%",
+  title = 'Measuring "good"',
+  add_opts = "class: inverse")
+```
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("transparency", 
+bg_slide("sens_spec2", 
   folder = folder,
   size = "80%",
-  add_opts = "class: inverse"
-  )
+  add_opts = "class: inverse")
 ```
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("religous", 
+bg_slide("sens_spec3", 
   folder = folder,
-  size = "55%",
-  add_opts = "class: inverse"
-  )
+  size = "80%",
+  add_opts = "class: inverse")
 ```
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("upshot2", 
+bg_slide("sens_spec4", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("ppv", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("sens_spec5", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("sens_spec6", 
+  folder = folder,
+  size = "80%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("depends", 
+  folder = folder,
+  size = "75%",
+  title = "Depends on your problem",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("prostate", 
+  folder = folder,
+  size = "65%",
+  title = "Depends on your problem",
+  add_opts = "class: inverse")
+```
+
+
+```{r, results='asis', echo = FALSE}
+bg_slide("mamma", 
   folder = folder,
   size = "90%",
-  add_opts = "class: inverse"
-  )
+  add_opts = "class: inverse")
 ```
+
+---
+class: inverse, middle, center
+
+.sixer[
+89% sensitivity<br>
+42% specificity<br>
+65% accuracy<br>
+]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("tsp", 
+  folder = folder,
+  size = "130%",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("spam", 
+  folder = folder,
+  size = "50%",
+  titles = "Steps in the process\n question -> input data -> features -> algorithm -> parameters -> evaluation",
+  positions = "bottom",
+  add_opts = "class: inverse")
+```
+
+```{r, results='asis', echo = FALSE}
+bg_slide("time_series", 
+  folder = folder,
+  size = "80%",
+  titles = "Time series data",
+  positions = "bottom",
+  add_opts = "class: inverse")
+```
+
+---
+class: inverse
+
+## What is different?
+
+.super[
+* Data are dependent over time
+* Specific pattern types
+    * Trends - long term increase or decrease
+    * Seasonal patterns - patterns related to time of week, month, year, etc.
+    * Cycles - patterns that rise and fall periodically
+* Subsampling into training/test is more complicated
+* Similar issues arise in spatial data
+    * Dependency between nearby observations
+    * Location specific effects
+* Typically goal is to predict one or more observations into the future.
+* All standard predictions can be used (with caution!)
+]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("spurious", 
+  folder = folder,
+  size = "70%",
+  titles = "Beware spurious correlations",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://www.google.com/trends/correlate,<br>
+http://www.newscientist.com/blogs/onepercent/2011/05/google-correlate-passes-our-we.html]
 
 
 ```{r, results='asis', echo = FALSE}
-bg_slide("falsepositive", 
+bg_slide("geog", 
+  folder = folder,
+  size = "45%",
+  positions = "bottom",
+  titles = "Also common in geographic analysis",
+  add_opts = "class: inverse")
+```
+
+.footnote[http://xkcd.com/1138/]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("test_sets", 
   folder = folder,
   size = "80%",
-  add_opts = "class: inverse"
-  )
+  titles = "Careful with picking your test sets",
+  add_opts = "class: inverse")
 ```
+
+.footnote[http://waldronlab.org/wp-content/uploads/2014/11/Waldron-et-al.-2014-Comparative-meta-analysis-of-prognostic-gene-signatures-for-late-stage-ovarian-cancer.pdf]
+
+```{r, results='asis', echo = FALSE}
+bg_slide("long_con", 
+  folder = folder,
+  size = "45%",
+  title = "An internet scam that is relevant to you",
+  add_opts = "class: inverse")
+```
+
+.footnote[https://medium.com/message/how-to-always-be-right-on-the-internet-delete-your-mistakes-519a595da2f5#.lutyyhyex]

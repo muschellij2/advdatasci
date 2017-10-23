@@ -7,6 +7,9 @@
 .superduper { font-size: 175% }
 .huge { font-size: 200% }
 .toobig { font-size: 250% }
+.humongous { font-size: 400% }
+.fiver { font-size: 500% }
+.sixer { font-size: 600% }
 
 .bullets {
     display: inline-block;

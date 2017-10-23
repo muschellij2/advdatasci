@@ -30,6 +30,8 @@ left:
         href: ./14-building-r-packages.html
       - text: "Modeling"
         href: ./15-modeling.html
+      - text: "Machine Learning"
+        href: ./13-machine-learning.html        
   - text: "Grading"
     href: grading.html
   - text: "Staff"
