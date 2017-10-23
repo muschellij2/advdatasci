@@ -1,0 +1,15 @@
+---
+title: Modeling
+---
+
+1. __Announcements__: 
+    * Lab times: 
+        * Do we need new lab times?
+    * Final draft: due Tuesdsay by 5pm.
+    * New projects announced Wednesday
+    * Same grading scheme as last term.
+    * If you are not on the Slack channel/Datacamp group please let Stephen know so he can get you on there
+2. __Assignment__: 
+    * DataCamp: Introduction to Statistics with R: Multiple Regression
+    * Due Oct 27th by 11:59PM
+3. __Slides__: [https://docs.google.com/presentation/d/1h7pjHP9KoyCWajwsW2zVH7NOR0QDgSbH0usbep4OITw/edit?usp=sharing](https://docs.google.com/presentation/d/1h7pjHP9KoyCWajwsW2zVH7NOR0QDgSbH0usbep4OITw/edit?usp=sharing)

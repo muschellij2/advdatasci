@@ -29,7 +29,7 @@ left:
       - text: "Building R Packages"
         href: ./14-building-r-packages.html
       - text: "Modeling"
-        href: ./12-modeling.html
+        href: ./15-modeling.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
