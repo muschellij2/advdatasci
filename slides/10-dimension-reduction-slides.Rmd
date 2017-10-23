@@ -189,9 +189,7 @@ SVD
 
 * If X is a matrix with each variable in a column and each observation in a row then the SVD is a "matrix decomposition"
 
-$$
-X = UDV^{T}
-$$
+$$ X = UDV^{T}$$
 
 where the columns of U are orthogonal (left singular vectors), the columns of V are orthogonal (right singular vectors) and D is a diagonal matrix (singular values).
 

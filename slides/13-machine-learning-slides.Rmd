@@ -134,14 +134,14 @@ class: inverse, middle, center
 class: inverse, center, middle
 
 .huge[
-
+$
 \begin{align}
 Y &= \text{some outcome} \\
 X &= \text{some covariate} \\
 D &= (X,Y) \\
 & lm(Y ~ X)
 \end{align}
-
+$
 ]
 
 

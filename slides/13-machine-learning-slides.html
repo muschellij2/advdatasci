@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Modeling</title>
+    <title>Machine Learning</title>
     <meta charset="utf-8">
     <meta name="author" content="www.jtleek.com/advdatasci" />
     <link href="libs/remark-css-0.0.1/example.css" rel="stylesheet" />
-    <link rel="stylesheet" href="additional.css" type="text/css" />
+    <link rel="stylesheet" href="../additional.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Modeling
+# Machine Learning
 ## JHU Data Science
 ### www.jtleek.com/advdatasci
 
@@ -19,20 +19,33 @@ class: center, middle, inverse, title-slide
 
 class: inverse, middle, center
 
-# Modeling: one way of making sense of data
+# Prediction 
 
 
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/flowchart.png)
+background-image: url(../imgs/ml/chromebook.png)
+background-size: 60% 
+background-position: center
+
+---
+class: inverse
+background-image: url(../imgs/ml/jtleek.png)
+background-size: 55% 
+background-position: center
+
+
+---
+class: inverse
+background-image: url(../imgs/ml/flowchart.png)
 background-size: 50% 
 background-position: center
 
 .footnote[http://www.sciencemag.org/content/347/6228/1314]
 
 ---
-background-image: url(../imgs/modeling/dogma.png)
+background-image: url(../imgs/ml/dogma.png)
 background-size: 90% 
 background-position: center
 
@@ -42,22 +55,22 @@ background-position: center
 
 
 ---
-background-image: url(../imgs/modeling/upshot.png)
+background-image: url(../imgs/ml/upshot.png)
 background-size: 90% 
 background-position: center
 
 ---
-background-image: url(../imgs/modeling/princeton.png)
+background-image: url(../imgs/ml/princeton.png)
 background-size: 90% 
 background-position: center
 
 ---
-background-image: url(../imgs/modeling/forecasts.png)
+background-image: url(../imgs/ml/forecasts.png)
 background-size: 90% 
 background-position: center
 
 ---
-background-image: url(../imgs/modeling/538.png)
+background-image: url(../imgs/ml/538.png)
 background-size: 70% 
 background-position: center
 
@@ -69,7 +82,7 @@ class: inverse, middle, center
 
 
 ---
-background-image: url(../imgs/modeling/dogma_probability.png)
+background-image: url(../imgs/ml/dogma_probability.png)
 background-size: 90% 
 background-position: center
 
@@ -79,7 +92,7 @@ background-position: center
 
 
 ---
-background-image: url(../imgs/modeling/dogma_inference.png)
+background-image: url(../imgs/ml/dogma_inference.png)
 background-size: 90% 
 background-position: center
 
@@ -91,29 +104,34 @@ background-position: center
 ---
 class: inverse, middle, center
 
-# A better explanation &lt;br&gt;&lt;br&gt; http://jtleek.com/advdatasci16/code/midterm2012
+# Silver example &lt;br&gt;&lt;br&gt; http://jtleek.com/advdatasci16/code/midterm2012
 
 
 ---
-class: center, middle
+class: inverse, center, middle
 
-## The data
-
-&lt;img src="../imgs/modeling/data.png" style="width:70%"&gt;
-
-
+.huge[
+$
+`\begin{align}
+Y &amp;= \text{some outcome} \\
+X &amp;= \text{some covariate} \\
+D &amp;= (X,Y) \\
+&amp; lm(Y ~ X)
+\end{align}`
+$
+]
 
 
 ---
-background-image: url(../imgs/modeling/pipeline.png)
-background-size: 25% 
+background-image: url(../imgs/ml/pipeline.png)
+background-size: 35% 
 background-position: center
 
 .footnote[Leek and Peng, Nature 2015]
 
 
 ---
-background-image: url(../imgs/modeling/tidy.png)
+background-image: url(../imgs/ml/tidy.png)
 background-size: 90% 
 background-position: center
 
@@ -162,61 +180,52 @@ class: inverse
 ]
 
 ---
-class: middle, center
+class: inverse, middle, center
 
-&lt;!-- # `\(F_{0} \subseteq F_{0}(S) \subseteq F_{0}(Y)\)` --&gt;
-# &lt;img src="../imgs/modeling/subset.png" style="width:40%"&gt;
+# `\(F_{0} \subseteq F_{0}(S) \subseteq F_{0}(Y)\)`
 
 .footnote[Fithian, Sun and Taylor arXiv 2015]
 
 ---
-class: middle, center
+class: inverse, middle, center
 
-&lt;!-- # F_{0} --&gt;
-# &lt;img src="../imgs/modeling/f0.png" style="width:20%"&gt;
-
+# `\(F_{0}\)`
 .huge[
 σ-algebra: - what we know
 ]
 
 ---
-class: middle, center
+class: inverse, middle, center
 
-# &lt;img src="../imgs/modeling/f0.png" style="width:20%"&gt;
-
+# `\(F_{0}\)`
 
 .huge[
 "we've done nothing"
 ]
 
 ---
-class: middle, center
-&lt;!-- # F_{0}(S) --&gt;
-# &lt;img src="../imgs/modeling/f0s.png" style="width:70%"&gt;
-
+class: inverse, middle, center
+# `\(F_{0}(S)\)`
 .huge[
 "we did model selection"
 ]
 ---
-class: middle, center
-&lt;!-- # `\(F_{0}(Y)\)` --&gt;
-# &lt;img src="../imgs/modeling/f0y.png" style="width:70%"&gt;
-
+class: inverse, middle, center
+# `\(F_{0}(Y)\)`
 .huge[
 "we looked at all the data"
 ]
 
 ---
-class: middle, center
+class: inverse, middle, center
 
-&lt;!-- # E[\beta | F_{0}] \neq E[\beta | F_{0}(S)] --&gt;
-# &lt;img src="../imgs/modeling/expectation.png" style="width:70%"&gt;
+# `\(E[\beta | F_{0}] \neq E[\beta | F_{0}(S)]\)`
 
 
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/eda.png)
+background-image: url(../imgs/ml/eda.png)
 background-size: 40% 
 background-position: center
 
@@ -226,23 +235,30 @@ background-position: center
 
 
 ---
-background-image: url(../imgs/modeling/patil.png)
+background-image: url(../imgs/ml/patil.png)
 background-size: 80% 
 background-position: center
 
 ---
-background-image: url(../imgs/modeling/patil.png)
+background-image: url(../imgs/ml/patil.png)
 background-size: 80% 
 background-position: center
 
 .pull-right-third[
-&lt;img src="../imgs/modeling/eqn_cascade.png" style="width:100%"&gt;
+.huge[
+`\begin{align}
+F_0 &amp;\subseteq F_{0}(1_{P,Q}(H)) \\
+&amp;\subseteq F_{0}(1_{ED}(E)) \\
+&amp;\subseteq F_{0}(1_{ED;E}(D)) \\
+&amp;\subseteq F_{0}(1_{AP;A}(C)) \\
+&amp;\subseteq F_{0}(1_{C}(A*))
+\end{align}`
+]
 ]
 
 
-
 ---
-background-image: url(../imgs/modeling/perspectives.png)
+background-image: url(../imgs/ml/perspectives.png)
 background-size: 100% 
 background-position: center
 
@@ -250,13 +266,13 @@ background-position: center
 
 
 ---
-background-image: url(../imgs/modeling/scatter.png)
+background-image: url(../imgs/ml/scatter.png)
 background-size: 50% 
 background-position: center
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/r4ds.png)
+background-image: url(../imgs/ml/r4ds.png)
 background-size: 45% 
 background-position: center
 
@@ -266,39 +282,28 @@ background-position: center
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/transparency.png)
+background-image: url(../imgs/ml/transparency.png)
 background-size: 80% 
 background-position: center
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/religous.png)
+background-image: url(../imgs/ml/religous.png)
 background-size: 55% 
 background-position: center
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/upshot2.png)
+background-image: url(../imgs/ml/upshot2.png)
 background-size: 90% 
 background-position: center
 
 
 ---
 class: inverse
-background-image: url(../imgs/modeling/falsepositive.png)
+background-image: url(../imgs/ml/falsepositive.png)
 background-size: 80% 
 background-position: center
-
----
-&lt;!-- .huge[ --&gt;
-&lt;!-- $$\begin{align} --&gt;
-&lt;!-- F_0 &amp;\subseteq F_{0}(1_{P,Q}(H)) \\ --&gt;
-&lt;!-- &amp;\subseteq F_{0}(1_{ED}(E)) \\ --&gt;
-&lt;!-- &amp;\subseteq F_{0}(1_{ED;E}(D)) \\ --&gt;
-&lt;!-- &amp;\subseteq F_{0}(1_{AP;A}(C)) \\ --&gt;
-&lt;!-- &amp;\subseteq F_{0}(1_{C}(A*)) --&gt;
-&lt;!-- \end{align}$$ --&gt;
-&lt;!-- ] --&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

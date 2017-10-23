@@ -1,0 +1,13 @@
+---
+title: "Presentation Ninja"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
