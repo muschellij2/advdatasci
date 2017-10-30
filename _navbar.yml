@@ -33,7 +33,7 @@ left:
       - text: "Shiny Part 1"
         href: https://datasciencespecialization.github.io/Developing_Data_Products/Shiny_Part_1/Shiny_Part_1.html
       - text: "Shiny Part 2"
-        href: https://datasciencespecialization.github.io/Developing_Data_Products/Shiny_Part_2/Shiny_Part_2.html
+        href: https://johnmuschelli.com/Developing_Data_Products/Shiny_Part_2/Shiny_Part_2.html
       - text: "Machine Learning"
         href: ./13-machine-learning.html        
   - text: "Grading"
