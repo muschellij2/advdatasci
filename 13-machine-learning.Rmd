@@ -3,10 +3,7 @@ title: Machine Learning
 ---
 
 1. __Announcements__: 
-    * Lab times: 
-        * Monday 3-4PM, Genome Cafe
-        * Friday 10-11AM, Biostatistics Library
 2. __Assignment__: 
-    * DataCamp: 
-    * Due 
+    * DataCamp: Writing Functions in R
+    * Due : 11/4/2017 09:00
 3. __Slides__: [http://jtleek.com/advdatasci/slides/13-machine-learning-slides.html](slides/13-machine-learning-slides.html)

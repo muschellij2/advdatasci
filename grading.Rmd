@@ -46,7 +46,9 @@ All documents should be submitted electronically. The grades will be broken down
 
 Keep in mind that this is a data science class. In some cases standard methodology will be sufficient to answer the question of interest, in some cases you will need to go beyond the course, and in general the goal is to answer the question and provide an estimate of uncertainty. You may speak to your fellow students about specific statistical questions related to the projects, but the overall idea, analysis, and write-up should be your own individual work. You should cite any help you get from fellow students/TAs in your report in standard citation format.
 
-### Data analysis project options
+
+
+### Data analysis project options (Term 1)
 
 You are required to pick one of the data analysis options below and perform that analysis over the course of the class.
 
@@ -87,6 +89,40 @@ If you are looking for ideas consider these resources:
 * [Reddit data sets](https://www.reddit.com/r/datasets/)
 * [100 interesting data sets](http://rs.io/100-interesting-data-sets-for-statistics/)
 * [data.gov](https://www.data.gov/)
+
+### Data analysis project options (Term 2)
+
+<!-- The aims of the projects are attempting to address one of the target areas of the Bloomberg American Health Initiative: https://www.jhsph.edu/about/bloomberg-american-health-initiative/index.html.  -->
+
+#### Childhood Obesity
+
+1.  List of all schools/districts in baltimore/Baltimore county
+2.  Scrape data on school lunches in Baltimore County
+3.  Get additional Income information for that county and obesity rates if possible
+4.  Create an app that displays the differences based on obesity, fraction of people at reduced lunch, income level.
+
+#### Potential Imbalances and the ASA
+
+Characterize potential gender and under-represented minorities imbalances in American Statistical Association (ASA): http://www.amstat.org/
+
+1. Scrape all programs from JSM.
+2. Get information on the session:
+  - Author names and affiliations 
+  - Titles of talks
+  - Indicator whether session was contributed or invited
+  - Indicate if a section sponsored the 
+  - Look at any panels on minority representation
+3. Create an app that displays breakdowns of potential imbalances overall and over time.
+
+#### Other Option
+
+You may petition to do your own app and analysis. You must submit your petition by next week with an analysis plan and  and a reason .  The minimum requirements for the project include:
+
+* You must have an analysis plan
+* You must describe a potential design of the app
+* The data must be available to be made public by end of class
+* You must specify your own question you are asking from the data
+* You need to provide reasonable justification of the utility of the app
 
 
 ### Data analysis reviews
