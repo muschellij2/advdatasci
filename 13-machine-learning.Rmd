@@ -3,6 +3,7 @@ title: Machine Learning
 ---
 
 1. __Announcements__: 
+    * Projects are avaiable on the Grading Tab: [http://jtleek.com/advdatasci/grading.html](grading.html)
 2. __Assignment__: 
     * DataCamp: Writing Functions in R
     * Due : 11/4/2017 09:00
