@@ -35,7 +35,9 @@ left:
       - text: "Shiny Part 2"
         href: http://johnmuschelli.com/Developing_Data_Products/Shiny_Part_2/Shiny_Part_2.html
       - text: "Machine Learning"
-        href: ./13-machine-learning.html        
+        href: ./13-machine-learning.html 
+      - text: "Data products"
+        href: ./16-data-products.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"

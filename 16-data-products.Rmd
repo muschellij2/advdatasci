@@ -1,0 +1,13 @@
+---
+title: Data products
+---
+
+1. __Announcements__: 
+    * Final project info here: http://jtleek.com/advdatasci/grading.html
+    * Final projects due the last Friday of class
+    * Shiny server key available via Slack
+    * Choose your own teams, but report them to Stephen by Weds. 
+2. __Assignment__: 
+    * DataCamp: Selecting models: a case study in churn prediction
+    * Due: Nov 11 9am
+3. __Slides__: https://docs.google.com/presentation/d/1mSQu8IQdzP3JoIY-K9SYVVFDhfKid-aoyvWHkH6XokE/edit?usp=sharing

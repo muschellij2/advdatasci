@@ -92,27 +92,37 @@ If you are looking for ideas consider these resources:
 
 ### Data analysis project options (Term 2)
 
-<!-- The aims of the projects are attempting to address one of the target areas of the Bloomberg American Health Initiative: https://www.jhsph.edu/about/bloomberg-american-health-initiative/index.html.  -->
+These projects are designed to build a data product. The goal of building a data product is to create a data analytic app that can be used by someone without R programming experience. After polling the class some people want to work in large groups and some people want to work in small groups. I have therefore created a list of potential projects (see below) that can be completed with groups of varying sizes. We will spend class on Nov 6 organizing into groups and getting set up. 
 
-#### Childhood Obesity
+#### Maryland lunch project 
 
-1.  List of all schools/districts in baltimore/Baltimore county
-2.  Scrape data on school lunches in Baltimore County
-3.  Get additional Income information for that county and obesity rates if possible
-4.  Create an app that displays the differences based on obesity, fraction of people at reduced lunch, income level.
+In this project I would like you to collect all of the lunch and breakfast menus of each school district in Maryland for one month (for elementary schools) I would like you to estimate the nutritional value and variety in the lunches. I would also like you to correlate these with income in the school district, educaiton in the school district, and any other relevant demographics. You should make a Shiny app that can be used to explore the relationships between nutritional value, geography, and demographics. 
 
-#### Potential Imbalances and the ASA
+#### Potential gender imbalances and the ASA 
 
-Characterize potential gender and under-represented minorities imbalances in American Statistical Association (ASA): http://www.amstat.org/
+For this project, I'd like you to characterize potential gender and under represented minorities imbalances in American Statistical Association (ASA): http://www.amstat.org/. Collect information from the public website (or with the help of the instructor, from the ASA). Then create an app that shows breakdowns of potential imbalances overall and over time. Compare these for various types of talks (e.g. invited vs contributed) and for topics (e.g. genomics versus causal inference).
 
-1. Scrape all programs from JSM.
-2. Get information on the session:
-  - Author names and affiliations 
-  - Titles of talks
-  - Indicator whether session was contributed or invited
-  - Indicate if a section sponsored the 
-  - Look at any panels on minority representation
-3. Create an app that displays breakdowns of potential imbalances overall and over time.
+
+#### Academic salary app 
+
+For this project I'd like you to scrape as much information as possible on salaries paid by public institutions to faculty, administrators and staff. Perform an analysis to associate job characteristics with salary. Create an app to allow people to explore where salaries are allocated with respect to geography and type of job. 
+
+#### Scholar profile app 
+
+Create an app where an individual can input their name and it pulls information for them on their citations (e.g. through Google Scholar), their NIH/NSF grants (e.g. through NIH reporter) and the classes they have taught (e.g. from myJHU). Then create a set of visualizatons and metrics that show both cumulative values as well as just the past year improvements. 
+
+#### MVA wait time app
+
+The MVA of Maryland posts wait times every 5 minutes while the locations are open: http://www.mva.maryland.gov/sebin/customerwaittimes/. Scrape wait times for several weeks to gather data on the distribution of wait times. Build an app that takes a users location and a specific time/date and lists which MVA location is best for them (you will need to define best by a combination of distance/wait time). 
+
+#### Maryland poison control app
+
+The Maryland department of poison control makes data available for calls to the Poison control center by county over time in pdf format: http://www.mdpoison.com/factsandreports/. Collect these data and then create an analysis that shows trends in poison control calls (reasons, people, etc.) over time. Create an app that allows people to explore the data for poison control calls in Maryland. 
+
+#### Supreme court topics app
+
+Scrape data on decisions by the United States Supreme Court. Create a dynamic topic model that shows the types of topics that are being considered by the court on the basis of this text and allows users to show the topics that each justice writes the decision for most frequently. 
+
 
 #### Other Option
 
