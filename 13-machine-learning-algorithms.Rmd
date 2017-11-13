@@ -1,0 +1,12 @@
+---
+title: Machine Learning Algorithms
+---
+
+1. __Announcements__: 
+    * Projects are avaiable on the Grading Tab: [http://jtleek.com/advdatasci/grading.html](grading.html)
+    * First term grades hopefully by end of week
+    * Groups [https://docs.google.com/spreadsheets/d/1mSlXt8HDOcMKPVb2TsrV4jjK2ncNJc9TSQK-dCI4iDs/edit#gid=0](https://docs.google.com/spreadsheets/d/1mSlXt8HDOcMKPVb2TsrV4jjK2ncNJc9TSQK-dCI4iDs/edit#gid=0)
+2. __Assignment__: 
+    * DataCamp: Working with Rstudio IDE Part 2
+    * Due : 11/20/2017 3:00PM
+3. __Slides__: [Overview](http://jtleek.com/advdatasci/slides/13-machine-learning-slides.html) [Methods](https://docs.google.com/presentation/d/120Wer0YimQ3SKqOQ-M-MYf0A0-PqQTohYdUESifj1NQ/edit?usp=sharing)

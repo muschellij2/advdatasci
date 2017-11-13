@@ -38,6 +38,8 @@ left:
         href: ./13-machine-learning.html 
       - text: "Data products"
         href: ./16-data-products.html
+      - text: "Machine Learning (continued)"
+        href: ./13-machine-learning-algorithms.html 
   - text: "Grading"
     href: grading.html
   - text: "Staff"
