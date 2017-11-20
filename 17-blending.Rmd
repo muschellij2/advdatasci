@@ -1,5 +1,5 @@
 ---
-title:Blending and deep learning
+title: Blending and deep learning
 ---
 
 1. __Announcements__: 
