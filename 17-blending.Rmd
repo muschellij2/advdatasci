@@ -1,0 +1,14 @@
+---
+title:Blending and deep learning
+---
+
+1. __Announcements__: 
+    * I finally returned first term grades! 
+    * No class Wednesday
+    * Happy Thanksgiving!
+2. __Assignment__: 
+     * DataCamp: Working with Rstudio IDE Part 2
+     * Due : 11/20/2017 3:00PM
+     * Datacamp:  Plotly Tutorial: Plotly and R
+     * Due: 11/27/2017 3:00PM
+3. __Slides__: https://docs.google.com/presentation/d/1mFjFh0GN7VKCQ6FYVtwgSUrB5FIgYIbu2hoCQbfxvMM/edit?usp=sharing

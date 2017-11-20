@@ -40,6 +40,8 @@ left:
         href: ./16-data-products.html
       - text: "Machine Learning (continued)"
         href: ./13-machine-learning-algorithms.html 
+      - text: "Blending and deep learning"
+        href: ./17-blending.html 
   - text: "Grading"
     href: grading.html
   - text: "Staff"
