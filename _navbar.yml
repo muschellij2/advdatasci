@@ -42,6 +42,8 @@ left:
         href: ./13-machine-learning-algorithms.html 
       - text: "Blending and deep learning"
         href: ./17-blending.html 
+      - text: "Simulating stuff"
+        href: ./18-simulating.html 
   - text: "Grading"
     href: grading.html
   - text: "Staff"

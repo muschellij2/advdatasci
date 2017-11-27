@@ -1,0 +1,15 @@
+---
+title: Simulating stuff
+---
+
+1. __Announcements__: 
+    * How go the projects? 
+    * Test submission Dec 4th. 
+2. __Assignment__: 
+     * Datacamp:  Plotly Tutorial: Plotly and R
+     * Due: 12/1/2017 8:00PM
+     * Datacamp: Intro to SQL for Data Science
+     * Due: 12/1/2017 8:00PM
+3. __Slides__: 
+    * https://docs.google.com/presentation/d/1mFjFh0GN7VKCQ6FYVtwgSUrB5FIgYIbu2hoCQbfxvMM/edit?usp=sharing
+    * https://docs.google.com/presentation/d/1k_VI0MNDHiGi1B08Y6v7R2VT_WVvSYRvXdFXlkAg-yc/edit?usp=sharing
