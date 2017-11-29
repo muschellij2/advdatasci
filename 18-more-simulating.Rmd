@@ -1,0 +1,17 @@
+---
+title: Simulating (more) stuff
+---
+
+1. __Announcements__: 
+    * Test submission Dec 4th. 
+    * Joe Cheng visiting next Monday
+    * Visiting class - great time to ask questions
+    * Would also be a good time to demo (if you want:))
+    * I'll have a sign up sheet
+2. __Assignment__: 
+     * Datacamp:  Plotly Tutorial: Plotly and R
+     * Due: 12/1/2017 8:00PM
+     * Datacamp: Intro to SQL for Data Science
+     * Due: 12/1/2017 8:00PM
+3. __Slides__: 
+    * https://docs.google.com/presentation/d/1k_VI0MNDHiGi1B08Y6v7R2VT_WVvSYRvXdFXlkAg-yc/edit?usp=sharing

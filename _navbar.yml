@@ -44,6 +44,8 @@ left:
         href: ./17-blending.html 
       - text: "Simulating stuff"
         href: ./18-simulating.html 
+      - text: "More simulating"
+        href: ./18-more-simulating.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
