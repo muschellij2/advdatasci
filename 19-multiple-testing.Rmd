@@ -1,0 +1,13 @@
+---
+title: Simulating (more) stuff
+---
+
+1. __Announcements__: 
+    * Let's take a look at those apps
+    * Final apps due last day of term (Dec 19th by 5pm)
+    * 
+2. __Assignment__: 
+     * Datacamp:  Intro to Python for Data Science
+     * Due: 12/11/2017 8:00PM
+3. __Slides__: 
+    * https://docs.google.com/presentation/d/1dfxjzDYqESXg2m6qi-l-38upGy8R7BnXKea3xIglT9w/edit?usp=sharing

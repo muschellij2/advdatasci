@@ -46,6 +46,8 @@ left:
         href: ./18-simulating.html 
       - text: "More simulating"
         href: ./18-more-simulating.html
+      - text: "Multiple testing"
+        href: ./19-multiple-testing.html
   - text: "Grading"
     href: grading.html
   - text: "Staff"
