@@ -1,0 +1,15 @@
+---
+title: Simulating (more) stuff
+---
+
+1. __Announcements__: 
+    * Last day of class will be app demos/evaluation 
+    * Test your app on your own shinyapps.io account, then deploy to the JHU account
+    * How goes the Datacamp thing? 
+2. __Assignment__: 
+     * Datacamp:  Intro to Python for Data Science
+     * Due: 12/11/2017 8:00PM
+3. __Slides__: 
+    * https://docs.google.com/presentation/d/1dfxjzDYqESXg2m6qi-l-38upGy8R7BnXKea3xIglT9w/edit?usp=sharing
+4. __P-hackathon__:
+    * https://github.com/jtleek/advdatasci16/blob/gh-pages/code/p_hackathon.Rmd
