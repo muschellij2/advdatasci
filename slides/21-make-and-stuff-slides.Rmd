@@ -188,6 +188,7 @@ qsub script.R -t 1-100
 ```
 
 
+
 ## Task IDs and `expand.grid`
 
 - `expand.grid`: Creates a data frame from all combinations of the supplied vectors or factors.
@@ -195,15 +196,77 @@ qsub script.R -t 1-100
 ```{r}
 eg = expand.grid(param1 = 1:10, param2 = c(3, 5, 6))
 head(eg)
+```
+
+## Task IDs and `expand.grid`
+
+Grab `SGE_TASK_ID`:
+
+```{r}
 sim_num = Sys.getenv("SGE_TASK_ID")
 sim_num = as.numeric(sim_num) # Sys.getenv returns char
-if (is.na(sim_num)) {
-  sim_num = 1
-}
 this_sim = eg[sim_num,]
 param1 = this_sim$param1
 param2 = this_sim$param2
 ```
+
+
+## Task IDs and `expand.grid`
+
+- `SGE_TASK_ID` is not set during an interactive job
+- So if you're testing, add something like
+
+```{r}
+sim_num = Sys.getenv("SGE_TASK_ID")
+sim_num = as.numeric(sim_num) # Sys.getenv returns char
+if (is.na(sim_num)) { # for testing in an interactive session
+  sim_num = 1
+}
+```
+
+
+## Name your jobs
+
+- The `-N` argument can name your job `qsub job.sh -N NAME`
+
+- This allows you to delete a job by the name `qdel NAME`
+- The output is now `NAME.o1234234` instead of `job.sh.o1234234`
+- Array jobs will have `NAME.o1234234.1`, `NAME.o1234234.2`, etc.
+
+## Holding jobs/dependent jobs
+
+- If you want a job to run only after another job is done, you can use `hold_jid`:
+
+```bash
+qsub job1.sh -N JOB1
+qsub job2.sh -N JOB2 -hold_jid JOB1
+```
+
+- This does not mean the job executed **without error**.
+
+## Holding jobs/dependent jobs
+
+- Array jobs can depend on **specific tasks**
+
+```bash
+qsub job1.sh -N JOB1 -t 1-100
+qsub job2.sh -N JOB2 -hold_jid_ad JOB1 -t 1-100
+```
+
+So `JOB2` with task = 2 will run when `JOB1` with task = 2 is done.  It doesn't have to wait for all of JOB1 tasks.
+
+- They must have the same `-t` specification
+
+## Holding jobs/dependent jobs
+
+- The `JOB2` array job will wait for all JOB1 to finish before starting
+
+```bash
+qsub job1.sh -N JOB1 -t 1-100
+qsub job2.sh -N JOB2 -hold_jid JOB1 -t 1-100
+```
+
+
 
 
 

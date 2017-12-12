@@ -3297,14 +3297,74 @@ head(eg)</pre>
 ## 5      5      3
 ## 6      6      3</pre>
 
+</article></slide><slide class=""><hgroup><h2>Task IDs and <code>expand.grid</code></h2></hgroup><article  id="task-ids-and-expand.grid-1">
+
+<p>Grab <code>SGE_TASK_ID</code>:</p>
+
 <pre class = 'prettyprint lang-r'>sim_num = Sys.getenv(&quot;SGE_TASK_ID&quot;)
 sim_num = as.numeric(sim_num) # Sys.getenv returns char
-if (is.na(sim_num)) {
-  sim_num = 1
-}
 this_sim = eg[sim_num,]
 param1 = this_sim$param1
-param2 = this_sim$param2</pre></article></slide>
+param2 = this_sim$param2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Task IDs and <code>expand.grid</code></h2></hgroup><article  id="task-ids-and-expand.grid-2">
+
+<ul>
+<li><code>SGE_TASK_ID</code> is not set during an interactive job</li>
+<li>So if you’re testing, add something like</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>sim_num = Sys.getenv(&quot;SGE_TASK_ID&quot;)
+sim_num = as.numeric(sim_num) # Sys.getenv returns char
+if (is.na(sim_num)) { # for testing in an interactive session
+  sim_num = 1
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Name your jobs</h2></hgroup><article  id="name-your-jobs">
+
+<ul>
+<li><p>The <code>-N</code> argument can name your job <code>qsub job.sh -N NAME</code></p></li>
+<li>This allows you to delete a job by the name <code>qdel NAME</code></li>
+<li>The output is now <code>NAME.o1234234</code> instead of <code>job.sh.o1234234</code></li>
+<li><p>Array jobs will have <code>NAME.o1234234.1</code>, <code>NAME.o1234234.2</code>, etc.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Holding jobs/dependent jobs</h2></hgroup><article  id="holding-jobsdependent-jobs">
+
+<ul>
+<li>If you want a job to run only after another job is done, you can use <code>hold_jid</code>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-bash'>qsub job1.sh -N JOB1
+qsub job2.sh -N JOB2 -hold_jid JOB1</pre>
+
+<ul>
+<li>This does not mean the job executed <strong>without error</strong>.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Holding jobs/dependent jobs</h2></hgroup><article  id="holding-jobsdependent-jobs-1">
+
+<ul>
+<li>Array jobs can depend on <strong>specific tasks</strong></li>
+</ul>
+
+<pre class = 'prettyprint lang-bash'>qsub job1.sh -N JOB1 -t 1-100
+qsub job2.sh -N JOB2 -hold_jid_ad JOB1 -t 1-100</pre>
+
+<p>So <code>JOB2</code> with task = 2 will run when <code>JOB1</code> with task = 2 is done. It doesn’t have to wait for all of JOB1 tasks.</p>
+
+<ul>
+<li>They must have the same <code>-t</code> specification</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Holding jobs/dependent jobs</h2></hgroup><article  id="holding-jobsdependent-jobs-2">
+
+<ul>
+<li>The <code>JOB2</code> array job will wait for all JOB1 to finish before starting</li>
+</ul>
+
+<pre class = 'prettyprint lang-bash'>qsub job1.sh -N JOB1 -t 1-100
+qsub job2.sh -N JOB2 -hold_jid JOB1 -t 1-100</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

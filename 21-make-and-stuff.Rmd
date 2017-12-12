@@ -6,4 +6,4 @@ title: Make and JHPCE
     * How go the projects? 
 2. __Assignment__: 
      * Projects due Dec 19
-3. __Slides__: [http://jtleek.com/advdatasci/slides/19-make-and-stuff-slides.html](slides/19-make-and-stuff-slides.html)
+3. __Slides__: [http://jtleek.com/advdatasci/slides/21-make-and-stuff-slides.html](slides/21-make-and-stuff-slides.html)
