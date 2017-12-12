@@ -50,6 +50,8 @@ left:
         href: ./19-multiple-testing.html
       - text: "More multiple testing"
         href: ./20-more-multiple-testing.html
+      - text: "Make and JHPCE"
+        href: ./21-make-and-stuff.html"
   - text: "Grading"
     href: grading.html
   - text: "Staff"
