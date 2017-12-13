@@ -3318,7 +3318,12 @@ param2 = this_sim$param2</pre>
 sim_num = as.numeric(sim_num) # Sys.getenv returns char
 if (is.na(sim_num)) { # for testing in an interactive session
   sim_num = 1
-}</pre>
+}
+this_sim = eg[sim_num,]
+this_sim</pre>
+
+<pre >##   param1 param2
+## 1      1      3</pre>
 
 </article></slide><slide class=""><hgroup><h2>Name your jobs</h2></hgroup><article  id="name-your-jobs">
 
@@ -3364,7 +3369,49 @@ qsub job2.sh -N JOB2 -hold_jid_ad JOB1 -t 1-100</pre>
 </ul>
 
 <pre class = 'prettyprint lang-bash'>qsub job1.sh -N JOB1 -t 1-100
-qsub job2.sh -N JOB2 -hold_jid JOB1 -t 1-100</pre></article></slide>
+qsub job2.sh -N JOB2 -hold_jid JOB1 -t 1-100</pre>
+
+</article></slide><slide class=""><hgroup><h2>Log into cluster, sign onto node</h2></hgroup><article  id="log-into-cluster-sign-onto-node">
+
+<p><a href='http://lcolladotor.github.io/2013/12/11/quick-cluster-login-to-interactive-session/' title=''>http://lcolladotor.github.io/2013/12/11/quick-cluster-login-to-interactive-session/</a></p>
+
+<pre class = 'prettyprint lang-bash'>## In cluster .bashrc file
+
+## change dir automatically when using qrsh
+## Details: https://github.com/rkostadi/BiocHopkins/wiki/Useless-Tips-&amp;-Code-Snippets
+if [ -f ~/.bash_pwd ]; then
+    source ~/.bash_pwd
+    rm ~/.bash_pwd
+fi
+alias qr=&#39;echo &quot;cd $PWD&quot; &gt; ~/.bash_pwd; history -w; qrsh&#39;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Log into cluster, sign onto node</h2></hgroup><article  id="log-into-cluster-sign-onto-node-1">
+
+<p>In your local file:</p>
+
+<pre class = 'prettyprint lang-bash'>## In local .bashrc file
+alias qr=&quot;ssh -t enigma &#39;source /etc/profile; echo \&quot;cd \$PWD\&quot; &gt; ~/.bash_pwd; qrsh&#39;&quot;
+## In local .bashrc file
+user=jmuschel
+alias enigma=&#39;ssh -Y -X ${user}@jhpce01.jhsph.edu&#39;</pre>
+
+</article></slide><slide class=""><hgroup><h2>BONUS: qrsh with memory</h2></hgroup><article  id="bonus-qrsh-with-memory">
+
+<p>Example with <code>mem_free=30G,h_vmem=31G</code>:</p>
+
+<pre class = 'prettyprint lang-bash'>qrgig 30 31</pre>
+
+<pre class = 'prettyprint lang-bash'>## In local .bashrc file
+qrgig(){ 
+    x=&quot;${1}G&quot;;
+    y=&quot;${2}G&quot;;
+    ell=&quot;-l mem_free=$x,h_vmem=$y,$3&quot;;
+    echo &quot;qrsh requests were: $ell&quot;;
+    cmd=&quot;source /etc/profile; echo \&quot;cd \$PWD\&quot; &gt; ~/.bash_pwd; history -w; qrsh $ell&quot;;
+    enigma -t $cmd
+}</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>What are some other cluster questions</h2></hgroup><article  id="what-are-some-other-cluster-questions"></article></slide>
 
 
   <slide class="backdrop"></slide>

@@ -222,6 +222,8 @@ sim_num = as.numeric(sim_num) # Sys.getenv returns char
 if (is.na(sim_num)) { # for testing in an interactive session
   sim_num = 1
 }
+this_sim = eg[sim_num,]
+this_sim
 ```
 
 
@@ -268,8 +270,53 @@ qsub job2.sh -N JOB2 -hold_jid JOB1 -t 1-100
 
 
 
+## Log into cluster, sign onto node
+
+http://lcolladotor.github.io/2013/12/11/quick-cluster-login-to-interactive-session/
+
+```bash
+## In cluster .bashrc file
+
+## change dir automatically when using qrsh
+## Details: https://github.com/rkostadi/BiocHopkins/wiki/Useless-Tips-&-Code-Snippets
+if [ -f ~/.bash_pwd ]; then
+    source ~/.bash_pwd
+    rm ~/.bash_pwd
+fi
+alias qr='echo "cd $PWD" > ~/.bash_pwd; history -w; qrsh'
+```
+
+## Log into cluster, sign onto node
+
+In your local file (`-X` Enables X11 connection forwarding):
+
+```bash
+## In local .bashrc file
+alias qr="ssh -t enigma 'source /etc/profile; echo \"cd \$PWD\" > ~/.bash_pwd; qrsh'"
+## In local .bashrc file
+user=jmuschel
+alias enigma='ssh -X ${user}@jhpce01.jhsph.edu'
+```
 
 
+## BONUS: qrsh with memory
+Example with `mem_free=30G,h_vmem=31G`:
+```bash
+qrgig 30 31
+```
 
+```bash
+## In local .bashrc file
+qrgig(){ 
+    x="${1}G";
+    y="${2}G";
+    ell="-l mem_free=$x,h_vmem=$y,$3";
+    echo "qrsh requests were: $ell";
+    cmd="source /etc/profile; echo \"cd \$PWD\" > ~/.bash_pwd; history -w; qrsh $ell";
+    enigma -t $cmd
+}
+```
+
+# What are some other cluster questions
 
 
